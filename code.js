@@ -11,7 +11,11 @@ async function getSheetData() {
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    console.log(data.values); // Affiche les données dans la console
+    if (data.values) {
+      console.log('Données récupérées :', data.values);
+    } else {
+      console.log('Pas de données renvoyées :', data);
+    }
   } catch (error) {
     console.error('Erreur lors de la récupération des données :', error);
   }
