@@ -1,0 +1,259 @@
+<!-- Styles.html -->
+<style>
+
+//  $couleur-fond: #f0f8ff;         // Couleur de fond
+//  $couleur-filtre: #6CA6CD;       // Couleur section filtre (bleu ciel)
+//  $couleur-filtre-hover: #5A8FC2; // Couleur section filtre hover
+//  $couleur-result: #9BCC8A;       // Couleur section résultats (vert feuille)
+//  $couleur-result-hover: #7F9B60; // Couleur dection résultats hover (vert feuille plus foncé)
+
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* bleu très clair */
+    margin:0;
+    box-sizing: border-box; /* Ajouté pour gérer le padding et les marges */
+  }
+
+  h1, h2, h3 {
+    color: white;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    margin: 0 auto;
+  }
+
+  h1, h2 {
+    color: white;
+    background-color: #6CA6CD; /* bleu ciel */
+  }
+
+  h1 {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    padding: 50px 0px;
+  }
+
+  h2, h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 25px;
+    font-size: 1.5em;
+  }
+
+  h3 {
+    background-color: #9BCC8A; /* vert */
+  }
+
+  .filter-section {
+    margin: 20px auto;
+    width: 70%;
+  }
+
+  .filter-grid {
+    display: flex;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes égales */
+    gap: 10px; /* Espacement entre les éléments de la grille */
+    flex-wrap: wrap; /* Permet de passer à la ligne suivante si nécessaire */
+  }
+
+  .filter-item {
+    display: flex;
+    flex: 1 1 calc(25% - 10px); /* Chaque élément prend environ 25% de la largeur, avec l'espace entre les boutons soustrait */
+    align-items: center;
+    justify-content: center;
+    min-width: 150px; /* Largeur minimale pour éviter que les boutons soient trop petits */
+  }
+
+  input {
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 2px solid #6CA6CD; /* bleu ciel */
+    border-radius: 25px;
+    box-shadow: none;
+    color: #6CA6CD; /* bleu ciel */
+    width: 100%;
+    text-align: center; /* Centre le texte et le placeholder */
+  }
+
+  .dropdown {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+  }
+
+  .dropbtn {
+    cursor: pointer;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 2px solid #6CA6CD; /* bleu ciel */
+    border-radius: 25px;
+    box-shadow: none;
+    color: #6CA6CD; /* bleu ciel */
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+  }
+
+  .dropdown-content {
+    display: none; /* Laisser les menus cachés par défaut */
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding :10px;
+  }
+
+  .dropdown-content label {
+    color: black;
+    padding: 0 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center; /* Aligne verticalement les éléments au centre */
+    width: 100%;
+    box-sizing: border-box; /* Assure que la largeur inclut le padding et la bordure */
+    text-align: left; /* Assure que le texte est aligné à gauche */
+    line-height: 1; /* Réduit l'interligne */
+  }
+
+  /* Style pour les cases à cocher */
+  .dropdown-content input[type="checkbox"] {
+      margin-left: 0;
+      margin-right: 15px; /* Espace entre la case à cocher et le texte */
+      vertical-align: middle; /* Aligne la case à cocher au milieu du texte */
+      display: inline-block;
+      width: auto;
+  }
+
+  .dropdown-content label:hover {
+    background-color: #f1f1f1;
+    border-radius: 25px;
+  }
+
+  .dropdown-content.show {
+    display: block;
+  }
+
+  .filter-button {
+    display: inline-block;
+    background-color: #9BCC8A;  /* vert feuille */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 16px;
+  }
+
+  .filter-button:hover {
+    background-color: #7F9B60; /* vert feuille plus foncé */
+  }
+
+  .filter-button .remove-filter {
+    margin-left: 5px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .reset-btn {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #9BCC8A; /* vert feuille */
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 16px;
+  }
+
+  .reset-btn:hover {
+    background-color: #7F9B60; /* vert feuille un peu plus foncé */
+  }
+
+  .result-item {
+    border: 2px solid #9BCC8A; /* Bordure verte feuille */
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 25px;
+    background-color: transparent; /* Pas de couleur de fond */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrer horizontalement le contenu */
+    width: 70%;
+}
+
+/* Style pour le nom */
+.result-nom {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    width: 100%; /* Prendre toute la largeur */
+    margin-bottom: 5px;
+}
+
+/* Style pour le nom 2 */
+.result-nomlat {
+    font-style: italic;
+    font-size: 1.5em;
+    text-align: center;
+    width: 100%; /* Prendre toute la largeur */
+    margin-bottom: 10px;
+}
+
+/* Conteneur pour Synonyme et Famille */
+.result-synonyme-famille {
+    display: flex;
+    justify-content: space-between; /* Répartir l'espace entre Synonyme et Famille */
+    width: 100%; /* Prendre toute la largeur */
+    margin-bottom: 10px;
+}
+
+.result-illustrations {
+    display: flex;
+    flex-wrap: wrap; /* Permet à l'image de revenir à la ligne si nécessaire */
+    justify-content: space-around; /* Espace entre les images avec de l'espace aux extrémités */
+    width: 100%;
+    padding: 0 10px; /* Ajouter un peu de padding pour éviter le contact direct avec les bords */
+    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+}
+
+.image-wrapper {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%; /* Masque circulaire */
+    overflow: hidden; /* Cache les parties de l'image en dehors du cercle */
+    background-color: transparent; /* Couleur de fond transparente pour voir les images */
+    margin: 10px; /* Espace autour de chaque image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Pour garder l'image centrée */
+    transition: border-radius 0.3s ease-in-out, transform 0.3s ease-in-out; /* Transition pour l'effet de survol */
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Assure que l'image couvre tout le conteneur */
+    transition: transform 0.3s ease-in-out; /* Transition pour l'effet de survol */
+}
+
+.image-wrapper:hover {
+    border-radius: 0; /* Modifie la forme au survol */
+    transform: scale(2.5); /* Zoom pour agrandir le conteneur au survol */
+    z-index: 1;
+}
+
+.image-wrapper:hover img {
+    object-fit: contain; /* Maintient l'image entière visible sans étirement */
+    z-index: 1;
+}
+
+</style>
