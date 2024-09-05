@@ -1,13 +1,3 @@
-<!-- Styles.html -->
-<style>
-
-//  $couleur-fond: #f0f8ff;         // Couleur de fond
-//  $couleur-filtre: #6CA6CD;       // Couleur section filtre (bleu ciel)
-//  $couleur-filtre-hover: #5A8FC2; // Couleur section filtre hover
-//  $couleur-result: #9BCC8A;       // Couleur section résultats (vert feuille)
-//  $couleur-result-hover: #7F9B60; // Couleur dection résultats hover (vert feuille plus foncé)
-
-
   body {
     font-family: Arial, sans-serif;
     background-color: #f0f8ff; /* bleu très clair */
@@ -255,5 +245,3 @@
     object-fit: contain; /* Maintient l'image entière visible sans étirement */
     z-index: 1;
 }
-
-</style>
