@@ -1,23 +1,27 @@
-function doGet() {
-  var html = HtmlService.createTemplateFromFile('index').evaluate();
-  var styles = HtmlService.createHtmlOutputFromFile('styles').getContent();
-  
-  // Ajouter les styles au head du document
-  html.append(styles);
-  
-  return html;
+// Variables nécessaires
+const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc'; // Remplace par ta clé API
+const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds'; // L'ID de ta feuille Google Sheets
+const RANGE = 'bddurl!A3:AN113'; // La plage que tu veux lire (par exemple : 'Sheet1!A1:C10')
+
+// URL de l'API Google Sheets
+const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+
+// Fonction pour récupérer les données
+async function getSheetData() {
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    console.log(data.values); // Affiche les données dans la console
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données :', error);
+  }
 }
 
-function include(filename) {
-  return HtmlService.createHtmlOutputFromFile(filename).getContent();
-}
+// Appel de la fonction pour récupérer les données
+getSheetData();
 
-function filterData(nomOptions, taxonOptions, hoteOptions, structureOptions, zoneOptions, symptomeOptions, formeOptions, agencementOptions, hymeniumOptions, perenniteOptions, tailleOptions, cuticule_couleurOptions, hymenium_couleurOptions, chair_couleurOptions) {
-  var spreadsheetId = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds';
-  var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName('bddurl');
-  var dataRange = sheet.getRange('A3:AN113'); // ajuster en fonction de la taille de la BDD
-  var data = dataRange.getValues();
-  var filteredData = [];
+
+
 
   // Définir les valeurs associées aux options
   var filterConfig = {
