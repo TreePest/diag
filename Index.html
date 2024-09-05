@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filtre de Recherche</title>
+</head>
+<body>
+  <h1>AIDE AU DIAGNOSTIC DES ARBRES <br>
+    Maladies, champignons, parasites et ravageurs
+  </h1>
+
+
+
+  <!------------------------------------------- SECTION FILTRES ------------------------------------------->
+
+  
+  <form id="filterForm" onsubmit="return false;">
+
+    
+
+  <div class="filter-section">
+    <h2>RECHERCHE</h2>
+    <div class="filter-grid">
+        <div class="filter-item">
+          <!-- Zone de texte pour rechercher un nom -->
+          <input type="text" id="nomInput" oninput="applyFilters()" placeholder="Nom du parasite">
+        </div>
+        <div class="filter-item">
+          <!-- Dropdown pour les taxons -->
+          <div class="dropdown" data-single-select="true">
+            <button onclick="toggleDropdown('taxon')" class="dropbtn">Taxon ⏷</button>
+            <div id="taxon" class="dropdown-content">
+              <label><input type="checkbox" value="Animal" onclick="applyFilters()">Animal</label>
+              <label><input type="checkbox" value="Nématode" onclick="applyFilters()">&nbsp;├─ Nématode</label>
+              <label><input type="checkbox" value="Vertébré" onclick="applyFilters()">&nbsp;├─ Vertébré</label>
+              <label><input type="checkbox" value="Arthropode" onclick="applyFilters()">&nbsp;└─ Arthropode</label>
+              <label><input type="checkbox" value="Acarien" onclick="applyFilters()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ Acarien</label>
+              <label><input type="checkbox" value="Insecte" onclick="applyFilters()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ Insecte</label>
+              <label><input type="checkbox" value="Coléoptère" onclick="applyFilters()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ Coléoptère</label>
+              <label><input type="checkbox" value="Hémiptère" onclick="applyFilters()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ Hémiptère</label>
+              <label><input type="checkbox" value="Hyménoptère" onclick="applyFilters()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ Hyménoptère</label>
+              <label><input type="checkbox" value="Lépidoptère" onclick="applyFilters()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ Lépidoptère</label>
+              <label><input type="checkbox" value="Champignon" onclick="applyFilters()">Champignon</label>
+              <label><input type="checkbox" value="Ascomycète" onclick="applyFilters()">&nbsp;├─ Ascomycète</label>
+              <label><input type="checkbox" value="Basidiomycète" onclick="applyFilters()">&nbsp;└─ Basidiomycète</label>
+              <label><input type="checkbox" value="Pseudo-champignon" onclick="applyFilters()">Pseudo-champignon</label>
+              <label><input type="checkbox" value="Plante" onclick="applyFilters()">Plante</label>
+              <label><input type="checkbox" value="Bactérie" onclick="applyFilters()">Bactérie</label>
+              <label><input type="checkbox" value="Virus" onclick="applyFilters()">Virus</label>
+              <label><input type="checkbox" value="Abiotique" onclick="applyFilters()">Abiotique</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+        </div>
+        <div class="filter-item">
+        </div>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h2>DIAGNOSTIC</h2>
+    <div class="filter-grid">
+        <div class="filter-item">
+          <!-- Dropdown pour les plantes hôtes -->
+          <div class="dropdown">
+            <button type="button" onclick="toggleDropdown('hote')" class="dropbtn">Plante hôte ⏷</button>
+            <div id="hote" class="dropdown-content">
+              <label><input type="checkbox" value="Arecacée (Palmiers)" onclick="applyFilters()">Arecacée (Palmiers)</label>
+              <label><input type="checkbox" value="Betulacée (Alnus, Carpinus ...)" onclick="applyFilters()">Betulacée (Alnus, Carpinus ...)</label>
+              <label><input type="checkbox" value="Buxacée (Buis)" onclick="applyFilters()">Buxacée (Buis)</label>
+              <label><input type="checkbox" value="Fabacée (Robinia, Cercis ...)" onclick="applyFilters()">Fabacée (Robinia, Cercis ...)</label>
+              <label><input type="checkbox" value="Fagacée (Quercus, Castanea ...)" onclick="applyFilters()">Fagacée (Quercus, Castanea ...)</label>
+              <label><input type="checkbox" value="Juglandacée (Juglans, Carya ...)" onclick="applyFilters()">Juglandacée (Juglans, Carya ...)</label>
+              <label><input type="checkbox" value="Magnoliacée (Liriodendron ...)" onclick="applyFilters()">Magnoliacée (Liriodendron ...)</label>
+              <label><input type="checkbox" value="Malvacée (Tilia, Hibiscus ...)" onclick="applyFilters()">Malvacée (Tilia, Hibiscus ...)</label>
+              <label><input type="checkbox" value="Oleacée (Fraxinus, Syringa ...)" onclick="applyFilters()">Oleacée (Fraxinus, Syringa ...)</label>
+              <label><input type="checkbox" value="Platanacée (Platanes)" onclick="applyFilters()">Platanacée (Platanes)</label>
+              <label><input type="checkbox" value="Rosacée (Prunus, Crataegus ...)" onclick="applyFilters()">Rosacée (Prunus, Crataegus ...)</label>
+              <label><input type="checkbox" value="Rutacée (Citrus, Choisya ...)" onclick="applyFilters()">Rutacée (Citrus, Choisya ...)</label>
+              <label><input type="checkbox" value="Salicaceae (Populus, Salix ...)" onclick="applyFilters()">Salicaceae (Populus, Salix ...)</label>
+              <label><input type="checkbox" value="Sapindacée (Acer, Aesculus ...)" onclick="applyFilters()">Sapindacée (Acer, Aesculus ...)</label>
+              <label><input type="checkbox" value="Ulmacée (Ulmus, Zelkova ...)" onclick="applyFilters()">Ulmacée (Ulmus, Zelkova ...)</label>
+              <label><input type="checkbox" value="Autre feuillu" onclick="applyFilters()">Autre feuillu</label>
+              <label><input type="checkbox" value="Cupressacée (Sequoia, Thuja ...)" onclick="applyFilters()">Cupressacée (Sequoia, Thuja ...)</label>
+              <label><input type="checkbox" value="Ginkgoacée (Ginkgo biloba)" onclick="applyFilters()">Ginkgoacée (Ginkgo biloba)</label>
+              <label><input type="checkbox" value="Pinacée (Abies, Cedrus ...)" onclick="applyFilters()">Pinacée (Abies, Cedrus ...)</label>
+              <label><input type="checkbox" value="Taxacée (Taxus ...)" onclick="applyFilters()">Taxacée (Taxus ...)</label>
+              <label><input type="checkbox" value="Autre conifère" onclick="applyFilters()">Autre conifère</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <!-- Dropdown pour les structures affectées -->
+          <div class="dropdown">
+            <button type="button" onclick="toggleDropdown('structure')" class="dropbtn">Structure affectée ⏷</button>
+            <div id="structure" class="dropdown-content">
+              <label><input type="checkbox" value="Bois" onclick="applyFilters()"> Bois</label>
+              <label><input type="checkbox" value="Écorce" onclick="applyFilters()"> Écorce</label>
+              <label><input type="checkbox" value="Tiges" onclick="applyFilters()"> Tiges</label>
+              <label><input type="checkbox" value="Feuilles" onclick="applyFilters()"> Feuilles</label>
+              <label><input type="checkbox" value="Fleurs" onclick="applyFilters()"> Fleurs</label>
+              <label><input type="checkbox" value="Fruits" onclick="applyFilters()"> Fruits</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <!-- Dropdown pour les zones affectées -->
+          <div class="dropdown">
+            <button type="button" onclick="toggleDropdown('zone')" class="dropbtn">Zone affectée ⏷</button>
+            <div id="zone" class="dropdown-content">
+              <label><input type="checkbox" value="Racine" onclick="applyFilters()">Racine</label>
+              <label><input type="checkbox" value="Collet" onclick="applyFilters()">Collet</label>
+              <label><input type="checkbox" value="Tronc" onclick="applyFilters()">Tronc</label>
+              <label><input type="checkbox" value="Houppier" onclick="applyFilters()">Houppier</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <!-- Dropdown pour les Symptômes -->
+          <div class="dropdown">
+            <button type="button" onclick="toggleDropdown('symptome')" class="dropbtn">Symptôme ⏷</button>
+            <div id="symptome" class="dropdown-content">
+              <label><input type="checkbox" value="Écoulement" onclick="applyFilters()">Écoulement</label>
+              <label><input type="checkbox" value="Décollement décorce" onclick="applyFilters()">Décollement d'écorce</label>
+              <label><input type="checkbox" value="Fissure, chancre, nécrose" onclick="applyFilters()">Fissure, chancre, nécrose</label>
+              <label><input type="checkbox" value="Cavité" onclick="applyFilters()">Cavité</label>
+              <label><input type="checkbox" value="Galle, déformations ..." onclick="applyFilters()">Galle, déformations ...</label>
+              <label><input type="checkbox" value="Chlorose, tâche ..." onclick="applyFilters()">Chlorose, tâche, trou ...</label>
+              <label><input type="checkbox" value="Dessèchement" onclick="applyFilters()">Dessèchement</label>
+              <label><input type="checkbox" value="Faible vigueur" onclick="applyFilters()">Faible vigueur</label>
+              <label><input type="checkbox" value="Dépérissement" onclick="applyFilters()">Dépérissement</label>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h2>SPOROPHORE</h2>
+    <div class="filter-grid">
+        <div class="filter-item">
+          <div class="dropdown" data-single-select="true">
+            <button type="button" onclick="toggleDropdown('forme')" class="dropbtn">Forme ⏷</button>
+            <div id="forme" class="dropdown-content">
+              <label><input type="checkbox" value="Stipité" onclick="applyFilters()">Stipité</label>
+              <label><input type="checkbox" value="Console" onclick="applyFilters()">Console</label>
+              <label><input type="checkbox" value="Resupiné" onclick="applyFilters()">Résupiné</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <div class="dropdown" data-single-select="true">
+            <button type="button" onclick="toggleDropdown('agencement')" class="dropbtn">Agencement ⏷</button>
+            <div id="agencement" class="dropdown-content">
+              <label><input type="checkbox" value="Isolé" onclick="applyFilters()">Isolé</label>
+              <label><input type="checkbox" value="Cespiteux" onclick="applyFilters()">Cespiteux</label>
+              <label><input type="checkbox" value="Empilés" onclick="applyFilters()">Empilés</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <div class="dropdown" data-single-select="true">
+            <button type="button" onclick="toggleDropdown('hymenium')" class="dropbtn">Structure de l'hyménium ⏷</button>
+            <div id="hymenium" class="dropdown-content">
+              <label><input type="checkbox" value="Pore ou tube" onclick="applyFilters()">Pore ou tube</label>
+              <label><input type="checkbox" value="Lame" onclick="applyFilters()">Lame</label>
+              <label><input type="checkbox" value="Lisse" onclick="applyFilters()">Lisse</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <div class="dropdown" data-single-select="true">
+            <button type="button" onclick="toggleDropdown('perennite')" class="dropbtn">Pérennité ⏷</button>
+            <div id="perennite" class="dropdown-content">
+              <label><input type="checkbox" value="Annuel" onclick="applyFilters()">Annuel</label>
+              <label><input type="checkbox" value="Pérenne" onclick="applyFilters()">Pérenne</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <!-- Dropdown pour les tailles de sporophore -->
+          <input type="number" id="tailleInput" min="0" step="1" oninput="applyFilters()" placeholder="Taille (cm)">
+        </div>
+        <div class="filter-item">
+          <div class="dropdown">
+            <button type="button" onclick="toggleDropdown('cuticule_couleur')" class="dropbtn">Couleur de la cuticule ⏷</button>
+            <div id="cuticule_couleur" class="dropdown-content">
+              <label><input type="checkbox" value="Clair" onclick="applyFilters()">Clair</label>
+              <label><input type="checkbox" value="Foncé" onclick="applyFilters()">Foncé</label>
+              <label><input type="checkbox" value="Coloré" onclick="applyFilters()">Coloré</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <div class="dropdown">
+            <button type="button" onclick="toggleDropdown('hymenium_couleur')" class="dropbtn">Couleur de l'hyménium ⏷</button>
+            <div id="hymenium_couleur" class="dropdown-content">
+              <label><input type="checkbox" value="Clair" onclick="applyFilters()">Clair</label>
+              <label><input type="checkbox" value="Foncé" onclick="applyFilters()">Foncé</label>
+              <label><input type="checkbox" value="Coloré" onclick="applyFilters()">Coloré</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-item">
+          <div class="dropdown">
+            <button type="button" onclick="toggleDropdown('chair_couleur')" class="dropbtn">Couleur de la chair ⏷</button>
+            <div id="chair_couleur" class="dropdown-content">
+              <label><input type="checkbox" value="Clair" onclick="applyFilters()">Clair</label>
+              <label><input type="checkbox" value="Foncé" onclick="applyFilters()">Foncé</label>
+              <label><input type="checkbox" value="Coloré" onclick="applyFilters()">Coloré</label>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h3>RESULTATS</h3>
+    <div id="filterButtonsContainer"></div>
+    <button id="resetButton" class="reset-btn" onclick="resetFilters()">Réinitialiser les filtres</button>
+  </div>
+
+
+
+<!------------------------------------------- SECTION RESULTATS ------------------------------------------->
+
+  <div id="results">
+    
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Afficher les résultats dès le chargement de la page
+      applyFilters();
+    });
+
+    document.getElementById('tailleInput').addEventListener('input', function() {
+      applyFilters(); // Appelle la fonction de filtrage chaque fois que la valeur change
+    });
+
+    // Fonction pour basculer l'affichage des dropdowns
+    function toggleDropdown(id) {
+      // Fermer les autres dropdowns avant d'ouvrir celui sélectionné
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      for (var i = 0; i < dropdowns.length; i++) {
+        if (dropdowns[i].id !== id) {
+          dropdowns[i].classList.remove('show');
+        }
+      }
+
+      // Ouvrir/Fermer le dropdown sélectionné
+      document.getElementById(id).classList.toggle("show");
+    }
+
+    // Fermer le dropdown si l'utilisateur clique en dehors
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content') && !event.target.matches('.dropdown-content *')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const singleSelectDropdowns = document.querySelectorAll('.dropdown[data-single-select="true"]');
+  
+      singleSelectDropdowns.forEach(function(dropdown) {
+        const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+    
+        checkboxes.forEach(function(checkbox) {
+          checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+              checkboxes.forEach(function(otherCheckbox) {
+                if (otherCheckbox !== checkbox) {
+                  otherCheckbox.checked = false; // Désélectionne les autres cases
+                }
+              });
+            }
+            // Appelle applyFilters pour mettre à jour les filtres après chaque changement
+            applyFilters();
+          });
+        });
+      });
+    });
+
+    // Fonction pour récupérer les options sélectionnées et appliquer les filtres
+    function applyFilters() {
+      var nom = document.getElementById('nomInput').value.toLowerCase();
+			var taxon = Array.from(document.querySelectorAll('#taxon input[type="checkbox"]:checked')).map(el => el.value);
+			var hote = Array.from(document.querySelectorAll('#hote input[type="checkbox"]:checked')).map(el => el.value);
+			var structure = Array.from(document.querySelectorAll('#structure input[type="checkbox"]:checked')).map(el => el.value);
+			var zone = Array.from(document.querySelectorAll('#zone input[type="checkbox"]:checked')).map(el => el.value);
+			var symptome = Array.from(document.querySelectorAll('#symptome input[type="checkbox"]:checked')).map(el => el.value);
+			var forme = Array.from(document.querySelectorAll('#forme input[type="checkbox"]:checked')).map(el => el.value);
+			var agencement = Array.from(document.querySelectorAll('#agencement input[type="checkbox"]:checked')).map(el => el.value);
+			var hymenium = Array.from(document.querySelectorAll('#hymenium input[type="checkbox"]:checked')).map(el => el.value);
+			var perennite = Array.from(document.querySelectorAll('#perennite input[type="checkbox"]:checked')).map(el => el.value);
+			var taille = parseInt(document.getElementById('tailleInput').value, 10); // Récupérer la valeur numérique
+			var cuticule_couleur = Array.from(document.querySelectorAll('#cuticule_couleur input[type="checkbox"]:checked')).map(el => el.value);
+			var hymenium_couleur = Array.from(document.querySelectorAll('#hymenium_couleur input[type="checkbox"]:checked')).map(el => el.value);
+			var chair_couleur = Array.from(document.querySelectorAll('#chair_couleur input[type="checkbox"]:checked')).map(el => el.value);
+
+			// Mettre à jour les boutons de filtre
+			updateFilterButtons('nom', nom ? [nom] : []);
+			updateFilterButtons('taxon', taxon);
+			updateFilterButtons('hote', hote);
+			updateFilterButtons('structure', structure);
+			updateFilterButtons('zone', zone);
+			updateFilterButtons('symptome', symptome);
+			updateFilterButtons('forme', forme);
+			updateFilterButtons('agencement', agencement);
+			updateFilterButtons('hymenium', hymenium);
+			updateFilterButtons('perennite', perennite);
+			updateFilterButtons('taille', taille ? [taille] : []);
+			updateFilterButtons('cuticule_couleur', cuticule_couleur);
+			updateFilterButtons('hymenium_couleur', hymenium_couleur);
+			updateFilterButtons('chair_couleur', chair_couleur);
+
+      // Appeler le script Google Apps Script pour filtrer les données
+      google.script.run.withSuccessHandler(function(data) {
+        console.log(data);
+        var resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = ''; // Effacer les résultats précédents
+
+        if (data.length === 0) {
+          resultsDiv.innerHTML = 'Aucun résultat trouvé.';
+        } else {
+          data.forEach(function(row) {
+        // Créez une structure HTML pour chaque ligne de résultat
+        var resultHTML = `
+            <div class="result-item">
+                <div class="result-nom">${row[0]}</div>
+                <div class="result-nomlat">${row[1]} ${row[2]}</div>
+                <div class="result-synonyme-famille">
+                    <div class="result-synonyme"><b>Synonymes : </b><i>${row[3]}</i></div>
+                    <div class="result-famille"><b>Famille : </b><i>${row[37]}</i></div>
+                </div>
+                <div class="result-illustrations">
+                    <div class="image-wrapper"><img src="${row[4]}" alt="Illustration"/></div>
+                    <div class="image-wrapper"><img src="${row[5]}" alt="Illustration"/></div>
+                    <div class="image-wrapper"><img src="${row[6]}" alt="Illustration"/></div>
+                    <div class="image-wrapper"><img src="${row[7]}" alt="Illustration"/></div>
+                </div>
+            </div>
+        `;
+        // Insérer le HTML dans le conteneur de résultats
+        resultsDiv.innerHTML += resultHTML;
+        });
+        }
+      }).filterData(nom, taxon, hote, structure, zone, symptome, forme, agencement, hymenium, perennite, taille, cuticule_couleur, hymenium_couleur, chair_couleur);
+    }
+
+    // Fonction pour mettre à jour les boutons de filtre
+    function updateFilterButtons(filterType, selectedValues) {
+      var container = document.getElementById('filterButtonsContainer');
+
+      // Supprimer les anciens boutons pour ce type de filtre
+      var oldButtons = container.querySelectorAll('.filter-button[data-filter="' + filterType + '"]');
+      oldButtons.forEach(button => container.removeChild(button));
+
+      // Définir un libellé pour chaque type de filtre
+      var filterLabels = {
+        'nom': 'Nom',
+        'taxon': 'Taxon',
+        'hote': 'Hôte',
+        'structure': 'Structure affectée',
+        'zone': 'Zone affectée',
+        'symptome': 'Symptôme',
+        'forme': 'Forme du sporophore',
+        'agencement': 'Agencement des sporophores',
+        'hymenium': 'Structure de l\'hyménium',
+        'perennite': 'Pérennité du sporophore',
+        'taille': 'Taille du sporophore (cm)',
+        'cuticule_couleur': 'Couleur de la cuticule',
+        'hymenium_couleur': 'Couleur de l\'hyménium',
+        'chair_couleur': 'Couleur de la chair'
+      };
+
+      // Ajouter les nouveaux boutons pour les filtres actifs
+      selectedValues.forEach(value => {
+        var button = document.createElement('div');
+        button.className = 'filter-button';
+        button.dataset.filter = filterType;
+        button.dataset.value = value;
+        button.innerHTML = filterLabels[filterType] + ' : ' + value + ' <span>&times;</span>';
+        button.onclick = function() {
+          removeFilter(filterType, value);
+        };
+        container.appendChild(button);
+      });
+    }
+
+    // Fonction pour retirer un filtre spécifique
+    function removeFilter(filterType, value) {
+      if (filterType === 'nom') {
+        document.getElementById('nomInput').value = '';
+      } else if (filterType === 'taille') {
+          document.getElementById('tailleInput').value = '';
+      } else {
+        var checkbox = document.querySelector('#' + filterType + ' input[type="checkbox"][value="' + value + '"]');
+        if (checkbox) {
+          checkbox.checked = false;
+        }
+      }
+
+      // Réappliquer les filtres
+      applyFilters();
+    }
+
+    // Fonction pour réinitialiser tous les filtres
+    function resetFilters() {
+      document.getElementById('nomInput').value = '';
+      document.getElementById('tailleInput').value = '';
+
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+
+
+      // Vider le conteneur des boutons de filtre
+      document.getElementById('filterButtonsContainer').innerHTML = '';
+
+      applyFilters(); // Réappliquer les filtres après la réinitialisation
+    }
+  </script>
+</body>
+</html>
