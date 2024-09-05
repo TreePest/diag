@@ -1,6 +1,6 @@
 function doGet() {
-  var html = HtmlService.createTemplateFromFile('Index').evaluate();
-  var styles = HtmlService.createHtmlOutputFromFile('Styles').getContent();
+  var html = HtmlService.createTemplateFromFile('index').evaluate();
+  var styles = HtmlService.createHtmlOutputFromFile('styles').getContent();
   
   // Ajouter les styles au head du document
   html.append(styles);
