@@ -26,8 +26,7 @@ async function getSheetData() {
   }
 }
 
-// Appel de la fonction pour récupérer les données
-getSheetData();
+
 
 
 
