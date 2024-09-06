@@ -6,13 +6,18 @@ const RANGE = 'bddurl!A3:AN113'; // La plage que tu veux lire (par exemple : 'Sh
 // URL de l'API Google Sheets
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
 
+// Variable pour stocker les données
+let allData = [];
+
 // Fonction pour récupérer les données
 async function getSheetData() {
   try {
     const response = await fetch(URL);
     const data = await response.json();
     if (data.values) {
+      allData = data.values; // Stocker les données dans la variable globale
       console.log('Données récupérées :', data.values);
+      applyFilters(); // Appliquer les filtres après avoir chargé les données
     } else {
       console.log('Pas de données renvoyées :', data);
     }
