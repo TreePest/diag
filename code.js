@@ -61,17 +61,20 @@ function applyFilters() {
 			updateFilterButtons('hymenium_couleur', hymenium_couleur);
 			updateFilterButtons('chair_couleur', chair_couleur);
 
-      // Appeler le script Google Apps Script pour filtrer les données
-      google.script.run.withSuccessHandler(function(data) {
-        console.log(data);
-        var resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = ''; // Effacer les résultats précédents
+      // Afficher les résultats
+  displayResults(filteredData);
+    }
 
-        if (data.length === 0) {
-          resultsDiv.innerHTML = 'Aucun résultat trouvé.';
-        } else {
-          data.forEach(function(row) {
-        // Créez une structure HTML pour chaque ligne de résultat
+// Fonction pour afficher les résultats
+function displayResults(data) {
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = ''; // Efface les résultats précédents
+
+  if (data.length === 0) {
+    resultsDiv.innerHTML = 'Aucun résultat trouvé.';
+  } else {
+    data.forEach(row => {
+      // Créez une structure HTML pour chaque ligne de résultat
         var resultHTML = `
             <div class="result-item">
                 <div class="result-nom">${row[0]}</div>
@@ -87,13 +90,11 @@ function applyFilters() {
                     <div class="image-wrapper"><img src="${row[7]}" alt="Illustration"/></div>
                 </div>
             </div>
-        `;
-        // Insérer le HTML dans le conteneur de résultats
-        resultsDiv.innerHTML += resultHTML;
-        });
-        }
-      }).filterData(nom, taxon, hote, structure, zone, symptome, forme, agencement, hymenium, perennite, taille, cuticule_couleur, hymenium_couleur, chair_couleur);
-    }
+      `;
+      resultsDiv.innerHTML += resultHTML;
+    });
+  }
+}
 
 
   // Définir les valeurs associées aux options
