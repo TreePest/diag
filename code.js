@@ -383,3 +383,137 @@ function applyFilters() {
   console.log('Filtered Data:', filteredData);
   return filteredData;
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+      // Afficher les résultats dès le chargement de la page
+      applyFilters();
+    });
+
+    document.getElementById('tailleInput').addEventListener('input', function() {
+      applyFilters(); // Appelle la fonction de filtrage chaque fois que la valeur change
+    });
+
+    // Fonction pour basculer l'affichage des dropdowns
+    function toggleDropdown(id) {
+      // Fermer les autres dropdowns avant d'ouvrir celui sélectionné
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      for (var i = 0; i < dropdowns.length; i++) {
+        if (dropdowns[i].id !== id) {
+          dropdowns[i].classList.remove('show');
+        }
+      }
+
+      // Ouvrir/Fermer le dropdown sélectionné
+      document.getElementById(id).classList.toggle("show");
+    }
+
+    // Fermer le dropdown si l'utilisateur clique en dehors
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content') && !event.target.matches('.dropdown-content *')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const singleSelectDropdowns = document.querySelectorAll('.dropdown[data-single-select="true"]');
+  
+      singleSelectDropdowns.forEach(function(dropdown) {
+        const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+    
+        checkboxes.forEach(function(checkbox) {
+          checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+              checkboxes.forEach(function(otherCheckbox) {
+                if (otherCheckbox !== checkbox) {
+                  otherCheckbox.checked = false; // Désélectionne les autres cases
+                }
+              });
+            }
+            // Appelle applyFilters pour mettre à jour les filtres après chaque changement
+            applyFilters();
+          });
+        });
+      });
+    });
+	  
+
+    // Fonction pour mettre à jour les boutons de filtre
+    function updateFilterButtons(filterType, selectedValues) {
+      var container = document.getElementById('filterButtonsContainer');
+
+      // Supprimer les anciens boutons pour ce type de filtre
+      var oldButtons = container.querySelectorAll('.filter-button[data-filter="' + filterType + '"]');
+      oldButtons.forEach(button => container.removeChild(button));
+
+      // Définir un libellé pour chaque type de filtre
+      var filterLabels = {
+        'nom': 'Nom',
+        'taxon': 'Taxon',
+        'hote': 'Hôte',
+        'structure': 'Structure affectée',
+        'zone': 'Zone affectée',
+        'symptome': 'Symptôme',
+        'forme': 'Forme du sporophore',
+        'agencement': 'Agencement des sporophores',
+        'hymenium': 'Structure de l\'hyménium',
+        'perennite': 'Pérennité du sporophore',
+        'taille': 'Taille du sporophore (cm)',
+        'cuticule_couleur': 'Couleur de la cuticule',
+        'hymenium_couleur': 'Couleur de l\'hyménium',
+        'chair_couleur': 'Couleur de la chair'
+      };
+
+      // Ajouter les nouveaux boutons pour les filtres actifs
+      selectedValues.forEach(value => {
+        var button = document.createElement('div');
+        button.className = 'filter-button';
+        button.dataset.filter = filterType;
+        button.dataset.value = value;
+        button.innerHTML = filterLabels[filterType] + ' : ' + value + ' <span>&times;</span>';
+        button.onclick = function() {
+          removeFilter(filterType, value);
+        };
+        container.appendChild(button);
+      });
+    }
+
+    // Fonction pour retirer un filtre spécifique
+    function removeFilter(filterType, value) {
+      if (filterType === 'nom') {
+        document.getElementById('nomInput').value = '';
+      } else if (filterType === 'taille') {
+          document.getElementById('tailleInput').value = '';
+      } else {
+        var checkbox = document.querySelector('#' + filterType + ' input[type="checkbox"][value="' + value + '"]');
+        if (checkbox) {
+          checkbox.checked = false;
+        }
+      }
+
+      // Réappliquer les filtres
+      applyFilters();
+    }
+
+    // Fonction pour réinitialiser tous les filtres
+    function resetFilters() {
+      document.getElementById('nomInput').value = '';
+      document.getElementById('tailleInput').value = '';
+
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+
+
+      // Vider le conteneur des boutons de filtre
+      document.getElementById('filterButtonsContainer').innerHTML = '';
+
+      applyFilters(); // Réappliquer les filtres après la réinitialisation
+    }
