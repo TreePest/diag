@@ -519,3 +519,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
       applyFilters(); // Réappliquer les filtres après la réinitialisation
     }
+
+document.addEventListener('DOMContentLoaded', function() {
+    applyFilters(); // Applique les filtres dès le chargement de la page
+
+    // Ajoute des écouteurs pour les changements sur les inputs de filtre
+    document.getElementById('tailleInput').addEventListener('input', applyFilters);
+
+    const dropdownCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    dropdownCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
+    });
+});
