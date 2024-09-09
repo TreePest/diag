@@ -30,7 +30,8 @@ async function getSheetData() {
 getSheetData();
 
 function applyFilters() {
-      var nom = document.getElementById('nomInput').value.toLowerCase();
+	let filteredData = allData.filter(checkRow); // Utiliser allData pour le filtrage
+      			var nom = document.getElementById('nomInput').value.toLowerCase();
 			var taxon = Array.from(document.querySelectorAll('#taxon input[type="checkbox"]:checked')).map(el => el.value);
 			var hote = Array.from(document.querySelectorAll('#hote input[type="checkbox"]:checked')).map(el => el.value);
 			var structure = Array.from(document.querySelectorAll('#structure input[type="checkbox"]:checked')).map(el => el.value);
