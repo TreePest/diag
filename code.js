@@ -399,29 +399,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour basculer l'affichage des dropdowns
     function toggleDropdown(id) {
       // Fermer les autres dropdowns avant d'ouvrir celui sélectionné
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      for (var i = 0; i < dropdowns.length; i++) {
-        if (dropdowns[i].id !== id) {
-          dropdowns[i].classList.remove('show');
+      const dropdowns = document.querySelectorAll(".dropdown-content");
+    dropdowns.forEach((dropdown) => {
+        if (dropdown.id !== id) {
+            dropdown.classList.remove("show");
         }
-      }
+    });
 
-      // Ouvrir/Fermer le dropdown sélectionné
-      document.getElementById(id).classList.toggle("show");
-    }
+    // Ouvrir/Fermer le dropdown sélectionné
+    document.getElementById(id).classList.toggle("show");
+}
 
     // Fermer le dropdown si l'utilisateur clique en dehors
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content') && !event.target.matches('.dropdown-content *')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        for (var i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
+    window.addEventListener("click", function(event) {
+    if (!event.target.matches(".dropbtn")) {
+        const dropdowns = document.querySelectorAll(".dropdown-content");
+        dropdowns.forEach((dropdown) => {
+            dropdown.classList.remove("show");
+        });
     }
+});
 
     document.addEventListener('DOMContentLoaded', function () {
       const singleSelectDropdowns = document.querySelectorAll('.dropdown[data-single-select="true"]');
