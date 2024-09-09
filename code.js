@@ -9,15 +9,20 @@ const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/val
 // Variable pour stocker les données
 let allData = [];
 
+
+
+
+
+
 // Fonction pour récupérer les données
 async function getSheetData() {
   try {
     const response = await fetch(URL);
     const data = await response.json();
     if (data.values) {
-      allData = data.values; // Stocker les données dans la variable globale
+      allData = data.values; // Stocker les données
       console.log('Données récupérées :', data.values);
-      applyFilters(); // Appliquer les filtres après avoir chargé les données
+      applyFilters(); // Appliquer les filtres une fois les données récupérées
     } else {
       console.log('Pas de données renvoyées :', data);
     }
@@ -26,9 +31,45 @@ async function getSheetData() {
   }
 }
 
-// Appel de la fonction pour récupérer les données
-getSheetData();
 
+
+
+
+
+// Fonction pour afficher les résultats
+function displayResults(data) {
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = ''; 
+
+  if (data.length === 0) {
+    resultsDiv.innerHTML = 'Aucun résultat trouvé.';
+  } else {
+    data.forEach(row => {
+      const resultHTML = `
+        <div class="result-item">
+          <div class="result-nom">${row[0]}</div>
+          <div class="result-nomlat">${row[1]} ${row[2]}</div>
+          <div class="result-synonyme-famille">
+            <div class="result-synonyme"><b>Synonymes : </b><i>${row[3]}</i></div>
+            <div class="result-famille"><b>Famille : </b><i>${row[37]}</i></div>
+          </div>
+          <div class="result-illustrations">
+            <div class="image-wrapper"><img src="${row[4]}" alt="Illustration"/></div>
+            <div class="image-wrapper"><img src="${row[5]}" alt="Illustration"/></div>
+            <div class="image-wrapper"><img src="${row[6]}" alt="Illustration"/></div>
+            <div class="image-wrapper"><img src="${row[7]}" alt="Illustration"/></div>
+          </div>
+        </div>`;
+      resultsDiv.innerHTML += resultHTML;
+    });
+  }
+}
+
+
+
+
+
+// Fonction pour appliquer les filtres sur les données
 function applyFilters() {
 	let filteredData = allData.filter(checkRow); // Utiliser allData pour le filtrage
       			var nom = document.getElementById('nomInput').value.toLowerCase();
@@ -65,37 +106,6 @@ function applyFilters() {
       // Afficher les résultats
   displayResults(filteredData);
     }
-
-// Fonction pour afficher les résultats
-function displayResults(data) {
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = ''; // Efface les résultats précédents
-
-  if (data.length === 0) {
-    resultsDiv.innerHTML = 'Aucun résultat trouvé.';
-  } else {
-    data.forEach(row => {
-      // Créez une structure HTML pour chaque ligne de résultat
-        var resultHTML = `
-            <div class="result-item">
-                <div class="result-nom">${row[0]}</div>
-                <div class="result-nomlat">${row[1]} ${row[2]}</div>
-                <div class="result-synonyme-famille">
-                    <div class="result-synonyme"><b>Synonymes : </b><i>${row[3]}</i></div>
-                    <div class="result-famille"><b>Famille : </b><i>${row[37]}</i></div>
-                </div>
-                <div class="result-illustrations">
-                    <div class="image-wrapper"><img src="${row[4]}" alt="Illustration"/></div>
-                    <div class="image-wrapper"><img src="${row[5]}" alt="Illustration"/></div>
-                    <div class="image-wrapper"><img src="${row[6]}" alt="Illustration"/></div>
-                    <div class="image-wrapper"><img src="${row[7]}" alt="Illustration"/></div>
-                </div>
-            </div>
-      `;
-      resultsDiv.innerHTML += resultHTML;
-    });
-  }
-}
 
 
   // Définir les valeurs associées aux options
@@ -234,6 +244,7 @@ function displayResults(data) {
   console.log('Couleur de la cuticule Options:', cuticule_couleurOptions);
   console.log('Couleur de l\'hyménium Options:', hymenium_couleurOptions);
   console.log('Couleur de la chair Options:', chair_couleurOptions);
+
 
   function containsAny(cellValue, values) {
     return values && values.length > 0 && values.some(value => cellValue.toLowerCase().includes(value.toLowerCase().trim()));
@@ -384,17 +395,17 @@ function displayResults(data) {
 
   console.log('Filtered Data:', filteredData);
   return filteredData;
-}
 
 
-document.addEventListener('DOMContentLoaded', function() {
-      // Afficher les résultats dès le chargement de la page
-      applyFilters();
-    });
 
-    document.getElementById('tailleInput').addEventListener('input', function() {
-      applyFilters(); // Appelle la fonction de filtrage chaque fois que la valeur change
-    });
+
+
+
+
+
+
+
+
 
     // Fonction pour basculer l'affichage des dropdowns
     function toggleDropdown(id) {
@@ -420,27 +431,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const singleSelectDropdowns = document.querySelectorAll('.dropdown[data-single-select="true"]');
-  
-      singleSelectDropdowns.forEach(function(dropdown) {
-        const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
-    
-        checkboxes.forEach(function(checkbox) {
-          checkbox.addEventListener('change', function() {
-            if (checkbox.checked) {
-              checkboxes.forEach(function(otherCheckbox) {
-                if (otherCheckbox !== checkbox) {
-                  otherCheckbox.checked = false; // Désélectionne les autres cases
-                }
-              });
+
+
+
+// Initialisation après le chargement du DOM
+document.addEventListener('DOMContentLoaded', function() {
+  getSheetData(); // Charger les données de la feuille Google Sheets
+
+  document.getElementById('tailleInput').addEventListener('input', function() {
+    applyFilters(); 
+  });
+
+  // Gérer les checkboxes pour les dropdowns
+  const singleSelectDropdowns = document.querySelectorAll('.dropdown[data-single-select="true"]');
+  singleSelectDropdowns.forEach(function(dropdown) {
+    const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+          checkboxes.forEach(function(otherCheckbox) {
+            if (otherCheckbox !== checkbox) {
+              otherCheckbox.checked = false; 
             }
-            // Appelle applyFilters pour mettre à jour les filtres après chaque changement
-            applyFilters();
           });
-        });
+        }
+        applyFilters();
       });
     });
+  });
+});
 	  
 
     // Fonction pour mettre à jour les boutons de filtre
