@@ -394,7 +394,6 @@ function applyFilters() {
   }
 
   console.log('Filtered Data:', filteredData);
-  //return filteredData;
 
 
 
