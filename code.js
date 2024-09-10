@@ -562,11 +562,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
     // Ajoute des écouteurs pour les changements sur les inputs de filtre
-    document.getElementById('nomInput').addEventListener('input', function() {
+    document.getElementById('nom').addEventListener('input', function() {
     applyFilters();  // Réappliquer les filtres dès qu'il y a une saisie
 	});
 
-    document.getElementById('tailleInput').addEventListener('input', function() {
+    document.getElementById('taille').addEventListener('input', function() {
     applyFilters();  // Réappliquer les filtres dès qu'il y a une saisie
 	});
 
