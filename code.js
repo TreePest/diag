@@ -12,7 +12,7 @@ let allData = [];
 
 
 
-// Initialiser les options
+// Création des variables pour stocker les options des filtres
 let nomOptions = [];
 let taxonOptions = [];
 let hoteOptions = [];
