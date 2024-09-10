@@ -12,6 +12,24 @@ let allData = [];
 
 
 
+// Initialiser les options
+let nomOptions = [];
+let taxonOptions = [];
+let hoteOptions = [];
+let structureOptions = [];
+let zoneOptions = [];
+let symptomeOptions = [];
+let formeOptions = [];
+let agencementOptions = [];
+let hymeniumOptions = [];
+let perenniteOptions = [];
+let tailleOptions = null;
+let cuticule_couleurOptions = [];
+let hymenium_couleurOptions = [];
+let chair_couleurOptions = [];
+
+
+
 
 
 // Fonction pour récupérer les données
