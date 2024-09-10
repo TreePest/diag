@@ -404,8 +404,8 @@ function applyFilters() {
     }
   }
 
-  for (var i = 0; i < data.length; i++) {
-    var row = data[i];
+  for (var i = 0; i < allData.length; i++) {
+    var row = allData[i];
     if (checkRow(row)) {
       filteredData.push(row);
     }
