@@ -550,16 +550,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
       // Vider le conteneur des boutons de filtre
+      // Réappliquer les filtres après la réinitialisation
       document.getElementById('filterButtonsContainer').innerHTML = '';
-
-      applyFilters(); // Réappliquer les filtres après la réinitialisation
+      applyFilters(); 
     }
 
-document.addEventListener('DOMContentLoaded', function() {
-    applyFilters(); // Applique les filtres dès le chargement de la page
+
+    // Applique les filtres dès le chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+    applyFilters(); 
+	});
 
     // Ajoute des écouteurs pour les changements sur les inputs de filtre
     document.getElementById('nomInput').addEventListener('input', function() {
+    applyFilters();  // Réappliquer les filtres dès qu'il y a une saisie
+	});
+
+    document.getElementById('tailleInput').addEventListener('input', function() {
     applyFilters();  // Réappliquer les filtres dès qu'il y a une saisie
 	});
 
@@ -569,4 +576,4 @@ checkboxes.forEach(checkbox => {
         applyFilters(); // Re-applique les filtres à chaque changement
     });
   });
-});
+
