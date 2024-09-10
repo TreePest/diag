@@ -559,10 +559,14 @@ document.addEventListener('DOMContentLoaded', function() {
     applyFilters(); // Applique les filtres dès le chargement de la page
 
     // Ajoute des écouteurs pour les changements sur les inputs de filtre
-    document.getElementById('tailleInput').addEventListener('input', applyFilters);
+    document.getElementById('nomInput').addEventListener('input', function() {
+    applyFilters();  // Réappliquer les filtres dès qu'il y a une saisie
+	});
 
-    const dropdownCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-    dropdownCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', applyFilters);
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        applyFilters(); // Re-applique les filtres à chaque changement
     });
+  });
 });
