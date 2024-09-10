@@ -55,14 +55,14 @@ async function getSheetData() {
 
 
 // Fonction pour afficher les résultats
-function displayResults(data) {
+function displayResults(filteredData) {
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = ''; 
 
-  if (data.length === 0) {
+  if (filteredData.length === 0) {
     resultsDiv.innerHTML = 'Aucun résultat trouvé.';
   } else {
-    data.forEach(row => {
+    filteredData.forEach(row => {
       const resultHTML = `
         <div class="result-item">
           <div class="result-nom">${row[0]}</div>
