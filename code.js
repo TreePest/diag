@@ -559,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Applique les filtres dès le chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
     applyFilters(); 
-	});
+	
 
     // Ajoute des écouteurs pour les changements sur les inputs de filtre
     var nomInput = document.getElementById('nomInput');
@@ -586,4 +586,4 @@ checkboxes.forEach(checkbox => {
         applyFilters(); // Re-applique les filtres à chaque changement
     });
   });
-
+});
