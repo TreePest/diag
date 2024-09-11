@@ -556,6 +556,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
     // Applique les filtres dès le chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
     applyFilters(); 
