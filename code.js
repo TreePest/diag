@@ -562,13 +562,23 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
     // Ajoute des écouteurs pour les changements sur les inputs de filtre
-    document.getElementById('nomInput').addEventListener('input', function() {
-    applyFilters();  // Réappliquer les filtres dès qu'il y a une saisie
-	});
+    var nomInput = document.getElementById('nomInput');
+if (nomInput) {
+    nomInput.addEventListener('input', function() {
+        applyFilters();
+    });
+} else {
+    console.error('Élément nomInput introuvable dans le DOM');
+}
 
-    document.getElementById('tailleInput').addEventListener('input', function() {
-    applyFilters();  // Réappliquer les filtres dès qu'il y a une saisie
-	});
+    var tailleInput = document.getElementById('tailleInput');
+if (tailleInput) {
+    tailleInput.addEventListener('input', function() {
+        applyFilters();
+    });
+} else {
+    console.error('Élément tailleInput introuvable dans le DOM');
+}
 
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 checkboxes.forEach(checkbox => {
