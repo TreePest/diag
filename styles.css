@@ -179,6 +179,18 @@
     width: 70%;
 }
 
+
+
+
+
+.no-results {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.5em; /* Taille de la police plus grande */
+    color: #333; /* Couleur du texte */
+}
+
 /* Style pour le nom */
 .result-nom {
     font-size: 1.5em;
