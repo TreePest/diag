@@ -89,40 +89,59 @@ function displayResults(filteredData) {
 
 // Fonction pour appliquer les filtres sur les données
 function applyFilters() {
-	let filteredData = allData.filter(checkRow); // Utiliser allData pour le filtrage
-      			var nom = document.getElementById('nomInput').value.toLowerCase();
-			var taxon = Array.from(document.querySelectorAll('#taxon input[type="checkbox"]:checked')).map(el => el.value);
-			var hote = Array.from(document.querySelectorAll('#hote input[type="checkbox"]:checked')).map(el => el.value);
-			var structure = Array.from(document.querySelectorAll('#structure input[type="checkbox"]:checked')).map(el => el.value);
-			var zone = Array.from(document.querySelectorAll('#zone input[type="checkbox"]:checked')).map(el => el.value);
-			var symptome = Array.from(document.querySelectorAll('#symptome input[type="checkbox"]:checked')).map(el => el.value);
-			var forme = Array.from(document.querySelectorAll('#forme input[type="checkbox"]:checked')).map(el => el.value);
-			var agencement = Array.from(document.querySelectorAll('#agencement input[type="checkbox"]:checked')).map(el => el.value);
-			var hymenium = Array.from(document.querySelectorAll('#hymenium input[type="checkbox"]:checked')).map(el => el.value);
-			var perennite = Array.from(document.querySelectorAll('#perennite input[type="checkbox"]:checked')).map(el => el.value);
-			var taille = parseInt(document.getElementById('tailleInput').value, 10); // Récupérer la valeur numérique
-			var cuticule_couleur = Array.from(document.querySelectorAll('#cuticule_couleur input[type="checkbox"]:checked')).map(el => el.value);
-			var hymenium_couleur = Array.from(document.querySelectorAll('#hymenium_couleur input[type="checkbox"]:checked')).map(el => el.value);
-			var chair_couleur = Array.from(document.querySelectorAll('#chair_couleur input[type="checkbox"]:checked')).map(el => el.value);
+    // Récupérer et mettre à jour les variables de filtre globales
+    nomOptions = document.getElementById('nomInput').value.toLowerCase();
+    taxonOptions = Array.from(document.querySelectorAll('#taxon input[type="checkbox"]:checked')).map(el => el.value);
+    hoteOptions = Array.from(document.querySelectorAll('#hote input[type="checkbox"]:checked')).map(el => el.value);
+    structureOptions = Array.from(document.querySelectorAll('#structure input[type="checkbox"]:checked')).map(el => el.value);
+    zoneOptions = Array.from(document.querySelectorAll('#zone input[type="checkbox"]:checked')).map(el => el.value);
+    symptomeOptions = Array.from(document.querySelectorAll('#symptome input[type="checkbox"]:checked')).map(el => el.value);
+    formeOptions = Array.from(document.querySelectorAll('#forme input[type="checkbox"]:checked')).map(el => el.value);
+    agencementOptions = Array.from(document.querySelectorAll('#agencement input[type="checkbox"]:checked')).map(el => el.value);
+    hymeniumOptions = Array.from(document.querySelectorAll('#hymenium input[type="checkbox"]:checked')).map(el => el.value);
+    perenniteOptions = Array.from(document.querySelectorAll('#perennite input[type="checkbox"]:checked')).map(el => el.value);
+    tailleOptions = parseInt(document.getElementById('tailleInput').value, 10);
+    cuticule_couleurOptions = Array.from(document.querySelectorAll('#cuticule_couleur input[type="checkbox"]:checked')).map(el => el.value);
+    hymenium_couleurOptions = Array.from(document.querySelectorAll('#hymenium_couleur input[type="checkbox"]:checked')).map(el => el.value);
+    chair_couleurOptions = Array.from(document.querySelectorAll('#chair_couleur input[type="checkbox"]:checked')).map(el => el.value);
 
-			// Mettre à jour les boutons de filtre
-			updateFilterButtons('nom', nom ? [nom] : []);
-			updateFilterButtons('taxon', taxon);
-			updateFilterButtons('hote', hote);
-			updateFilterButtons('structure', structure);
-			updateFilterButtons('zone', zone);
-			updateFilterButtons('symptome', symptome);
-			updateFilterButtons('forme', forme);
-			updateFilterButtons('agencement', agencement);
-			updateFilterButtons('hymenium', hymenium);
-			updateFilterButtons('perennite', perennite);
-			updateFilterButtons('taille', taille ? [taille] : []);
-			updateFilterButtons('cuticule_couleur', cuticule_couleur);
-			updateFilterButtons('hymenium_couleur', hymenium_couleur);
-			updateFilterButtons('chair_couleur', chair_couleur);
+    console.log('Nom Options:', nomOptions);
+    console.log('Taxon Options:', taxonOptions);
+    console.log('Hote Options:', hoteOptions);
+    console.log('Structure Options:', structureOptions);
+    console.log('Zone Options:', zoneOptions);
+    console.log('Symptome Options:', symptomeOptions);
+    console.log('Forme Options:', formeOptions);
+    console.log('Agencement Options:', agencementOptions);
+    console.log('Hymenium Options:', hymeniumOptions);
+    console.log('Pérennité Options:', perenniteOptions);
+    console.log('Taille Options:', tailleOptions);
+    console.log('Couleur de la cuticule Options:', cuticule_couleurOptions);
+    console.log('Couleur de l\'hyménium Options:', hymenium_couleurOptions);
+    console.log('Couleur de la chair Options:', chair_couleurOptions);
 
-      // Afficher les résultats
-  displayResults(filteredData);
+    // Appliquer les filtres avec les options mises à jour
+    let filteredData = allData.filter(checkRow);
+
+    // Mettre à jour l'interface utilisateur
+    displayResults(filteredData);
+    updateFilterButtons('nom', nomOptions ? [nomOptions] : []);
+    updateFilterButtons('taxon', taxonOptions);
+    updateFilterButtons('hote', hoteOptions);
+    updateFilterButtons('structure', structureOptions);
+    updateFilterButtons('zone', zoneOptions);
+    updateFilterButtons('symptome', symptomeOptions);
+    updateFilterButtons('forme', formeOptions);
+    updateFilterButtons('agencement', agencementOptions);
+    updateFilterButtons('hymenium', hymeniumOptions);
+    updateFilterButtons('perennite', perenniteOptions);
+    updateFilterButtons('taille', tailleOptions ? [tailleOptions] : []);
+    updateFilterButtons('cuticule_couleur', cuticule_couleurOptions);
+    updateFilterButtons('hymenium_couleur', hymenium_couleurOptions);
+    updateFilterButtons('chair_couleur', chair_couleurOptions);
+
+    // Afficher les résultats
+    displayResults(filteredData);
     }
 
 
