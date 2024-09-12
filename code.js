@@ -60,7 +60,7 @@ function displayResults(filteredData) {
   resultsDiv.innerHTML = ''; 
 
   if (filteredData.length === 0) {
-    resultsDiv.innerHTML = 'Aucun résultat trouvé.';
+    resultsDiv.innerHTML = '<div class="no-results">Aucun résultat trouvé.</div>';
   } else {
     filteredData.forEach(row => {
       const resultHTML = `
