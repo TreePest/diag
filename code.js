@@ -378,7 +378,7 @@ function applyFilters() {
       var tailleValeur = parseInt(row[18], 10); // Assurez-vous que tailleValeur est bien un nombre
       console.log('Row Taille:', row[18]);
       console.log('Parsed Taille:', tailleValeur);
-      var tailleMatch = (tailleOptions === null || tailleOptions === undefined) || (tailleValeur && tailleValeur >= tailleOptions);
+      var tailleMatch = (isNaN(tailleOptions) || tailleOptions === null || tailleOptions === undefined) || (tailleValeur && tailleValeur >= tailleOptions);
 
       // Vérification du filtre "Couleur de la Cuticule"
       var cuticule_couleurMatch = cuticule_couleurOptions.length === 0 || cuticule_couleurOptions.every(option => {
