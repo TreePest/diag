@@ -2,7 +2,9 @@ changer le filtre taille en un menu déroulant avec des fourchettes de 10 en 10
 améliorer les filtres de couleur avec blanc/beige - rouge/roussatre - jaune/jaunatre - vert/verdatre etc...
 j'ai du supprimer une partie pour les dropdown qui ne tolèrent pas le multi choix parce que on peut à nouveau cocher plusieurs checkbox...
 une solution pour pinus/carpinus ? peut être quelque chose pour exclure un mot clé
-
+développer la partie description de chaque résultat, sous les images
+créer une fiche descriptive sur une nouvelle page, en rendant le nom de l'espèce cliquable pour mener à la page fiche
+trier la BDD par fréquence, puis par groupe taxo, en mettant les champi en premier et abiotique en dernier
 
 
 
