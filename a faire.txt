@@ -1,0 +1,12 @@
+changer le filtre taille en un menu déroulant avec des fourchettes de 10 en 10
+améliorer les filtres de couleur avec blanc/beige - rouge/roussatre - jaune/jaunatre - vert/verdatre etc...
+j'ai du supprimer une partie pour les dropdown qui ne tolèrent pas le multi choix parce que on peut à nouveau cocher plusieurs checkbox...
+une solution pour pinus/carpinus ? peut être quelque chose pour exclure un mot clé
+
+
+
+
+
+
+Faire une version mobile et une version pc
+sur la version pc : une colonne à gauche fixe avec tous les filtres
