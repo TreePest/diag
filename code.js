@@ -476,9 +476,18 @@ let filteredData = [];
 document.addEventListener('DOMContentLoaded', function() {
   getSheetData(); // Charger les données de la feuille Google Sheets
 
-  document.getElementById('tailleInput').addEventListener('input', function() {
-    applyFilters(); 
-  });
+  // Remplacer l'événement oninput pour nomInput par keydown pour écouter "Entrée"
+    var nomInput = document.getElementById('nomInput');
+    if (nomInput) {
+        nomInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Empêcher le comportement par défaut de "Entrée"
+                applyFilters(); // Appliquer les filtres seulement quand "Entrée" est pressé
+            }
+        });
+    } else {
+        console.error('Élément nomInput introuvable dans le DOM');
+    }
 
   // Gérer les checkboxes pour les dropdowns
   const singleSelectDropdowns = document.querySelectorAll('.dropdown[data-single-select="true"]');
