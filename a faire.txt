@@ -7,6 +7,7 @@ créer une fiche descriptive sur une nouvelle page, en rendant le nom de l'espè
 trier la BDD par fréquence, puis par groupe taxo, en mettant les champi en premier et abiotique en dernier
 expliciter les symptomes
 mettre des images dans les menus déroulants pour illustrer notamment la morphologie des sporophores 
+si "/" dans synonyme, alors ne pas afficher "synonymes :"
 
 
 
