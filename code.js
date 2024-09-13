@@ -471,42 +471,6 @@ let filteredData = [];
 
 
 
-
-// Initialisation après le chargement du DOM
-document.addEventListener('DOMContentLoaded', function() {
-  getSheetData(); // Charger les données de la feuille Google Sheets
-
-  // Remplacer l'événement oninput pour nomInput par keydown pour écouter "Entrée"
-    var nomInput = document.getElementById('nomInput');
-    if (nomInput) {
-        nomInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Empêcher le comportement par défaut de "Entrée"
-                applyFilters(); // Appliquer les filtres seulement quand "Entrée" est pressé
-            }
-        });
-    } else {
-        console.error('Élément nomInput introuvable dans le DOM');
-    }
-
-  // Gérer les checkboxes pour les dropdowns
-  const singleSelectDropdowns = document.querySelectorAll('.dropdown[data-single-select="true"]');
-  singleSelectDropdowns.forEach(function(dropdown) {
-    const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(function(checkbox) {
-      checkbox.addEventListener('change', function() {
-        if (checkbox.checked) {
-          checkboxes.forEach(function(otherCheckbox) {
-            if (otherCheckbox !== checkbox) {
-              otherCheckbox.checked = false; 
-            }
-          });
-        }
-        applyFilters();
-      });
-    });
-  });
-});
 	  
 
     // Fonction pour mettre à jour les boutons de filtre
@@ -594,6 +558,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+// Initialisation après le chargement du DOM
+document.addEventListener('DOMContentLoaded', function() {
+  getSheetData(); // Charger les données de la feuille Google Sheets
+});
+
+
 
     // Applique les filtres dès le chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
@@ -602,13 +572,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ajoute des écouteurs pour les changements sur les inputs de filtre
     var nomInput = document.getElementById('nomInput');
-if (nomInput) {
-    nomInput.addEventListener('input', function() {
-        applyFilters();
-    });
-} else {
-    console.error('Élément nomInput introuvable dans le DOM');
-}
+    if (nomInput) {
+        nomInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Empêche le comportement par défaut
+                applyFilters(); // Applique les filtres uniquement lorsqu'on appuie sur "Entrée"
+            }
+        });
+    } else {
+        console.error('Élément nomInput introuvable dans le DOM');
+    }
 
     var tailleInput = document.getElementById('tailleInput');
 if (tailleInput) {
