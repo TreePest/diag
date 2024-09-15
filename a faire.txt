@@ -8,7 +8,7 @@ trier la BDD par fréquence, puis par groupe taxo, en mettant les champi en prem
 expliciter les symptomes dans le menu déroulant
 mettre des images dans les menus déroulants pour illustrer notamment la morphologie des sporophores 
 si "/" ou rien dans synonyme, alors ne pas afficher "synonymes :", même chose pour "Famille :"
-trouver une solution pour que ca charge plus vite
+trouver une solution pour que ca charge plus vite : 20 résultats par page ?
 
 
 
