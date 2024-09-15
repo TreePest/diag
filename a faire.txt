@@ -5,9 +5,9 @@ une solution pour pinus/carpinus ? peut être quelque chose pour exclure un mot 
 développer la partie description de chaque résultat, sous les images
 créer une fiche descriptive sur une nouvelle page, en rendant le nom de l'espèce cliquable pour mener à la page fiche
 trier la BDD par fréquence, puis par groupe taxo, en mettant les champi en premier et abiotique en dernier
-expliciter les symptomes
+expliciter les symptomes dans le menu déroulant
 mettre des images dans les menus déroulants pour illustrer notamment la morphologie des sporophores 
-si "/" dans synonyme, alors ne pas afficher "synonymes :"
+si "/" ou rien dans synonyme, alors ne pas afficher "synonymes :", même chose pour "Famille :"
 
 
 
