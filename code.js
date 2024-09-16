@@ -9,6 +9,10 @@ const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/val
 // Variable pour stocker les données
 let allData = [];
 
+// Variables pour la pagination
+let currentPage = 1;
+const resultsPerPage = 20;
+
 
 
 
@@ -59,10 +63,19 @@ function displayResults(filteredData) {
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = ''; 
 
+    // Calculer le nombre total de pages
+    const totalPages = Math.ceil(filteredData.length / resultsPerPage);
+
+    // Calculer les indices des résultats à afficher
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const endIndex = Math.min(startIndex + resultsPerPage, filteredData.length);
+
+  // Afficher les résultats de la page actuelle
   if (filteredData.length === 0) {
     resultsDiv.innerHTML = '<div class="no-results">Aucun résultat trouvé.</div>';
   } else {
-    filteredData.forEach(row => {
+    for (let i = startIndex; i < endIndex; i++) {
+      const row = filteredData[i];
       const resultHTML = `
         <div class="result-item">
           <div class="result-nom">${row[0]}</div>
@@ -79,7 +92,33 @@ function displayResults(filteredData) {
           </div>
         </div>`;
       resultsDiv.innerHTML += resultHTML;
-    });
+    }
+	  
+     // Afficher les boutons de pagination
+        const paginationDiv = document.createElement('div');
+        paginationDiv.className = 'pagination';
+
+        if (currentPage > 1) {
+            const prevButton = document.createElement('button');
+            prevButton.textContent = 'Page précédente';
+            prevButton.onclick = function() {
+                currentPage--;
+                displayResults(filteredData); // Recharger les résultats pour la nouvelle page
+            };
+            paginationDiv.appendChild(prevButton);
+        }
+
+        if (currentPage < totalPages) {
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Page suivante';
+            nextButton.onclick = function() {
+                currentPage++;
+                displayResults(filteredData); // Recharger les résultats pour la nouvelle page
+            };
+            paginationDiv.appendChild(nextButton);
+        }
+
+        resultsDiv.appendChild(paginationDiv); 
   }
 }
 
