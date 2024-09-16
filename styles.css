@@ -311,3 +311,9 @@ footer {
 .footer-content p {
     margin: 5px 0; /* Espacement vertical entre les paragraphes */
 }
+
+.footer-keyword p {
+    margin: 5px 0; /* Espacement vertical entre les paragraphes */
+    font-size: 0.5em;
+    color: #c0c2c4; /* Couleur du texte */
+}
