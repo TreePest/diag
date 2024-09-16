@@ -128,6 +128,8 @@ function displayResults(filteredData) {
 
 // Fonction pour appliquer les filtres sur les données
 function applyFilters() {
+    // Réinitialiser le numéro de page à 1
+    currentPage = 1;
     // Récupérer et mettre à jour les variables de filtre globales
     nomOptions = document.getElementById('nomInput').value.toLowerCase();
     taxonOptions = Array.from(document.querySelectorAll('#taxon input[type="checkbox"]:checked')).map(el => el.value);
@@ -571,6 +573,7 @@ let filteredData = [];
 
     // Fonction pour réinitialiser tous les filtres
     function resetFilters() {
+      currentPage = 1;
       document.getElementById('nomInput').value = '';
       document.getElementById('tailleInput').value = '';
 
