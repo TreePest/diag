@@ -257,3 +257,28 @@
     object-fit: contain; /* Maintient l'image entière visible sans étirement */
     z-index: 1;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #9BCC8A;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.pagination button:hover {
+    background-color: #7F9B60;
+}
+
+.pagination button:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
