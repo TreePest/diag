@@ -114,6 +114,8 @@ function displayResults(filteredData) {
             nextButton.onclick = function() {
                 currentPage++;
                 displayResults(filteredData); // Recharger les résultats pour la nouvelle page
+		window.scrollTo({ top: 0, behavior: 'smooth' }); // Revenir en haut de la page
+
             };
             paginationDiv.appendChild(nextButton);
         }
