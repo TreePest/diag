@@ -10,7 +10,6 @@ mettre des images dans les menus déroulants pour illustrer notamment la morphol
 si "/" ou rien dans synonyme, alors ne pas afficher "synonymes :", même chose pour "Famille :"
 trouver une solution pour que ca charge plus vite : 20 résultats par page ?
 changer le titre de l'onglet et l'icone
-chercher comment réserver un nom de domaine
 
 
 
