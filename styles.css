@@ -109,6 +109,7 @@ body {
 
   .dropdown-icon {
     width: 30px; /* Taille de l'image */
+    height: 30px;
     margin-right: 10px; /* Espacement entre l'image et le texte */
   }
 
