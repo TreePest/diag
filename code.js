@@ -263,7 +263,7 @@ function applyFilters() {
     'forme': {
       'Stipité': ['stipité', 'stipite'],
       'Console': ['console'],
-      'Résupiné': ['resupiné', 'resupine']
+      'Résupiné': ['résupiné', 'resupiné', 'resupine']
     },
     'agencement': {
       'Isolé': ['isolé', 'isole'],
