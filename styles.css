@@ -104,6 +104,12 @@ body {
     border-radius: 25px;
     box-sizing: border-box;
     padding :10px;
+    align-items: center;
+  }
+
+  .dropdown-icon {
+    width: 30px; /* Taille de l'image */
+    margin-right: 10px; /* Espacement entre l'image et le texte */
   }
 
   .dropdown-content label {
