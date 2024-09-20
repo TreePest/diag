@@ -108,8 +108,8 @@ body {
   }
 
   .dropdown-icon {
-    width: 30px; /* Taille de l'image */
-    height: 30px;
+    width: 80px; /* Taille de l'image */
+    height: 80px;
     object-fit: contain;
     margin-right: 10px; /* Espacement entre l'image et le texte */
   }
