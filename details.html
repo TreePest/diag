@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du résultat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Détails du résultat</h1>
+    <div id="result-details"></div>
+
+    <script>
+        // Récupérer l'index de la ligne à partir de l'URL
+        const params = new URLSearchParams(window.location.search);
+        const resultIndex = params.get('index');
+
+        // Charger les données (vous devez inclure la source des données ici ou via API)
+        const allData = [ /* votre base de données ici */ ];
+
+        if (resultIndex !== null && allData[resultIndex]) {
+            const row = allData[resultIndex];
+            document.getElementById('result-details').innerHTML = `
+                <p><strong>Nom :</strong> ${row[0]}</p>
+                <p><strong>Nom latin :</strong> ${row[1]} ${row[2]}</p>
+                <p><strong>Synonymes :</strong> ${row[3] || 'Aucun'}</p>
+                <p><strong>Famille :</strong> ${row[37]}</p>
+                <!-- Ajoutez d'autres informations ici -->
+            `;
+        } else {
+            document.getElementById('result-details').textContent = 'Aucun résultat trouvé';
+        }
+    </script>
+</body>
+</html>
