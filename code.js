@@ -78,7 +78,7 @@ function displayResults(filteredData) {
       const row = filteredData[i];
       const resultHTML = `
         <div class="result-item">
-          <div class="result-nom"><a href="details.html?index=${index}" target="_blank">${row[0]}</div>
+          <div class="result-nom"><a href="details.html?index=${i}" target="_blank">${row[0]}</div>
           <div class="result-nomlat">${row[1]} ${row[2]}</div>
           <div class="result-synonyme-famille">
             <div class="result-synonyme"><b>Synonymes : </b><i>${row[3]}</i></div>
