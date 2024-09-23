@@ -14,9 +14,11 @@
         // Récupérer l'index de la ligne à partir de l'URL
         const params = new URLSearchParams(window.location.search);
         const resultIndex = params.get('index');
-
-        // Charger les données (vous devez inclure la source des données ici ou via API)
-        const allData = [ /* votre base de données ici */ ];
+        const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc'; // Remplace par ta clé API
+        const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds'; // L'ID de ta feuille Google Sheets
+        const RANGE = 'bdd!A3:AN201'; // La plage que tu veux lire (par exemple : 'Sheet1!A1:C10')
+        const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+        const allData = [URL];
 
         if (resultIndex !== null && allData[resultIndex]) {
             const row = allData[resultIndex];
