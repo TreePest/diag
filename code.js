@@ -44,6 +44,10 @@ async function getSheetData() {
     if (data.values) {
       allData = data.values; // Stocker les données
       console.log('Données récupérées :', data.values);
+
+	// Stocker les données dans Local Storage
+      	localStorage.setItem('allData', JSON.stringify(allData));
+	    
       applyFilters(); // Appliquer les filtres une fois les données récupérées
     } else {
       console.log('Pas de données renvoyées :', data);
