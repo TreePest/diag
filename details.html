@@ -14,11 +14,36 @@
         // Récupérer l'index de la ligne à partir de l'URL
         const params = new URLSearchParams(window.location.search);
         const resultIndex = params.get('index');
-        const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc'; // Remplace par ta clé API
+        const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJv3LxyCbDc'; // Remplace par ta clé API
         const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds'; // L'ID de ta feuille Google Sheets
-        const RANGE = 'bdd!A3:AN201'; // La plage que tu veux lire (par exemple : 'Sheet1!A1:C10')
+        const RANGE = 'bdd!A3:AN201'; // La plage de ta feuille Google Sheets
         const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
-        const allData = [URL];
+
+        let allData = [];
+
+        // Fonction pour récupérer les données via l'API Google Sheets
+        async function fetchData() {
+            try {
+                const response = await fetch(URL);
+                const data = await response.json();
+
+                // Vérifier que les données existent et les stocker dans allData
+                if (data && data.values) {
+                    allData = data.values;
+                    console.log('Données récupérées :', allData);
+
+                    // Appeler la fonction d'affichage des résultats après avoir chargé les données
+                    displayResults(allData); 
+                } else {
+                    console.error('Aucune donnée trouvée.');
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des données :', error);
+            }
+        }
+
+        // Appeler fetchData pour récupérer et afficher les données
+        fetchData();
 
         if (resultIndex !== null && allData[resultIndex]) {
             const row = allData[resultIndex];
