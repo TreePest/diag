@@ -23,8 +23,15 @@
         // Vérifier que les données existent et que l'index est valide
         if (allData && resultIndex !== null && allData[resultIndex]) {
             const row = allData[resultIndex];
+
+            // Modifier dynamiquement le titre de l'onglet avec le nom latin
+            document.title = `<i>${row[1]} ${row[2]}</i>`;
+
+            // Modifier dynamiquement le titre h1
             document.getElementById('result-title').innerHTML = `<div>${row[0]}</div>
             <div><i>${row[1]} ${row[2]}</i></div>`;
+
+            // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
                 <p><strong>Nom :</strong> ${row[0]}</p>
                 <p><strong>Nom latin :</strong> ${row[1]} ${row[2]}</p>
