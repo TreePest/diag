@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>${row[0]}<br>
-    <i>${row[1]} ${row[2]}</i></h1>
+    <h1 id="result-title"></h1>
     <div id="result-details"></div>
 
     <script>
@@ -19,10 +18,12 @@
 
         // Récupérer les données depuis Local Storage
         const allData = JSON.parse(localStorage.getItem('allData'));
+       
 
         // Vérifier que les données existent et que l'index est valide
         if (allData && resultIndex !== null && allData[resultIndex]) {
             const row = allData[resultIndex];
+            document.getElementById('result-title').innerHTML = `${row[0]}<br><i>${row[1]} ${row[2]}</i>`;
             document.getElementById('result-details').innerHTML = `
                 <p><strong>Nom :</strong> ${row[0]}</p>
                 <p><strong>Nom latin :</strong> ${row[1]} ${row[2]}</p>
