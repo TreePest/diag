@@ -23,7 +23,7 @@
         // Vérifier que les données existent et que l'index est valide
         if (allData && resultIndex !== null && allData[resultIndex]) {
             const row = allData[resultIndex];
-            document.getElementById('result-title').innerHTML = `<span style="display: block;">${row[0]}</span><span style="display: block;"><i>${row[1]} ${row[2]}</i></span>`;
+            document.getElementById('result-title').innerHTML = `<div>${row[0]}</div><div><i>${row[1]} ${row[2]}</i></div>`;
             document.getElementById('result-details').innerHTML = `
                 <p><strong>Nom :</strong> ${row[0]}</p>
                 <p><strong>Nom latin :</strong> ${row[1]} ${row[2]}</p>
