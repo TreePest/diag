@@ -34,8 +34,8 @@
             // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
                 <p><strong>Nom :</strong> ${row[0]}</p>
-                <p><strong>Nom latin :</strong> ${row[1]} ${row[2]}</p>
-                <p><strong>Synonymes :</strong> ${row[3] || 'Aucun'}</p>
+                <p><strong>Nom latin :</strong> <i>${row[1]} ${row[2]}</i></p>
+                <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
                 <p><strong>Famille :</strong> ${row[37]}</p>
                 <p><strong>Plantes hôtes :</strong> ${row[9]}</p>
                 <p><strong>Zone affectée :</strong> ${row[10]}</p>
@@ -63,11 +63,11 @@
                 <p><strong>Position phylogénétique :</strong><br>
                     ${row[33]}<br>
                     └─${row[34]}<br>
-                    &nbsp;&nbsp;└─${row[35]}<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;└─${row[36]}<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[37]}<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[1]}<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[1]} ${row[2]}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;└─${row[35]}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[36]}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[37]}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]}</i><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]} ${row[2]}</i><br>
                     </p>
                 <!-- Ajoute d'autres informations ici -->
             `;
