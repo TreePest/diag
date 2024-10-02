@@ -33,15 +33,20 @@
 
             // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
+            <div class="result-item">
                 <p><strong>Nom :</strong> ${row[0]}</p>
                 <p><strong>Nom latin :</strong> <i>${row[1]} ${row[2]}</i></p>
                 <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
                 <p><strong>Famille :</strong> ${row[37]}</p>
+            </div>
+            <div class="result-item">
                 <p><strong>Plantes hôtes :</strong> ${row[9]}</p>
                 <p><strong>Zone affectée :</strong> ${row[10]}</p>
                 <p><strong>Structure affectée :</strong> ${row[11]}</p>
                 <p><strong>Symptômes :</strong> ${row[12]}</p>
                 <p><strong>Partie visible du parasite :</strong> ${row[13]}</p>
+            </div>
+            <div class="result-item">
                 <p><strong>Pérennité du sporophore :</strong> ${row[14]}</p>
                 <p><strong>Forme du chapeau :</strong> ${row[15]}</p>
                 <p><strong>Anneau :</strong> ${row[17]}</p>
@@ -51,6 +56,8 @@
                 <p><strong>Couleur de la cuticule :</strong> ${row[21]}</p>
                 <p><strong>Couleur de l'hyménium :</strong> ${row[22]}</p>
                 <p><strong>Couleur de la chair :</strong> ${row[23]}</p>
+            </div>
+            <div class="result-item">
                 <p><strong>Gravité sur la vigueur de l'arbre :</strong> ${row[24]}</p>
                 <p><strong>Gravité sur la tenue mécanique de l'arbre :</strong> ${row[25]}</p>
                 <p><strong>Potentiel de contagion à d'autres arbres :</strong> ${row[26]}</p>
@@ -60,6 +67,8 @@
                 <p><strong>Mode d'infection :</strong> ${row[30]}</p>
                 <p><strong>Traitements préventifs :</strong> ${row[31]}</p>
                 <p><strong>Traitements curatifs :</strong> ${row[32]}</p>
+            </div>
+            <div class="result-item">
                 <p><strong>Position phylogénétique :</strong><br>
                     ${row[33]}<br>
                     └─${row[34]}<br>
@@ -69,7 +78,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]}</i><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]} ${row[2]}</i><br>
                     </p>
-                <!-- Ajoute d'autres informations ici -->
+             </div>
             `;
         } else {
             document.getElementById('result-details').textContent = 'Aucun résultat trouvé';
