@@ -65,7 +65,7 @@ async function getSheetData() {
 // Fonction pour afficher les résultats
 function displayResults(filteredData) {
   const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = ''; 
+  resultsDiv.innerHTML = ''; // Vider les résultats précédents
 
     // Calculer le nombre total de pages
     const totalPages = Math.ceil(filteredData.length / resultsPerPage);
@@ -79,22 +79,22 @@ function displayResults(filteredData) {
     resultsDiv.innerHTML = '<div class="no-results">Aucun résultat trouvé.</div>';
   } else {
     for (let i = startIndex; i < endIndex; i++) {
-      const row = filteredData[i];
+      const item = filteredData[i];
       const resultHTML = `
         <div class="result-item">
-          <div class="result-nom"><a href="details.html?index=${i}" target="_blank">${row[0]}</a></div>
-          <div class="result-nomlat">${row[1]} ${row[2]}</div>
-          <div class="result-synonyme-famille">
-            <div class="result-synonyme"><b>Synonymes : </b><i>${row[3]}</i></div>
-            <div class="result-famille"><b>Famille : </b><i>${row[37]}</i></div>
-          </div>
-          <div class="result-illustrations">
-            <div class="image-wrapper"><img src="${row[4]}" alt="Illustration"/></div>
-            <div class="image-wrapper"><img src="${row[5]}" alt="Illustration"/></div>
-            <div class="image-wrapper"><img src="${row[6]}" alt="Illustration"/></div>
-            <div class="image-wrapper"><img src="${row[7]}" alt="Illustration"/></div>
-          </div>
-        </div>`;
+                    <div class="result-nom"><a href="details.html?index=${item.originalIndex}" target="_blank">${item.row[0]}</a></div>
+                    <div class="result-nomlat">${item.row[1]} ${item.row[2]}</div>
+                    <div class="result-synonyme-famille">
+                        <div class="result-synonyme"><b>Synonymes : </b><i>${item.row[3]}</i></div>
+                        <div class="result-famille"><b>Famille : </b><i>${item.row[37]}</i></div>
+                    </div>
+                    <div class="result-illustrations">
+                        <div class="image-wrapper"><img src="${item.row[4]}" alt="Illustration"/></div>
+                        <div class="image-wrapper"><img src="${item.row[5]}" alt="Illustration"/></div>
+                        <div class="image-wrapper"><img src="${item.row[6]}" alt="Illustration"/></div>
+                        <div class="image-wrapper"><img src="${item.row[7]}" alt="Illustration"/></div>
+                    </div>
+                </div>`;
       resultsDiv.innerHTML += resultHTML;
     }
 	  
@@ -169,8 +169,10 @@ function applyFilters() {
     console.log('Couleur de l\'hyménium Options:', hymenium_couleurOptions);
     console.log('Couleur de la chair Options:', chair_couleurOptions);
 
-    // Appliquer les filtres avec les options mises à jour
-    let filteredData = allData.filter(checkRow);
+    // Appliquer les filtres avec les options mises à jour et conserver l'index d'origine
+     let filteredData = allData
+        .map((row, index) => ({ row, originalIndex: index })) // Crée un objet avec la ligne et son index d'origine
+        .filter(item => checkRow(item.row)); // Appliquer les filtres sur l'élément "row"
 
     // Mettre à jour l'interface utilisateur
     displayResults(filteredData);
