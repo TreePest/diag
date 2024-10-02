@@ -244,7 +244,7 @@ function applyFilters() {
       'Nématode': ['nematoda'],
       'Vertébré': ['chordata'],
       'Champignon': ['fungi'],
-      'Ascomycète': ['ascomycotya'],
+      'Ascomycète': ['ascomycota'],
       'Basidiomycète': ['basidiomycota'],
       'Pseudo-champignon': ['oomycota'],
       'Plante': ['plantae'],
