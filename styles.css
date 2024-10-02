@@ -43,6 +43,7 @@ body {
     display: flex;
     border-radius: 25px;
     font-size: 1.5em;
+    justify-content: center;
   }
 
   h3 {
