@@ -34,10 +34,7 @@
             // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
             <div class="result-item">
-                <p><strong>Nom :</strong> ${row[0]}</p>
-                <p><strong>Nom latin :</strong> <i>${row[1]} ${row[2]}</i></p>
                 <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
-                <p><strong>Famille :</strong> ${row[37]}</p>
             </div>
             <div class="result-item">
                 <p><strong>Plantes hôtes :</strong> ${row[9]}</p>
