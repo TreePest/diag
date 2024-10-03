@@ -223,7 +223,7 @@ function applyFilters() {
     },
     'symptome': {
       'Écoulement': ['écoul', 'ecoul', 'suint', 'exsudat', 'liquide'],
-      'Décollement décorce': ['décoll', 'ecoul', 'cambium'],
+      'Décollement décorce': ['décoll', 'decoll', 'cambium'],
       'Fissure, chancre, nécrose': ['fissur', 'chancre', 'necro', 'nécro', 'plaie'],
       'Cavité': ['resonn', 'résonn', 'creuse', 'creux', 'cavite', 'cavité'],
       'Galle, déformations ...': ['déform', 'deform', 'courb', 'boursoufl', 'enroul', 'gondol', 'galle'],
