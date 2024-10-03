@@ -117,10 +117,10 @@
           <div class="dropdown">
             <button type="button" onclick="toggleDropdown('zone')" class="dropbtn">Zone affectée ⏷</button>
             <div id="zone" class="dropdown-content">
-              <label><input type="checkbox" value="Racine" onclick="applyFilters()">Racine</label>
-              <label><input type="checkbox" value="Collet" onclick="applyFilters()">Collet</label>
-              <label><input type="checkbox" value="Tronc" onclick="applyFilters()">Tronc</label>
               <label><input type="checkbox" value="Houppier" onclick="applyFilters()">Houppier</label>
+              <label><input type="checkbox" value="Tronc" onclick="applyFilters()">Tronc</label>
+              <label><input type="checkbox" value="Collet" onclick="applyFilters()">Collet</label>
+              <label><input type="checkbox" value="Racine" onclick="applyFilters()">Racine</label>
             </div>
           </div>
         </div>
@@ -167,9 +167,15 @@
           <div class="dropdown" data-single-select="true">
             <button type="button" onclick="toggleDropdown('agencement')" class="dropbtn">Agencement ⏷</button>
             <div id="agencement" class="dropdown-content">
-              <label><input type="checkbox" value="Isolé" onclick="applyFilters()">Isolé</label>
-              <label><input type="checkbox" value="Cespiteux" onclick="applyFilters()">Cespiteux</label>
-              <label><input type="checkbox" value="Empilés" onclick="applyFilters()">Empilés</label>
+              <label><input type="checkbox" value="Isolé" onclick="applyFilters()">
+                <img src="https://picturemushroom.com/wiki-image/1080/154132963112517632.jpeg" alt="Isolé" class="dropdown-icon">
+                Isolé : sporophore unique, ou éloignés les uns des autres</label>
+              <label><input type="checkbox" value="Cespiteux" onclick="applyFilters()">
+                <img src="https://as2.ftcdn.net/v2/jpg/02/71/37/81/1000_F_271378179_saPCdXTJg4taInpzxKTFUPpYjePV8nNq.jpg" alt="Cespiteux" class="dropdown-icon">
+                Cespiteux : plusieurs sporophores en touffe, attachés au substrat au même endroit</label>
+              <label><input type="checkbox" value="Empilés" onclick="applyFilters()">
+                <img src="https://live.staticflickr.com/8610/29696581375_0d3707ce71_b.jpg" alt="Empilés" class="dropdown-icon">
+                Empilés : plusieurs sporophores les uns au dessus des autres</label>
             </div>
           </div>
         </div>
