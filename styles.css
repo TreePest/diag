@@ -12,6 +12,20 @@ body {
     flex: 1;
   }
 
+.banner-warning {
+    background-color: #FFD700; /* Couleur jaune pour attirer l'attention */
+    color: #000; /* Texte en noir */
+    text-align: center; /* Centrer le texte */
+    padding: 10px 20px; /* Espace intérieur */
+    font-weight: bold;
+    font-size: 16px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* S'assurer que la bannière est au-dessus des autres éléments */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour séparer la bannière */
+}
+
   h1, h2, h3 {
     color: white;
     /*justify-content: center;*/
