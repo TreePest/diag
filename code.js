@@ -1,7 +1,7 @@
 // Variables nécessaires
 const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc'; // Remplace par ta clé API
 const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds'; // L'ID de ta feuille Google Sheets
-const RANGE = 'bdd!A3:AN201'; // La plage que tu veux lire (par exemple : 'Sheet1!A1:C10')
+const RANGE = 'bdd!A3:AN203'; // La plage que tu veux lire (par exemple : 'Sheet1!A1:C10')
 
 // URL de l'API Google Sheets
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
