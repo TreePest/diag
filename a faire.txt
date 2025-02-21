@@ -2,8 +2,6 @@
 améliorer les filtres de couleur avec blanc/beige - rouge/roussatre - jaune/jaunatre - vert/verdatre etc...
 j'ai du supprimer une partie pour les dropdown qui ne tolèrent pas le multi choix parce que on peut à nouveau cocher plusieurs checkbox, à corriger
 une solution pour pinus/carpinus ? peut être quelque chose pour exclure un mot clé
-expliciter les symptomes dans le menu déroulant
-mettre des images dans les menus déroulants pour illustrer notamment la morphologie des sporophores 
 si "/" ou rien dans synonyme, alors ne pas afficher "synonymes :", même chose pour "Famille :"
 
 
