@@ -33,6 +33,7 @@
 
             // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
+            <div>
             <table width="60%" style="display: inline-block;">
                 <div class="result-item">
                     <p><strong>Plantes hôtes :</strong> ${row[9]}</p>
@@ -81,6 +82,7 @@
                      <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
                  </div>
              </table>
+             </div>
             `;
         } else {
             document.getElementById('result-details').textContent = 'Aucun résultat trouvé';
