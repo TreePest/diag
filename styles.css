@@ -303,12 +303,10 @@ body {
     margin: 20px auto;
     border-radius: 25px;
     background-color: transparent; /* Pas de couleur de fond */
-    // display: flex;
-    // flex-direction: column;
     align-items: left; /* Centrer horizontalement le contenu */
     width: 50%;
     float: left;
-    margin-left:15%
+    margin-left:17%
 }
 
 .detail-column {
@@ -317,12 +315,10 @@ body {
     margin: 20px auto;
     border-radius: 25px;
     background-color: transparent; /* Pas de couleur de fond */
-    // display: flex;
-    // flex-direction: column;
     align-items: left; /* Centrer horizontalement le contenu */
     width: 15%;
     float: right;
-    margin-right:15%
+    margin-right:17%
 }
 
 .pagination {
