@@ -33,6 +33,7 @@
 
             // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
+              <div class="detail-page">
                 <div class="detail-column">
                      <p><strong>Nom latin :</strong> <i>${row[1]} ${row[2]}</i></p>
                      <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
@@ -77,7 +78,7 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]} ${row[2]}</i><br>
                         </p>
                  </div>
-             
+               </div>
             `;
         } else {
             document.getElementById('result-details').textContent = 'Aucun résultat trouvé';
