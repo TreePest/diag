@@ -33,7 +33,7 @@
 
             // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
-            <table width="60%">
+            <table width="60%" style="display: inline-block;">
                 <div class="result-item">
                     <p><strong>Plantes hôtes :</strong> ${row[9]}</p>
                     <p><strong>Zone affectée :</strong> ${row[10]}</p>
@@ -75,7 +75,7 @@
                         </p>
                  </div>
              </table>
-             <table width="30%">
+             <table width="30%" style="float: left;">
                  <div class="result-item">
                      <p><strong>Nom latin :</strong> <i>${row[1]} ${row[2]}</i></p>
                      <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
