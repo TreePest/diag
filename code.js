@@ -286,37 +286,37 @@ function applyFilters() {
       'Pérenne': ['pérenne', 'perenne']
     },
     'cuticule_couleur': {
-      'Blanc, beige, ou couleur claire': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
-      'Noir, brun, ou couleur foncée': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
-      'Plutôt rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
-      'Plutôt orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
-      'Plutôt jaune ou ocre': ['color', 'jaun', 'ocre', 'orang']
-      'Plutôt vert': ['color', 'jaun', 'bleu', 'ver']
-      'Plutôt bleu': ['color', 'violet', 'bleu', 'ver']
-      'Plutôt violet, mauve ou pourpre': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
-      'Couleurs multiples, ou difficile à définir': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
+      'Blanc': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
+      'Noir': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
+      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
+      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
+      'Jaune': ['color', 'jaun', 'ocre', 'orang']
+      'Vert': ['color', 'jaun', 'bleu', 'ver']
+      'Bleu': ['color', 'violet', 'bleu', 'ver']
+      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
+      'Multicolor': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
     },
     'hymenium_couleur': {
-      'Blanc, beige, ou couleur claire': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
-      'Noir, brun, ou couleur foncée': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
-      'Plutôt rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
-      'Plutôt orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
-      'Plutôt jaune ou ocre': ['color', 'jaun', 'ocre', 'orang']
-      'Plutôt vert': ['color', 'jaun', 'bleu', 'ver']
-      'Plutôt bleu': ['color', 'violet', 'bleu', 'ver']
-      'Plutôt violet, mauve ou pourpre': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
-      'Couleurs multiples, ou difficile à définir': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
+      'Blanc': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
+      'Noir': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
+      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
+      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
+      'Jaune': ['color', 'jaun', 'ocre', 'orang']
+      'Vert': ['color', 'jaun', 'bleu', 'ver']
+      'Bleu': ['color', 'violet', 'bleu', 'ver']
+      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
+      'Multicolor': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
     },
     'chair_couleur': {
-      'Blanc, beige, ou couleur claire': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
-      'Noir, brun, ou couleur foncée': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
-      'Plutôt rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
-      'Plutôt orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
-      'Plutôt jaune ou ocre': ['color', 'jaun', 'ocre', 'orang']
-      'Plutôt vert': ['color', 'jaun', 'bleu', 'ver']
-      'Plutôt bleu': ['color', 'violet', 'bleu', 'ver']
-      'Plutôt violet, mauve ou pourpre': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
-      'Couleurs multiples, ou difficile à définir': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
+      'Blanc': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
+      'Noir': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
+      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
+      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
+      'Jaune': ['color', 'jaun', 'ocre', 'orang']
+      'Vert': ['color', 'jaun', 'bleu', 'ver']
+      'Bleu': ['color', 'violet', 'bleu', 'ver']
+      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
+      'Multicolor': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
     },
   };
 
