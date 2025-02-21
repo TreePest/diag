@@ -297,6 +297,30 @@ body {
     z-index: 1;
 }
 
+.detail-item {
+    border: 2px solid #9BCC8A; /* Bordure verte feuille */
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 25px;
+    background-color: transparent; /* Pas de couleur de fond */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrer horizontalement le contenu */
+    width: 50%;
+}
+
+.detail-column {
+    border: 2px solid #9BCC8A; /* Bordure verte feuille */
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 25px;
+    background-color: transparent; /* Pas de couleur de fond */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrer horizontalement le contenu */
+    width: 15%;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
