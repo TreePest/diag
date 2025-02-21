@@ -3,6 +3,8 @@ améliorer les filtres de couleur avec blanc/beige - rouge/roussatre - jaune/jau
 j'ai du supprimer une partie pour les dropdown qui ne tolèrent pas le multi choix parce que on peut à nouveau cocher plusieurs checkbox, à corriger
 une solution pour pinus/carpinus ? peut être quelque chose pour exclure un mot clé
 si "/" ou rien dans synonyme, alors ne pas afficher "synonymes :", même chose pour "Famille :"
+Faire une page phylogénie avec toute la phylogénie et toutes les espèces
+Faire une page méthodologie sources financements et auteur
 
 
 
