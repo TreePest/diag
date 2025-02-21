@@ -288,7 +288,7 @@ body {
 
 .image-wrapper:hover {
     border-radius: 0; /* Modifie la forme au survol */
-    transform: scale(1); /* Zoom pour agrandir le conteneur au survol */
+    transform: scale(1.5); /* Zoom pour agrandir le conteneur au survol */
     z-index: 1;
 }
 
