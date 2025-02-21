@@ -321,6 +321,10 @@ body {
     margin-right:15%
 }
 
+.detail-column img {
+    width: 100%;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
