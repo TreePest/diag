@@ -306,7 +306,7 @@ body {
     align-items: left; /* Centrer horizontalement le contenu */
     width: 50%;
     float: left;
-    margin-left:17%
+    margin-left:16%
 }
 
 .detail-column {
@@ -318,7 +318,7 @@ body {
     align-items: left; /* Centrer horizontalement le contenu */
     width: 15%;
     float: right;
-    margin-right:17%
+    margin-right:16%
 }
 
 .pagination {
