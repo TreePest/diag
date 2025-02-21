@@ -1,5 +1,4 @@
 (changer le filtre taille en un menu déroulant avec des fourchettes de 10 en 10) pas forcement
-améliorer les filtres de couleur avec blanc/beige - rouge/roussatre - jaune/jaunatre - vert/verdatre etc...
 j'ai du supprimer une partie pour les dropdown qui ne tolèrent pas le multi choix parce que on peut à nouveau cocher plusieurs checkbox, à corriger
 une solution pour pinus/carpinus ? peut être quelque chose pour exclure un mot clé
 si "/" ou rien dans synonyme, alors ne pas afficher "synonymes :", même chose pour "Famille :"
