@@ -297,6 +297,16 @@ body {
     z-index: 1;
 }
 
+.detail-page {
+    padding: 10px;
+    margin: 20px auto;
+    background-color: transparent; /* Pas de couleur de fond */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrer horizontalement le contenu */
+    width: 70%;
+}
+
 .detail-item {
     border: 2px solid #9BCC8A; /* Bordure verte feuille */
     padding: 10px;
