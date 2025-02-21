@@ -34,21 +34,32 @@
             // Modifier dynamiquement le contenu de la page
             document.getElementById('result-details').innerHTML = `
                 <div class="detail-column">
-                     <h3><strong>Nom latin :</strong> <i>${row[1]} ${row[2]}</i></h3>
-                     <p><img src="${row[4]}" alt="Illustration"/>
-                     <img src="${row[5]}" alt="Illustration"/>
-                     <img src="${row[6]}" alt="Illustration"/>
-                     <img src="${row[7]}" alt="Illustration"/></p>
-                     <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
+                     <p><strong><i>${row[1]} ${row[2]}</i></strong></p>
+                     <p><img src="${row[4]}" alt="Illustration"/></p>
+                     <p><strong>Position phylogénétique :</strong><br>
+                        ${row[33]}<br>
+                        └─${row[34]}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[35]}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[36]}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[37]}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]}</i><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]} ${row[2]}</i><br>
+                        <p><strong>Synonymes :</strong> <i>${row[3] || 'Aucun'}</i></p>
+                    </p>
                 </div>
                 <div class="detail-item">
+                    <h3>Description</h3>
                     <p><strong>Plantes hôtes :</strong> ${row[9]}</p>
                     <p><strong>Zone affectée :</strong> ${row[10]}</p>
                     <p><strong>Structure affectée :</strong> ${row[11]}</p>
                     <p><strong>Symptômes :</strong> ${row[12]}</p>
                     <p><strong>Partie visible du parasite :</strong> ${row[13]}</p>
+                    <p><img src="${row[5]}" alt="Illustration"/></p>
+                    <p><img src="${row[6]}" alt="Illustration"/></p>
+                    <p><img src="${row[7]}" alt="Illustration"/></p>
                 </div>
                 <div class="detail-item">
+                    <h3>Écologie</h3>
                     <p><strong>Pérennité du sporophore :</strong> ${row[14]}</p>
                     <p><strong>Forme du chapeau :</strong> ${row[15]}</p>
                     <p><strong>Anneau :</strong> ${row[17]}</p>
@@ -60,6 +71,7 @@
                     <p><strong>Couleur de la chair :</strong> ${row[23]}</p>
                 </div>
                 <div class="detail-item">
+                    <h3>Symptômes</h3>
                     <p><strong>Gravité sur la vigueur de l'arbre :</strong> ${row[24]}</p>
                     <p><strong>Gravité sur la tenue mécanique de l'arbre :</strong> ${row[25]}</p>
                     <p><strong>Potentiel de contagion à d'autres arbres :</strong> ${row[26]}</p>
@@ -70,17 +82,7 @@
                     <p><strong>Traitements préventifs :</strong> ${row[31]}</p>
                     <p><strong>Traitements curatifs :</strong> ${row[32]}</p>
                 </div>
-                <div class="detail-item">
-                    <p><strong>Position phylogénétique :</strong><br>
-                        ${row[33]}<br>
-                        └─${row[34]}<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[35]}<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[36]}<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─${row[37]}<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]}</i><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─<i>${row[1]} ${row[2]}</i><br>
-                    </p>
-                 </div>
+
             `;
         } else {
             document.getElementById('result-details').textContent = 'Aucun résultat trouvé';
