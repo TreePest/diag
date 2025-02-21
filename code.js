@@ -288,34 +288,34 @@ function applyFilters() {
     'cuticule_couleur': {
       'Blanc': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
       'Noir': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
-      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
-      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
-      'Jaune': ['color', 'jaun', 'ocre', 'orang']
-      'Vert': ['color', 'jaun', 'bleu', 'ver']
-      'Bleu': ['color', 'violet', 'bleu', 'ver']
-      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
+      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv'],
+      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang'],
+      'Jaune': ['color', 'jaun', 'ocre', 'orang'],
+      'Vert': ['color', 'jaun', 'bleu', 'ver'],
+      'Bleu': ['color', 'violet', 'bleu', 'ver'],
+      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv'],
       'Multicolor': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
     },
     'hymenium_couleur': {
       'Blanc': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
       'Noir': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
-      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
-      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
-      'Jaune': ['color', 'jaun', 'ocre', 'orang']
-      'Vert': ['color', 'jaun', 'bleu', 'ver']
-      'Bleu': ['color', 'violet', 'bleu', 'ver']
-      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
+      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv'],
+      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang'],
+      'Jaune': ['color', 'jaun', 'ocre', 'orang'],
+      'Vert': ['color', 'jaun', 'bleu', 'ver'],
+      'Bleu': ['color', 'violet', 'bleu', 'ver'],
+      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv'],
       'Multicolor': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
     },
     'chair_couleur': {
       'Blanc': ['clair', 'blanc', 'crème', 'creme', 'pale', 'gris', 'beige'],
       'Noir': ['foncé', 'fonce', 'noir', 'marron', 'brun'],
-      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv']
-      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang']
-      'Jaune': ['color', 'jaun', 'ocre', 'orang']
-      'Vert': ['color', 'jaun', 'bleu', 'ver']
-      'Bleu': ['color', 'violet', 'bleu', 'ver']
-      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv']
+      'Rouge': ['color', 'roug', 'violet', 'ocre', 'pourpre', 'orang', 'mauv'],
+      'Orange': ['color', 'jaun', 'roug', 'ocre', 'orang'],
+      'Jaune': ['color', 'jaun', 'ocre', 'orang'],
+      'Vert': ['color', 'jaun', 'bleu', 'ver'],
+      'Bleu': ['color', 'violet', 'bleu', 'ver'],
+      'Violet': ['color', 'roug', 'violet', 'bleu', 'pourpre', 'mauv'],
       'Multicolor': ['color', 'jaun', 'roug', 'violet', 'bleu', 'ocre', 'pourpre', 'ver', 'orang', 'mauv']
     },
   };
