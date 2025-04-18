@@ -1,25 +1,33 @@
-// Récupérer l'index de la ligne à partir de l'URL
+const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc';
+const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds';
+const RANGE = 'bdd!A3:AN203';
+
+const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+
 const params = new URLSearchParams(window.location.search);
-const resultIndex = params.get('index');
-
-// Récupérer les données depuis Local Storage
-const allData = JSON.parse(localStorage.getItem('allData'));
-
-// Récupérer l'élément où afficher les détails
+const especeParam = params.get('espece'); // Ex: Inonotus_hispidus
 const detailsContainer = document.getElementById('result-details');
+const titleContainer = document.getElementById('result-title');
 
-// Vérifier que les données existent et que l'index est valide
-if (allData && resultIndex !== null && allData[resultIndex]) {
-    const row = allData[resultIndex];
+if (especeParam) {
+    const [genreParam, especeNom] = especeParam.split('_');
 
-    // Modifier dynamiquement le titre de l'onglet avec le nom latin
-    document.title = `${row[1]} ${row[2]} - TreePestDiag Fiche espèce`;
+    fetch(URL)
+        .then(response => response.json())
+        .then(data => {
+            const rows = data.values;
+            const row = rows.find(r => r[1] === genreParam && r[2] === especeNom);
+
+            if (row) {
+                // Modifier dynamiquement le titre de l’onglet
+                document.title = `${row[1]} ${row[2]} - TreePestDiag Fiche espèce`;
 
     // Modifier dynamiquement le titre h1
     document.getElementById('result-title').innerHTML = `
         <div>${row[0]}</div>
         <div><i>${row[1]} ${row[2]}</i></div>
     `;
+              
 
     // Construire dynamiquement le contenu HTML
     let descriptionContent = `
