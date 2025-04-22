@@ -121,6 +121,4 @@ function afficherDetails() {
             <p><strong>Traitements curatifs :</strong> ${row[32]}</p>
         </div>
     `;
-} else {
-    detailsContainer.textContent = 'Aucun résultat trouvé';
-}
+} 
