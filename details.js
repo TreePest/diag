@@ -1,16 +1,48 @@
+const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc';
+const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds';
+const RANGE = 'bdd!A3:AN203';
+
+const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+
 // Récupérer l'index de la ligne à partir de l'URL
 const params = new URLSearchParams(window.location.search);
-const resultIndex = params.get('index');
+const especeParam = params.get('espece'); // ex : "Inonotus_hispidus"
 
 // Récupérer les données depuis Local Storage
-const allData = JSON.parse(localStorage.getItem('allData'));
+let allData = [];
+
+fetch(URL)
+  .then(response => response.json())
+  .then(data => {
+    allData = data.values;
+    afficherDetails(); // on appelle une fonction une fois les données chargées
+  })
+  .catch(error => {
+    console.error("Erreur de chargement de la BDD :", error);
+    detailsContainer.innerHTML = "<p>Erreur de chargement des données.</p>";
+  });
 
 // Récupérer l'élément où afficher les détails
 const detailsContainer = document.getElementById('result-details');
 
-// Vérifier que les données existent et que l'index est valide
-if (allData && resultIndex !== null && allData[resultIndex]) {
-    const row = allData[resultIndex];
+function afficherDetails() {
+  if (!especeParam) {
+    detailsContainer.innerHTML = "<p>Espèce non spécifiée dans l'URL.</p>";
+    return;
+  }
+
+  const [genreURL, especeURL] = especeParam.split("_");
+
+  // Chercher la ligne dans allData qui correspond au genre + espèce
+  const row = allData.find(r => 
+    r[1].toLowerCase() === genreURL.toLowerCase() &&
+    r[2].toLowerCase() === especeURL.toLowerCase()
+  );
+
+  if (!row) {
+    detailsContainer.innerHTML = `<p>Espèce "${especeParam}" non trouvée dans la base de données.</p>`;
+    return;
+  }
 
     // Modifier dynamiquement le titre de l'onglet avec le nom latin
     document.title = `${row[1]} ${row[2]} - TreePestDiag Fiche espèce`;
