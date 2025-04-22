@@ -57,7 +57,7 @@ function afficherDetails() {
     let descriptionContent = `
   <h3>Description</h3>
   <p><strong>Partie visible du parasite :</strong> ${row[13]}</p>
-  <p><strong>Anneau :</strong> ${row[17]}</p>
+  
 `;
 
 // Afficher les infos sur les sporophores uniquement si la taille est renseignée
@@ -65,6 +65,7 @@ if (row[18] && row[18].trim() !== '') {
   descriptionContent += `
     <p><strong>Pérennité du sporophore :</strong> ${row[14]}</p>
     <p><strong>Forme du chapeau :</strong> ${row[15]}</p>
+    <p><strong>Anneau :</strong> ${row[17]}</p>
     <p><strong>Taille maximum du sporophore :</strong> ${row[18]}</p>
     <p><strong>Agencement des sporophores :</strong> ${row[19]}</p>
     <p><strong>Structure de l'hyménium :</strong> ${row[20]}</p>
