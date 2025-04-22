@@ -120,5 +120,13 @@ function afficherDetails() {
             <p><strong>Traitements préventifs :</strong> ${row[31]}</p>
             <p><strong>Traitements curatifs :</strong> ${row[32]}</p>
         </div>
+        <div class="detail-item">
+            <h3>Sources et liens</h3>
+            <p><strong>Sources :</strong> ${row[42]}</p>
+            <p><strong>Page Mycobank :</strong> ${row[40]}</p>
+            <p><strong>Page wiki :</strong> ${row[41]}</p>
+            <p><strong>La base de données est en cours de développement, les données de chaque fiche doivent encore être vérifiées et sourcées.</strong></p>
+            <p><strong>Statut actuel de cette fiche :</strong> ${row[43]}</p>
+        </div>
     `;
 } 
