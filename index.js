@@ -1,7 +1,7 @@
 // Variables nécessaires
 const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc'; // Remplace par ta clé API
 const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds'; // L'ID de ta feuille Google Sheets
-const RANGE = 'bdd!A3:AN203'; // La plage que tu veux lire (par exemple : 'Sheet1!A1:C10')
+const RANGE = 'bdd!A3:AR207'; // La plage que tu veux lire (par exemple : 'Sheet1!A1:C10')
 
 // URL de l'API Google Sheets
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
@@ -82,7 +82,7 @@ function displayResults(filteredData) {
       const item = filteredData[i];
       const resultHTML = `
         <div class="result-item">
-                    <div class="result-nom"><a href="details.html?index=${item.originalIndex}" target="_blank">${item.row[0]}</a></div>
+                    <div class="result-nom"><a href="details.html?espece=${encodeURIComponent(item.row[1] + '_' + item.row[2])}" target="_blank">${item.row[0]}</a></div>
                     <div class="result-nomlat">${item.row[1]} ${item.row[2]}</div>
                     <div class="result-synonyme-famille">
                         <div class="result-synonyme"><b>Synonymes : </b><i>${item.row[3]}</i></div>
