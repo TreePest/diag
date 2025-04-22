@@ -54,10 +54,9 @@ function afficherDetails() {
     `;
 
     // Construire dynamiquement le contenu HTML
-    let descriptionContent = `
+let descriptionContent = `
   <h3>Description</h3>
   <p><strong>Partie visible du parasite :</strong> ${row[13]}</p>
-  
 `;
 
 // Afficher les infos sur les sporophores uniquement si la taille est renseignée
@@ -74,12 +73,15 @@ if (row[18] && row[18].trim() !== '') {
     <p><strong>Couleur de la chair :</strong> ${row[23]}</p>
   `;
 }
-        <p>
-            <img src="${row[5]}" alt="Illustration"/>
-            <img src="${row[6]}" alt="Illustration"/>
-            <img src="${row[7]}" alt="Illustration"/>
-        </p>
-    `;
+
+// Ajouter les images à la suite
+descriptionContent += `
+  <p>
+    <img src="${row[5]}" alt="Illustration"/>
+    <img src="${row[6]}" alt="Illustration"/>
+    <img src="${row[7]}" alt="Illustration"/>
+  </p>
+`;
 
     // Insérer tout le contenu dans la page
     detailsContainer.innerHTML = `
