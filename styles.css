@@ -373,3 +373,11 @@ footer {
     color: #f8f9fa; /* Couleur du texte */
 }
 
+.phylogenie {
+  overflow-x: auto;       /* Permet un scroll horizontal si trop large */
+  white-space: pre;       /* Empêche la césure ou le wrapping */
+  font-family: monospace; /* Assure l’alignement des caractères */
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 4px;
+}
