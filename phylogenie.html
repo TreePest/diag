@@ -1,3 +1,71 @@
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Arbre interactif</title>
+  <style>
+    ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+    .toggle {
+      cursor: pointer;
+      user-select: none;
+    }
+    .nested {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Arbre taxonomique</h2>
+<ul>
+  <li>
+    <span class="toggle">▶ Basidiomycota</span>
+    <ul class="nested">
+      <li>
+        <span class="toggle">▶ Agaricomycetes</span>
+        <ul class="nested">
+          <li>
+            <span class="toggle">▶ Agaricales</span>
+            <ul class="nested">
+              <li>
+                <span class="toggle">▶ Agaricaceae</span>
+                <ul class="nested">
+                  <li>Coprinellus micaceus</li>
+                  <li>Coprinopsis atramentaria</li>
+                  <li>Coprinus comatus</li>
+                </ul>
+              </li>
+              <!-- D'autres familles ici -->
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<script>
+  const toggles = document.querySelectorAll(".toggle");
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", function() {
+      this.classList.toggle("expanded");
+      const nested = this.nextElementSibling;
+      if (nested) nested.classList.toggle("active");
+      this.textContent = this.textContent.startsWith("▶")
+        ? this.textContent.replace("▶", "▼")
+        : this.textContent.replace("▼", "▶");
+    });
+  });
+</script>
+
+</body>
+</html>
+
 <pre class="phylogenie">
 Life
 ├── Eukaryota
