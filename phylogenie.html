@@ -22,6 +22,7 @@
 <body>
 
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
+<pre class="phylogenie">
 <ul>
   <li>
     <span class="toggle">▶ Basidiomycota</span>
@@ -49,24 +50,8 @@
   </li>
 </ul>
 
-<script>
-  const toggles = document.querySelectorAll(".toggle");
-  toggles.forEach(toggle => {
-    toggle.addEventListener("click", function() {
-      this.classList.toggle("expanded");
-      const nested = this.nextElementSibling;
-      if (nested) nested.classList.toggle("active");
-      this.textContent = this.textContent.startsWith("▶")
-        ? this.textContent.replace("▶", "▼")
-        : this.textContent.replace("▼", "▶");
-    });
-  });
-</script>
 
-</body>
-</html>
 
-<pre class="phylogenie">
 Life
 ├── Eukaryota
 │   ├── Bikonta
@@ -622,3 +607,22 @@ Virus
                 └── Potyvirus
                     └── Plum Pox Virus
 </pre>
+
+
+
+<script>
+  const toggles = document.querySelectorAll(".toggle");
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", function() {
+      this.classList.toggle("expanded");
+      const nested = this.nextElementSibling;
+      if (nested) nested.classList.toggle("active");
+      this.textContent = this.textContent.startsWith("▶")
+        ? this.textContent.replace("▶", "▼")
+        : this.textContent.replace("▼", "▶");
+    });
+  });
+</script>
+
+</body>
+</html>
