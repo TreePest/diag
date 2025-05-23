@@ -3,18 +3,62 @@
   <meta charset="UTF-8">
   <title>Phylogénie</title>
   <style>
-    ul {
-      list-style-type: none;
-      padding-left: 20px;
+    body {
+      font-family: monospace;
+      font-size: 14px;
     }
+
+    ul.tree, ul.tree ul {
+      list-style-type: none;
+      margin: 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    ul.tree ul::before {
+      content: "";
+      border-left: 1px solid #999;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 10px;
+    }
+
+    ul.tree li {
+      position: relative;
+      margin: 0;
+      padding: 5px 0 5px 20px;
+    }
+
+    ul.tree li::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: 0;
+      width: 10px;
+      border-top: 1px solid #999;
+    }
+
     .toggle {
       cursor: pointer;
       user-select: none;
     }
+
+    .toggle::before {
+      content: "▶ ";
+      display: inline-block;
+      width: 1em;
+    }
+
+    .toggle.expanded::before {
+      content: "▼ ";
+    }
+
     .nested {
       display: none;
     }
-    .active {
+
+    .nested.active {
       display: block;
     }
   </style>
@@ -23,25 +67,32 @@
 
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 <pre class="phylogenie">
-<ul>
+<ul class="tree">
   <li>
-    <span class="toggle">▶ Basidiomycota</span>
+    <span class="toggle">Basidiomycota</span>
     <ul class="nested">
       <li>
-        <span class="toggle">▶ Agaricomycetes</span>
+        <span class="toggle">Agaricomycetes</span>
         <ul class="nested">
           <li>
-            <span class="toggle">▶ Agaricales</span>
+            <span class="toggle">Agaricales</span>
             <ul class="nested">
               <li>
-                <span class="toggle">▶ Agaricaceae</span>
+                <span class="toggle">Agaricaceae</span>
                 <ul class="nested">
                   <li>Coprinellus micaceus</li>
                   <li>Coprinopsis atramentaria</li>
                   <li>Coprinus comatus</li>
                 </ul>
               </li>
-              <!-- D'autres familles ici -->
+              <li>
+                <span class="toggle">Physalacriaceae</span>
+                <ul class="nested">
+                  <li>Armillaria mellea</li>
+                  <li>Armillaria ostoyae</li>
+                  <li>Armillaria tabescens</li>
+                </ul>
+              </li>
             </ul>
           </li>
         </ul>
@@ -611,15 +662,11 @@ Virus
 
 
 <script>
-  const toggles = document.querySelectorAll(".toggle");
-  toggles.forEach(toggle => {
-    toggle.addEventListener("click", function() {
-      this.classList.toggle("expanded");
-      const nested = this.nextElementSibling;
+  document.querySelectorAll(".toggle").forEach(el => {
+    el.addEventListener("click", () => {
+      el.classList.toggle("expanded");
+      const nested = el.nextElementSibling;
       if (nested) nested.classList.toggle("active");
-      this.textContent = this.textContent.startsWith("▶")
-        ? this.textContent.replace("▶", "▼")
-        : this.textContent.replace("▼", "▶");
     });
   });
 </script>
