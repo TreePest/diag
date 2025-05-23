@@ -5,39 +5,30 @@
   <style>
     body {
       font-family: monospace;
+      font-size: 14px;
+      line-height: 1;
+      margin: 0;
+      padding: 10px;
       white-space: pre;
-      margin: 0;
     }
-
-    .line {
-      display: block;
+    .node {
       position: relative;
-      margin: 0;
-      padding: 0;
-      line-height: 1.1;
     }
-
-    .toggle {
-      cursor: pointer;
-    }
-
     .arrow {
-      position: absolute;
-      right: 0;
-      transition: transform 0.2s ease;
-      font-size: 1.2em;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.2s;
+      font-size: 18px;
+      margin-left: 6px;
     }
-
-    .collapsed .arrow {
-      transform: rotate(-90deg);
+    .arrow.expanded {
+      transform: rotate(90deg);
     }
-
     .children {
-      display: block;
-    }
-
-    .collapsed + .children {
       display: none;
+    }
+    .children.visible {
+      display: block;
     }
   </style>
 </head>
@@ -45,29 +36,23 @@
 
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<div class="line toggle">
-  └── Basidiomycota       <span class="arrow">▾</span>
-</div>
-<div class="children">
-  <div class="line toggle">
-    └── Agaricomycetes     <span class="arrow">▾</span>
-  </div>
-  <div class="children">
-    <div class="line toggle">
-      └── Agaricales       <span class="arrow">▾</span>
-    </div>
-    <div class="children">
-      <div class="line toggle">
-        ├── Agaricaceae     <span class="arrow">▾</span>
-      </div>
-      <div class="children">
-        <div class="line">│   ├── Coprinellus micaceus</div>
-        <div class="line">│   ├── Coprinopsis atramentaria</div>
-        <div class="line">│   └── Coprinus comatus</div>
-      </div>
-    </div>
-  </div>
-</div>
+<pre>
+<span class="node">│   ├── Basidiomycota<span class="arrow" onclick="toggle(this)">▶</span>
+<span class="children">
+│   │   ├── Agaricomycetes
+│   │   │   ├── Agaricales
+│   │   │   │   ├── Agaricaceae
+│   │   │   │   │   └── Coprinellus micaceus
+│   │   │   │   │   └── Coprinopsis atramentaria
+│   │   │   │   │   └── Coprinus comatus
+│   │   │   │   ├── Physalacriaceae
+│   │   │   │   │   └── Armillaria mellea
+│   │   │   │   │   └── Armillaria ostoyae
+│   │   │   │   │   └── Armillaria tabescens
+│   │   │   │   │   └── Oudemansiella mucida
+</span>
+</span>
+</pre>
 
 
 <pre>
@@ -630,11 +615,13 @@ Virus
 
 
 <script>
-  document.querySelectorAll('.toggle').forEach(el => {
-    el.addEventListener('click', () => {
-      el.classList.toggle('collapsed');
-    });
-  });
+  function toggle(el) {
+    el.classList.toggle("expanded");
+    const children = el.parentNode.querySelector(".children");
+    if (children) {
+      children.classList.toggle("visible");
+    }
+  }
 </script>
 
 </body>
