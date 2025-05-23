@@ -5,89 +5,88 @@
   <style>
     body {
       font-family: monospace;
-      font-size: 14px;
+      line-height: 1.2;
     }
 
     ul.tree, ul.tree ul {
-      list-style-type: none;
-      margin: 0;
+      list-style: none;
       padding-left: 20px;
       position: relative;
+      margin: 0;
     }
 
     ul.tree ul::before {
       content: "";
-      border-left: 1px solid #999;
       position: absolute;
       top: 0;
-      bottom: 0;
       left: 10px;
+      bottom: 0;
+      width: 1px;
+      background: #000;
     }
 
-    ul.tree li {
-      position: relative;
+    .tree li {
       margin: 0;
-      padding: 5px 0 5px 20px;
+      padding: 4px 0 4px 20px;
+      position: relative;
     }
 
-    ul.tree li::before {
+    .tree li::before {
       content: "";
       position: absolute;
-      top: 12px;
+      top: 0.9em;
       left: 0;
       width: 10px;
-      border-top: 1px solid #999;
+      height: 1px;
+      background: #000;
     }
 
     .toggle {
       cursor: pointer;
-      user-select: none;
+      font-weight: bold;
     }
 
-    .toggle::before {
-      content: "▶ ";
-      display: inline-block;
-      width: 1em;
-    }
-
-    .toggle.expanded::before {
-      content: "▼ ";
-    }
-
-    .nested {
+    .collapsed > ul {
       display: none;
     }
 
-    .nested.active {
-      display: block;
+    .caret::before {
+      content: "▶ ";
+      display: inline-block;
+      transform: rotate(0deg);
+      transition: transform 0.2s;
+    }
+
+    .expanded > .caret::before {
+      transform: rotate(90deg);
     }
   </style>
 </head>
 <body>
 
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
-<pre class="phylogenie">
+
 <ul class="tree">
-  <li>
-    <span class="toggle">Basidiomycota</span>
-    <ul class="nested">
-      <li>
-        <span class="toggle">Agaricomycetes</span>
-        <ul class="nested">
-          <li>
-            <span class="toggle">Agaricales</span>
-            <ul class="nested">
-              <li>
-                <span class="toggle">Agaricaceae</span>
-                <ul class="nested">
+  <li class="expanded">
+    <span class="toggle caret">Basidiomycota</span>
+    <ul>
+      <li class="expanded">
+        <span class="toggle caret">Agaricomycetes</span>
+        <ul>
+          <li class="expanded">
+            <span class="toggle caret">Agaricales</span>
+            <ul>
+              <li class="expanded">
+                <span class="toggle caret">Agaricaceae</span>
+                <ul>
                   <li>Coprinellus micaceus</li>
                   <li>Coprinopsis atramentaria</li>
                   <li>Coprinus comatus</li>
                 </ul>
               </li>
-              <li>
-                <span class="toggle">Physalacriaceae</span>
-                <ul class="nested">
+              <li class="expanded">
+                <span class="toggle caret">Physalacriaceae</span>
+                <ul>
                   <li>Armillaria mellea</li>
                   <li>Armillaria ostoyae</li>
                   <li>Armillaria tabescens</li>
@@ -102,7 +101,7 @@
 </ul>
 
 
-
+<pre class="phylogenie">
 Life
 ├── Eukaryota
 │   ├── Bikonta
@@ -662,11 +661,11 @@ Virus
 
 
 <script>
-  document.querySelectorAll(".toggle").forEach(el => {
-    el.addEventListener("click", () => {
-      el.classList.toggle("expanded");
-      const nested = el.nextElementSibling;
-      if (nested) nested.classList.toggle("active");
+  document.querySelectorAll('.toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const li = toggle.parentElement;
+      li.classList.toggle('collapsed');
+      li.classList.toggle('expanded');
     });
   });
 </script>
