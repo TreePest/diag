@@ -6,7 +6,7 @@
     body {
       font-family: monospace;
       white-space: pre;
-      line-height: 1; /* réduit l’interligne pour que les traits se touchent */
+      margin: 20px;
     }
 
     ul {
@@ -15,24 +15,30 @@
       padding: 0;
     }
 
+    li {
+      margin: 0;
+      line-height: 1; /* important */
+    }
+
     .node {
       cursor: pointer;
+      display: inline-block;
       user-select: none;
     }
 
-    .node::before {
-      content: '▸ ';
+    .node .arrow {
       display: inline-block;
       transform: rotate(0deg);
       transition: transform 0.2s ease;
-    }
-
-    .expanded > .node::before {
-      content: '▾ ';
+      margin-left: 4px;
     }
 
     .collapsed > ul {
       display: none;
+    }
+
+    .collapsed > .node .arrow {
+      transform: rotate(-90deg);
     }
   </style>
 </head>
@@ -42,16 +48,16 @@
 
 <ul>
   <li class="expanded">
-    <span class="node">└── Basidiomycota</span>
+    <span class="node">└── Basidiomycota<span class="arrow">▾</span></span>
     <ul>
       <li class="expanded">
-        <span class="node">    └── Agaricomycetes</span>
+        <span class="node">    └── Agaricomycetes<span class="arrow">▾</span></span>
         <ul>
           <li class="expanded">
-            <span class="node">        └── Agaricales</span>
+            <span class="node">        └── Agaricales<span class="arrow">▾</span></span>
             <ul>
               <li class="expanded">
-                <span class="node">            ├── Agaricaceae</span>
+                <span class="node">            ├── Agaricaceae<span class="arrow">▾</span></span>
                 <ul>
                   <li>            │   ├── Coprinellus micaceus</li>
                   <li>            │   ├── Coprinopsis atramentaria</li>
@@ -59,7 +65,7 @@
                 </ul>
               </li>
               <li class="expanded">
-                <span class="node">            └── Physalacriaceae</span>
+                <span class="node">            └── Physalacriaceae<span class="arrow">▾</span></span>
                 <ul>
                   <li>                ├── Armillaria mellea</li>
                   <li>                ├── Armillaria ostoyae</li>
