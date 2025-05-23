@@ -5,17 +5,32 @@
   <style>
     body {
       font-family: monospace;
-      white-space: pre; /* très important pour garder la mise en forme ASCII */
+      white-space: pre;
+      line-height: 1; /* réduit l’interligne pour que les traits se touchent */
     }
-    .toggle {
-      cursor: pointer;
-      font-weight: bold;
-    }
+
     ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
+
+    .node {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .node::before {
+      content: '▸ ';
+      display: inline-block;
+      transform: rotate(0deg);
+      transition: transform 0.2s ease;
+    }
+
+    .expanded > .node::before {
+      content: '▾ ';
+    }
+
     .collapsed > ul {
       display: none;
     }
@@ -27,16 +42,16 @@
 
 <ul>
   <li class="expanded">
-    <span class="toggle">└── Basidiomycota</span>
+    <span class="node">└── Basidiomycota</span>
     <ul>
       <li class="expanded">
-        <span class="toggle">    └── Agaricomycetes</span>
+        <span class="node">    └── Agaricomycetes</span>
         <ul>
           <li class="expanded">
-            <span class="toggle">        └── Agaricales</span>
+            <span class="node">        └── Agaricales</span>
             <ul>
               <li class="expanded">
-                <span class="toggle">            ├── Agaricaceae</span>
+                <span class="node">            ├── Agaricaceae</span>
                 <ul>
                   <li>            │   ├── Coprinellus micaceus</li>
                   <li>            │   ├── Coprinopsis atramentaria</li>
@@ -44,7 +59,7 @@
                 </ul>
               </li>
               <li class="expanded">
-                <span class="toggle">            └── Physalacriaceae</span>
+                <span class="node">            └── Physalacriaceae</span>
                 <ul>
                   <li>                ├── Armillaria mellea</li>
                   <li>                ├── Armillaria ostoyae</li>
@@ -620,7 +635,7 @@ Virus
 
 
 <script>
-  document.querySelectorAll('.toggle').forEach(el => {
+  document.querySelectorAll('.node').forEach(el => {
     el.addEventListener('click', () => {
       const li = el.parentElement;
       li.classList.toggle('collapsed');
