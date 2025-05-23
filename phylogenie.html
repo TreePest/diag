@@ -6,19 +6,26 @@
     body {
       font-family: monospace;
       white-space: pre;
+      margin: 0;
+    }
+
+    .line {
+      display: block;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
     }
 
     .toggle {
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      line-height: 1;
     }
 
     .arrow {
-      font-size: 1.6em;
-      margin-left: 5px;
+      position: absolute;
+      right: 0;
       transition: transform 0.2s ease;
+      font-size: 1.6em;
     }
 
     .collapsed .arrow {
@@ -32,35 +39,31 @@
     .collapsed + .children {
       display: none;
     }
-
-    pre {
-      margin: 0;
-    }
   </style>
 </head>
 <body>
 
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<div class="toggle">
-  <pre>└── Basidiomycota</pre><span class="arrow">▾</span>
+<div class="line toggle">
+  └── Basidiomycota       <span class="arrow">▾</span>
 </div>
 <div class="children">
-  <div class="toggle">
-    <pre>    └── Agaricomycetes</pre><span class="arrow">▾</span>
+  <div class="line toggle">
+    └── Agaricomycetes     <span class="arrow">▾</span>
   </div>
   <div class="children">
-    <div class="toggle">
-      <pre>        └── Agaricales</pre><span class="arrow">▾</span>
+    <div class="line toggle">
+      └── Agaricales       <span class="arrow">▾</span>
     </div>
     <div class="children">
-      <div class="toggle">
-        <pre>            ├── Agaricaceae</pre><span class="arrow">▾</span>
+      <div class="line toggle">
+        ├── Agaricaceae     <span class="arrow">▾</span>
       </div>
       <div class="children">
-        <pre>            │   ├── Coprinellus micaceus</pre>
-        <pre>            │   ├── Coprinopsis atramentaria</pre>
-        <pre>            │   └── Coprinus comatus</pre>
+        <div class="line">│   ├── Coprinellus micaceus</div>
+        <div class="line">│   ├── Coprinopsis atramentaria</div>
+        <div class="line">│   └── Coprinus comatus</div>
       </div>
     </div>
   </div>
