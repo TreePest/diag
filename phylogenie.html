@@ -15,7 +15,8 @@
 
     .arrow {
       display: inline-block;
-      transform: rotate(0deg);
+      font-size: 1.2em;
+      margin-left: 5px;
       transition: transform 0.2s ease;
     }
 
@@ -41,23 +42,23 @@
 
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<pre><span class="node"><span class="arrow">▾</span> └── Basidiomycota</span></pre>
+<pre><span class="node">└── Basidiomycota <span class="arrow">▾</span></span></pre>
 <div class="children">
-  <pre><span class="node"><span class="arrow">▾</span>     └── Agaricomycetes</span></pre>
+  <pre><span class="node">    └── Agaricomycetes <span class="arrow">▾</span></span></pre>
   <div class="children">
-    <pre><span class="node"><span class="arrow">▾</span>         └── Agaricales</span></pre>
+    <pre><span class="node">        └── Agaricales <span class="arrow">▾</span></span></pre>
     <div class="children">
-      <pre><span class="node"><span class="arrow">▾</span>             ├── Agaricaceae</span></pre>
+      <pre><span class="node">            ├── Agaricaceae <span class="arrow">▾</span></span></pre>
       <div class="children">
-        <pre>             │   ├── Coprinellus micaceus</pre>
-        <pre>             │   ├── Coprinopsis atramentaria</pre>
-        <pre>             │   └── Coprinus comatus</pre>
+        <pre>            │   ├── Coprinellus micaceus</pre>
+        <pre>            │   ├── Coprinopsis atramentaria</pre>
+        <pre>            │   └── Coprinus comatus</pre>
       </div>
-      <pre><span class="node"><span class="arrow">▾</span>             └── Physalacriaceae</span></pre>
+      <pre><span class="node">            └── Physalacriaceae <span class="arrow">▾</span></span></pre>
       <div class="children">
-        <pre>                 ├── Armillaria mellea</pre>
-        <pre>                 ├── Armillaria ostoyae</pre>
-        <pre>                 └── Armillaria tabescens</pre>
+        <pre>                ├── Armillaria mellea</pre>
+        <pre>                ├── Armillaria ostoyae</pre>
+        <pre>                └── Armillaria tabescens</pre>
       </div>
     </div>
   </div>
@@ -626,8 +627,7 @@ Virus
 <script>
   document.querySelectorAll('.node').forEach(el => {
     el.addEventListener('click', () => {
-      const parent = el.parentElement;
-      parent.classList.toggle('collapsed');
+      el.parentElement.classList.toggle('collapsed');
     });
   });
 </script>
