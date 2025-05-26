@@ -646,31 +646,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Ajout des boutons [+]/[-]
   nodes.forEach((node, index) => {
-    const nextIndent = nodes[index + 1]?.indent;
-    if (nextIndent > node.indent) {
-      const button = document.createElement("span");
-      button.textContent = "[+]";
-      button.style.cursor = "pointer";
-      button.style.marginLeft = "5px";
+  const nextIndent = nodes[index + 1]?.indent;
+  if (nextIndent > node.indent) {
+    const button = document.createElement("span");
+    button.textContent = "[+]";
+    button.style.cursor = "pointer";
+    button.style.marginLeft = "5px";
 
-      node.element.appendChild(button);
+    node.element.appendChild(button);
 
-      const children = [];
-      for (let i = index + 1; i < nodes.length; i++) {
-        if (nodes[i].indent <= node.indent) break;
-        children.push(nodes[i].element);
-      }
-
-      let isOpen = false;
-      button.addEventListener("click", () => {
-        isOpen = !isOpen;
-        children.forEach(el => el.style.display = isOpen ? "block" : "none");
-        button.textContent = isOpen ? "[-]" : "[+]";
-      });
-
-      children.forEach(el => el.style.display = "none");
+    const children = [];
+    for (let i = index + 1; i < nodes.length; i++) {
+      if (nodes[i].indent <= node.indent) break;
+      children.push(nodes[i]);
     }
-  });
+
+    node.button = button;
+    node.isOpen = false;
+
+    button.addEventListener("click", () => {
+      node.isOpen = !node.isOpen;
+      button.textContent = node.isOpen ? "[-]" : "[+]";
+
+      children.forEach(child => {
+        if (node.isOpen && child.indent === node.indent + 4) {
+          child.element.style.display = "block";
+        } else {
+          child.element.style.display = "none";
+          if (child.button) {
+            child.button.textContent = "[+]";
+            child.isOpen = false;
+          }
+        }
+      });
+    });
+
+    children.forEach(child => {
+      child.element.style.display = "none";
+    });
+  }
 });
 
 </script>
