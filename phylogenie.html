@@ -642,46 +642,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Ajout des boutons [+]/[-] avec affichage progressif
   nodes.forEach((node, index) => {
-    const nextIndent = nodes[index + 1]?.indent;
-    if (nextIndent > node.indent) {
-      const button = document.createElement("span");
-      button.textContent = "[+]";
-      button.style.cursor = "pointer";
-      button.style.marginLeft = "5px";
+  const nextIndent = nodes[index + 1]?.indent;
+  if (nextIndent > node.indent) {
+    const button = document.createElement("span");
+    button.textContent = "[+]";
+    button.style.cursor = "pointer";
+    button.style.marginLeft = "5px";
 
-      node.element.appendChild(button);
+    const expandAllBtn = document.createElement("span");
+    expandAllBtn.textContent = "[++]";
+    expandAllBtn.style.cursor = "pointer";
+    expandAllBtn.style.marginLeft = "5px";
+    expandAllBtn.style.color = "blue";
 
-      const children = [];
-      for (let i = index + 1; i < nodes.length; i++) {
-        if (nodes[i].indent <= node.indent) break;
-        children.push(nodes[i]);
+    node.element.appendChild(button);
+    node.element.appendChild(expandAllBtn);
+
+    const children = [];
+    for (let i = index + 1; i < nodes.length; i++) {
+      if (nodes[i].indent <= node.indent) break;
+      children.push(nodes[i]);
+    }
+
+    node.button = button;
+    node.isOpen = false;
+
+    // Fonction pour tout ouvrir récursivement
+    function openAllSubtree(subNode) {
+      subNode.isOpen = true;
+      if (subNode.button) subNode.button.textContent = "[-]";
+      for (let i = nodes.indexOf(subNode) + 1; i < nodes.length; i++) {
+        if (nodes[i].indent <= subNode.indent) break;
+        nodes[i].element.style.display = "block";
+        if (nodes[i].button) openAllSubtree(nodes[i]);
       }
+    }
 
-      node.button = button;
-      node.isOpen = false;
-
-      button.addEventListener("click", () => {
-        node.isOpen = !node.isOpen;
-        button.textContent = node.isOpen ? "[-]" : "[+]";
-
-        children.forEach(child => {
-          if (node.isOpen && child.indent === node.indent + 4) {
-            child.element.style.display = "block";
-          } else {
-            child.element.style.display = "none";
-            if (child.button) {
-              child.button.textContent = "[+]";
-              child.isOpen = false;
-            }
-          }
-        });
-      });
+    button.addEventListener("click", () => {
+      node.isOpen = !node.isOpen;
+      button.textContent = node.isOpen ? "[-]" : "[+]";
 
       children.forEach(child => {
-        child.element.style.display = "none";
+        if (node.isOpen && child.indent === node.indent + 4) {
+          child.element.style.display = "block";
+        } else {
+          child.element.style.display = "none";
+          if (child.button) {
+            child.button.textContent = "[+]";
+            child.isOpen = false;
+          }
+        }
       });
-    }
-  });
+    });
+
+    expandAllBtn.addEventListener("click", () => {
+      openAllSubtree(node);
+    });
+
+    children.forEach(child => {
+      child.element.style.display = "none";
+    });
+  }
 });
 </script>
 
