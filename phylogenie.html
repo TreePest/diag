@@ -597,7 +597,74 @@ Virus
 
 
 
-<script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const source = document.getElementById("source");
+  if (!source) return;
+
+  const lines = source.textContent.split("\n");
+
+  // Construction d'un tableau de lignes modifiées
+  const htmlLines = lines.map(line => {
+    const match = line.match(/(.*?)([A-Z][a-z]+ [a-z]+)$/);
+    if (match) {
+      const [_, prefix, speciesName] = match;
+      const urlName = speciesName.replace(/ /g, "_");
+      const url = `https://treepest.github.io/diag/details.html?espece=${urlName}`;
+      return `${prefix}<span class="line">${speciesName}<a href="${url}" target="_blank"> 🔗</a></span>`;
+    }
+    return `<span class="line">${line}</span>`;
+  });
+
+  // Injection du nouveau HTML dans un conteneur
+  const treeContainer = document.createElement("pre");
+  treeContainer.id = "source";  // on garde le même ID
+  treeContainer.innerHTML = htmlLines.join("\n");
+  source.replaceWith(treeContainer);
+
+  // Appliquer la logique de pliage une fois les lignes insérées
+  const toggleableLines = treeContainer.querySelectorAll(".line");
+
+  toggleableLines.forEach(line => {
+    const text = line.textContent;
+
+    // Un noeud est une ligne qui contient des branches
+    const isNode = text.includes("├──") || text.includes("└──");
+
+    if (isNode) {
+      const button = document.createElement("span");
+      button.textContent = "[+]";
+      button.style.cursor = "pointer";
+      button.style.marginLeft = "5px";
+
+      // Ajout du bouton à la fin de la ligne
+      line.appendChild(button);
+
+      const indent = line.textContent.search(/[^ \t]/);
+      const children = [];
+
+      let sibling = line.nextSibling;
+      while (sibling && sibling.textContent.search(/[^ \t]/) > indent) {
+        children.push(sibling);
+        sibling = sibling.nextSibling;
+      }
+
+      children.forEach(child => child.style.display = "none");
+
+      let isOpen = false;
+      button.addEventListener("click", () => {
+        isOpen = !isOpen;
+        children.forEach(child => {
+          child.style.display = isOpen ? "block" : "none";
+        });
+        button.textContent = isOpen ? "[-]" : "[+]";
+      });
+    }
+  });
+});
+</script>
+
+< !--
   const source = document.getElementById('source').textContent.trim().split('\n');
   const view = document.getElementById('view');
 
@@ -679,30 +746,8 @@ Virus
   });
 
   render();
-
-
-  // Noms en liens url
-window.addEventListener("DOMContentLoaded", () => {
-  const pre = document.getElementById("source");
-  const lines = pre.textContent.split("\n");
-
-  const newLines = lines.map(line => {
-    const match = line.match(/(.*)([A-Z][a-z]+ [a-z]+)$/);  // Capture un nom binomial à la fin de ligne
-    if (match) {
-      const [_, prefix, speciesName] = match;
-      const urlName = speciesName.replace(/ /g, "_");
-      const url = `https://treepest.github.io/diag/details.html?espece=${urlName}`;
-      return `${prefix}<a href="${url}" target="_blank">${speciesName}</a>`;
-    }
-    return line;
-  });
-
-  // Remplace le <pre> par du HTML avec liens
-  const html = newLines.join("\n").replace(/\n/g, "<br>");
-  pre.outerHTML = `<div id="source">${html}</div>`;
-});
   
-</script>
+-- >
 
 </body>
 </html>
