@@ -600,65 +600,67 @@ Virus
   <script>
 document.addEventListener("DOMContentLoaded", () => {
   const source = document.getElementById("source");
-  if (!source) return;
-
   const lines = source.textContent.split("\n");
 
-  // Construction d'un tableau de lignes modifiées
-  const htmlLines = lines.map(line => {
-    const match = line.match(/(.*?)([A-Z][a-z]+ [a-z]+)$/);
-    if (match) {
-      const [_, prefix, speciesName] = match;
-      const urlName = speciesName.replace(/ /g, "_");
-      const url = `https://treepest.github.io/diag/details.html?espece=${urlName}`;
-      return `${prefix}<span class="line">${speciesName}<a href="${url}" target="_blank"> 🔗</a></span>`;
+  const nodes = [];
+  const container = document.createElement("pre");
+  container.id = "source";
+
+  // Créer les éléments ligne par ligne
+  lines.forEach((lineText, index) => {
+    const line = document.createElement("div");
+    line.className = "line";
+    line.style.margin = "0";
+    line.style.padding = "0";
+
+    // Extraire indentation
+    const indent = lineText.search(/[^ │├└─]/);
+    const content = lineText.trim();
+
+    // Identifier les noms d'espèces (Majuscule suivi d’un mot)
+    const speciesMatch = content.match(/^([A-Z][a-z]+ [a-z]+)$/);
+
+    if (speciesMatch) {
+      const speciesName = speciesMatch[1];
+      const url = `https://treepest.github.io/diag/details.html?espece=${speciesName.replace(/ /g, "_")}`;
+      line.innerHTML = `${lineText.slice(0, indent)}<a href="${url}" target="_blank">${speciesName}</a>`;
+    } else {
+      line.textContent = lineText;
     }
-    return `<span class="line">${line}</span>`;
+
+    container.appendChild(line);
+    nodes.push({ element: line, indent });
   });
 
-  // Injection du nouveau HTML dans un conteneur
-  const treeContainer = document.createElement("pre");
-  treeContainer.id = "source";  // on garde le même ID
-  treeContainer.innerHTML = htmlLines.join("\n");
-  source.replaceWith(treeContainer);
+  // Remplacer l'ancien <pre>
+  source.replaceWith(container);
 
-  // Appliquer la logique de pliage une fois les lignes insérées
-  const toggleableLines = treeContainer.querySelectorAll(".line");
-
-  toggleableLines.forEach(line => {
-    const text = line.textContent;
-
-    // Un noeud est une ligne qui contient des branches
-    const isNode = text.includes("├──") || text.includes("└──");
-
-    if (isNode) {
+  // Ajouter les boutons de pliage
+  nodes.forEach((node, index) => {
+    const nextIndent = nodes[index + 1]?.indent;
+    if (nextIndent > node.indent) {
       const button = document.createElement("span");
       button.textContent = "[+]";
       button.style.cursor = "pointer";
       button.style.marginLeft = "5px";
 
-      // Ajout du bouton à la fin de la ligne
-      line.appendChild(button);
+      node.element.appendChild(button);
 
-      const indent = line.textContent.search(/[^ \t]/);
       const children = [];
-
-      let sibling = line.nextSibling;
-      while (sibling && sibling.textContent.search(/[^ \t]/) > indent) {
-        children.push(sibling);
-        sibling = sibling.nextSibling;
+      for (let i = index + 1; i < nodes.length; i++) {
+        if (nodes[i].indent <= node.indent) break;
+        children.push(nodes[i].element);
       }
-
-      children.forEach(child => child.style.display = "none");
 
       let isOpen = false;
       button.addEventListener("click", () => {
         isOpen = !isOpen;
-        children.forEach(child => {
-          child.style.display = isOpen ? "block" : "none";
-        });
+        children.forEach(el => el.style.display = isOpen ? "block" : "none");
         button.textContent = isOpen ? "[-]" : "[+]";
       });
+
+      // Masquer les enfants par défaut
+      children.forEach(el => el.style.display = "none");
     }
   });
 });
