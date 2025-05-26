@@ -12,14 +12,14 @@
       font-size: 14px;
       margin: 0;
     }
+    .line {
+      display: block;
+    }
     .toggle {
       cursor: pointer;
     }
     .hidden {
       display: none;
-    }
-    .line {
-      display: block;
     }
   </style>
 </head>
@@ -602,31 +602,33 @@ Virus
 <script>
   const lines = document.querySelectorAll('.line');
 
-  lines.forEach(line => {
-    if (line.classList.contains('toggle')) {
-      line.addEventListener('click', () => {
-        const isExpanded = line.textContent.includes('[-]');
-        const newSymbol = isExpanded ? '[+]' : '[-]';
-        line.textContent = line.textContent.replace(isExpanded ? '[-]' : '[+]', newSymbol);
+  function toggleChildren(clickedLine) {
+    const id = clickedLine.dataset.id;
+    const isOpen = clickedLine.textContent.includes("[-]");
+    clickedLine.textContent = clickedLine.textContent.replace(isOpen ? "[-]" : "[+]", isOpen ? "[+]" : "[-]");
 
-        const id = line.dataset.id;
+    for (const line of lines) {
+      const parent = line.dataset.parent;
+      if (parent && parent.startsWith(id)) {
+        const directChild = parent === id;
 
-        lines.forEach(other => {
-          if (other.dataset.parent && other.dataset.parent.startsWith(id)) {
-            if (isExpanded) {
-              other.classList.add('hidden');
-              // On replie récursivement tous les enfants visibles
-              if (other.classList.contains('toggle')) {
-                other.textContent = other.textContent.replace('[-]', '[+]');
-              }
-            } else {
-              if (other.dataset.parent === id) {
-                other.classList.remove('hidden');
-              }
-            }
+        if (isOpen) {
+          line.classList.add("hidden");
+
+          // referme tous les enfants ouverts
+          if (line.classList.contains("toggle")) {
+            line.textContent = line.textContent.replace("[-]", "[+]");
           }
-        });
-      });
+        } else if (directChild) {
+          line.classList.remove("hidden");
+        }
+      }
+    }
+  }
+
+  lines.forEach(line => {
+    if (line.classList.contains("toggle")) {
+      line.addEventListener("click", () => toggleChildren(line));
     }
   });
 </script>
