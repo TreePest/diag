@@ -8,18 +8,16 @@
       font-family: monospace;
     }
     pre {
+      margin: 0;
       line-height: 1;
       font-size: 14px;
-      margin: 0;
-    }
-    .line {
-      display: block;
-    }
-    .toggle {
-      cursor: pointer;
     }
     .hidden {
       display: none;
+    }
+    .toggle {
+      cursor: pointer;
+      user-select: none;
     }
   </style>
 </head>
@@ -30,12 +28,12 @@
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
 <pre id="tree">
-<span class="line toggle" data-id="0" data-parent="">├── Basidiomycota [+]</span>
-<span class="line toggle hidden" data-id="0-0" data-parent="0">│   ├── Agaricomycetes [+]</span>
-<span class="line toggle hidden" data-id="0-0-0" data-parent="0-0">│   │   ├── Agaricales [+]</span>
-<span class="line hidden" data-id="0-0-0-0" data-parent="0-0-0">│   │   │   └── Coprinus comatus</span>
-<span class="line hidden" data-id="0-0-0-1" data-parent="0-0-0">│   │   │   └── Coprinellus micaceus</span>
-<span class="line hidden" data-id="0-0-1" data-parent="0-0">│   │   └── Russulales</span>
+├── Basidiomycota [+]
+│   ├── Agaricomycetes [+]
+│   │   ├── Agaricales [+]
+│   │   │   ├── Coprinus comatus
+│   │   │   ├── Coprinellus micaceus
+│   │   └── Russulales
 </pre>
 
 
@@ -600,37 +598,59 @@ Virus
 
 
 <script>
-  const lines = document.querySelectorAll('.line');
+  const treeElement = document.getElementById("tree");
+  const lines = treeElement.textContent.split('\n');
 
-  function toggleChildren(clickedLine) {
-    const id = clickedLine.dataset.id;
-    const isOpen = clickedLine.textContent.includes("[-]");
-    clickedLine.textContent = clickedLine.textContent.replace(isOpen ? "[-]" : "[+]", isOpen ? "[+]" : "[-]");
+  let html = '';
+  const idStack = [];
 
-    for (const line of lines) {
-      const parent = line.dataset.parent;
-      if (parent && parent.startsWith(id)) {
-        const directChild = parent === id;
+  // Construire chaque ligne avec identifiants hiérarchiques
+  lines.forEach((line, i) => {
+    const depth = (line.match(/│   /g) || []).length;
+    const id = idStack.slice(0, depth).join('-');
+    const currentId = idStack[depth] = (idStack[depth] || 0) + 1;
+    const fullId = [...idStack.slice(0, depth), currentId].join('-');
+    const hasChildren = line.includes('[+]');
 
-        if (isOpen) {
-          line.classList.add("hidden");
+    html += `<div 
+      data-id="${fullId}" 
+      data-parent="${id || ''}" 
+      class="${hasChildren ? 'toggle' : ''}" 
+      style="white-space: pre;"
+    >${line}</div>\n`;
+  });
 
-          // referme tous les enfants ouverts
-          if (line.classList.contains("toggle")) {
-            line.textContent = line.textContent.replace("[-]", "[+]");
-          }
-        } else if (directChild) {
-          line.classList.remove("hidden");
+  treeElement.innerHTML = html;
+
+  function toggleNode(elem) {
+    const id = elem.dataset.id;
+    const isOpen = elem.textContent.includes("[-]");
+    elem.textContent = elem.textContent.replace(isOpen ? "[-]" : "[+]", isOpen ? "[+]" : "[-]");
+
+    const descendants = treeElement.querySelectorAll(`[data-parent^="${id}"]`);
+    descendants.forEach(child => {
+      const directChild = child.dataset.parent === id;
+
+      if (isOpen) {
+        child.classList.add("hidden");
+        if (child.classList.contains("toggle")) {
+          child.textContent = child.textContent.replace("[-]", "[+]");
         }
+      } else if (directChild) {
+        child.classList.remove("hidden");
       }
-    }
+    });
   }
 
-  lines.forEach(line => {
-    if (line.classList.contains("toggle")) {
-      line.addEventListener("click", () => toggleChildren(line));
-    }
+  // Ajouter les comportements
+  const toggles = treeElement.querySelectorAll('.toggle');
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', () => toggleNode(toggle));
   });
+
+  // Cacher tous les enfants par défaut sauf le premier niveau
+  treeElement.querySelectorAll('[data-parent]:not([data-parent=""])')
+    .forEach(el => el.classList.add("hidden"));
 </script>
 
 </body>
