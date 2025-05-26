@@ -601,41 +601,51 @@ Virus
 document.addEventListener("DOMContentLoaded", () => {
   const source = document.getElementById("source");
   const lines = source.textContent.split("\n");
-
-  const nodes = [];
   const container = document.createElement("pre");
   container.id = "source";
 
-  // Créer les éléments ligne par ligne
+  const nodes = [];
+
   lines.forEach((lineText, index) => {
     const line = document.createElement("div");
     line.className = "line";
     line.style.margin = "0";
     line.style.padding = "0";
 
-    // Extraire indentation
     const indent = lineText.search(/[^ │├└─]/);
+    const prefix = lineText.slice(0, indent);
     const content = lineText.trim();
 
-    // Identifier les noms d'espèces (Majuscule suivi d’un mot)
-    const speciesMatch = content.match(/^([A-Z][a-z]+ [a-z]+)$/);
+    const prefixSpan = document.createElement("span");
+    prefixSpan.textContent = prefix;
 
+    const contentSpan = document.createElement("span");
+    
+    const speciesMatch = content.match(/^([A-Z][a-z]+ [a-z]+)$/);
     if (speciesMatch) {
       const speciesName = speciesMatch[1];
       const url = `https://treepest.github.io/diag/details.html?espece=${speciesName.replace(/ /g, "_")}`;
-      line.innerHTML = `${lineText.slice(0, indent)}<a href="${url}" target="_blank">${speciesName}</a>`;
+      const link = document.createElement("a");
+      link.href = url;
+      link.textContent = speciesName;
+      link.target = "_blank";
+      link.style.textDecoration = "none";
+      link.style.color = "inherit";
+      contentSpan.appendChild(link);
     } else {
-      line.textContent = lineText;
+      contentSpan.textContent = content;
     }
 
+    line.appendChild(prefixSpan);
+    line.appendChild(contentSpan);
     container.appendChild(line);
+
     nodes.push({ element: line, indent });
   });
 
-  // Remplacer l'ancien <pre>
   source.replaceWith(container);
 
-  // Ajouter les boutons de pliage
+  // Ajout des boutons [+]/[-]
   nodes.forEach((node, index) => {
     const nextIndent = nodes[index + 1]?.indent;
     if (nextIndent > node.indent) {
@@ -659,7 +669,6 @@ document.addEventListener("DOMContentLoaded", () => {
         button.textContent = isOpen ? "[-]" : "[+]";
       });
 
-      // Masquer les enfants par défaut
       children.forEach(el => el.style.display = "none");
     }
   });
