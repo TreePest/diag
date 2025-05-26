@@ -699,7 +699,12 @@ document.addEventListener("DOMContentLoaded", () => {
         openAllSubtree(node);
       }); */
 
-      expandAllBtn.style.display = node.isOpen ? "none" : "inline";
+      button.addEventListener("click", () => {
+  node.isOpen = !node.isOpen;
+  button.textContent = node.isOpen ? "[-]" : "[+]";
+
+  // Masquer ou afficher le bouton [++]
+  expandAllBtn.style.display = node.isOpen ? "none" : "inline";
 
   children.forEach(child => {
     if (node.isOpen && child.indent === node.indent + 4) {
