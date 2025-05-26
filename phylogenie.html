@@ -13,12 +13,15 @@
       display: flex;
       align-items: center;
     }
+    .text {
+      flex-grow: 1;
+    }
     .arrow {
       display: inline-block;
       transform: rotate(0deg);
-      transition: transform 0.2s;
-      margin-left: 8px;
-      font-size: 1.2em;
+      transition: transform 0.2s ease;
+      font-size: 1.4em;
+      margin-left: 6px;
     }
     .arrow.open {
       transform: rotate(90deg);
@@ -30,9 +33,6 @@
     .children.open {
       display: block;
     }
-    .text {
-      flex-grow: 1;
-    }
   </style>
 </head>
 <body>
@@ -40,26 +40,17 @@
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
 <div class="node" onclick="toggle(this)">
-  <span class="text">├── Basidiomycotatest</span><span class="arrow">▶</span>
+  <span class="text">├── Basidiomycota</span>
+  <span class="arrow">&#9654;</span>
 </div>
 <div class="children">
   <div class="node" onclick="toggle(this)">
-    <span class="text">│   ├── Agaricomycetes</span><span class="arrow">▶</span>
+    <span class="text">│   └── Agaricomycetes</span>
+    <span class="arrow">&#9654;</span>
   </div>
   <div class="children">
-    <div class="node" onclick="toggle(this)">
-      <span class="text">│   │   ├── Agaricales</span><span class="arrow">▶</span>
-    </div>
-    <div class="children">
-      <div class="node">
-        <span class="text">│   │   │   ├── Agaricaceae</span>
-      </div>
-      <div class="children open">
-        <div class="node"><span class="text">│   │   │   │   ├── Coprinellus micaceus</span></div>
-        <div class="node"><span class="text">│   │   │   │   ├── Coprinopsis atramentaria</span></div>
-        <div class="node"><span class="text">│   │   │   │   └── Coprinus comatus</span></div>
-      </div>
-    </div>
+    <div class="node"><span class="text">│       └── Agaricales</span></div>
+    <div class="node"><span class="text">│           └── Coprinus comatus</span></div>
   </div>
 </div>
 
@@ -625,8 +616,12 @@ Virus
 
 <script>
   function toggle(el) {
-    el.querySelector('.arrow')?.classList.toggle('open');
-    el.nextElementSibling?.classList.toggle('open');
+    const arrow = el.querySelector('.arrow');
+    const next = el.nextElementSibling;
+    if (arrow && next) {
+      arrow.classList.toggle('open');
+      next.classList.toggle('open');
+    }
     event.stopPropagation();
   }
 </script>
