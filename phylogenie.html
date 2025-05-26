@@ -5,30 +5,33 @@
   <style>
     body {
       font-family: monospace;
-      font-size: 14px;
-      line-height: 1;
-      margin: 0;
-      padding: 10px;
-      white-space: pre;
+      margin: 20px;
     }
     .node {
-      position: relative;
+      white-space: pre;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
     }
     .arrow {
-      cursor: pointer;
       display: inline-block;
+      transform: rotate(0deg);
       transition: transform 0.2s;
-      font-size: 12px;
-      margin-left: 6px;
+      margin-left: 8px;
+      font-size: 1.2em;
     }
-    .arrow.expanded {
+    .arrow.open {
       transform: rotate(90deg);
     }
     .children {
       display: none;
+      margin-left: 4ch;
     }
-    .children.visible {
+    .children.open {
       display: block;
+    }
+    .text {
+      flex-grow: 1;
     }
   </style>
 </head>
@@ -36,23 +39,29 @@
 
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<pre>
-<span class="node">│   ├── Basidiomycota<span class="arrow" onclick="toggle(this)">▶</span>
-<span class="children">
-│   │   ├── Agaricomycetes
-│   │   │   ├── Agaricales
-│   │   │   │   ├── Agaricaceae
-│   │   │   │   │   └── Coprinellus micaceus
-│   │   │   │   │   └── Coprinopsis atramentaria
-│   │   │   │   │   └── Coprinus comatus
-│   │   │   │   ├── Physalacriaceae
-│   │   │   │   │   └── Armillaria mellea
-│   │   │   │   │   └── Armillaria ostoyae
-│   │   │   │   │   └── Armillaria tabescens
-│   │   │   │   │   └── Oudemansiella mucida
-</span>
-</span>
-</pre>
+<div class="node" onclick="toggle(this)">
+  <span class="text">├── Basidiomycota</span><span class="arrow">▶</span>
+</div>
+<div class="children">
+  <div class="node" onclick="toggle(this)">
+    <span class="text">│   ├── Agaricomycetes</span><span class="arrow">▶</span>
+  </div>
+  <div class="children">
+    <div class="node" onclick="toggle(this)">
+      <span class="text">│   │   ├── Agaricales</span><span class="arrow">▶</span>
+    </div>
+    <div class="children">
+      <div class="node">
+        <span class="text">│   │   │   ├── Agaricaceae</span>
+      </div>
+      <div class="children open">
+        <div class="node"><span class="text">│   │   │   │   ├── Coprinellus micaceus</span></div>
+        <div class="node"><span class="text">│   │   │   │   ├── Coprinopsis atramentaria</span></div>
+        <div class="node"><span class="text">│   │   │   │   └── Coprinus comatus</span></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <pre>
@@ -616,11 +625,9 @@ Virus
 
 <script>
   function toggle(el) {
-    el.classList.toggle("expanded");
-    const children = el.parentNode.querySelector(".children");
-    if (children) {
-      children.classList.toggle("visible");
-    }
+    el.querySelector('.arrow')?.classList.toggle('open');
+    el.nextElementSibling?.classList.toggle('open');
+    event.stopPropagation();
   }
 </script>
 
