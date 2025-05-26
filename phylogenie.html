@@ -12,10 +12,6 @@
       line-height: 1;
       font-size: 14px;
     }
-    .toggle {
-      cursor: pointer;
-      user-select: none;
-    }
   </style>
 </head>
 <body>
@@ -606,7 +602,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const nodes = [];
 
-  lines.forEach((lineText, index) => {
+  lines.forEach((lineText) => {
     const line = document.createElement("div");
     line.className = "line";
     line.style.margin = "0";
@@ -614,13 +610,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const indent = lineText.search(/[^ │├└─]/);
     const prefix = lineText.slice(0, indent);
-    const content = lineText.slice(indent).trim();
+    const content = lineText.slice(indent); // ne pas faire .trim()
 
     const prefixSpan = document.createElement("span");
     prefixSpan.textContent = prefix;
 
     const contentSpan = document.createElement("span");
-    
+
     const speciesMatch = content.match(/^([A-Z][a-z]+ [a-z]+)$/);
     if (speciesMatch) {
       const speciesName = speciesMatch[1];
@@ -631,7 +627,7 @@ document.addEventListener("DOMContentLoaded", () => {
       link.target = "_blank";
       contentSpan.appendChild(link);
     } else {
-      contentSpan.textContent = content;
+      contentSpan.textContent = content.trim(); // ici on peut faire trim uniquement pour affichage
     }
 
     line.appendChild(prefixSpan);
@@ -644,51 +640,50 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("view").replaceWith(container);
   source.remove();
 
-  // Ajout des boutons [+]/[-]
+  // Ajout des boutons [+]/[-] avec affichage progressif
   nodes.forEach((node, index) => {
-  const nextIndent = nodes[index + 1]?.indent;
-  if (nextIndent > node.indent) {
-    const button = document.createElement("span");
-    button.textContent = "[+]";
-    button.style.cursor = "pointer";
-    button.style.marginLeft = "5px";
+    const nextIndent = nodes[index + 1]?.indent;
+    if (nextIndent > node.indent) {
+      const button = document.createElement("span");
+      button.textContent = "[+]";
+      button.style.cursor = "pointer";
+      button.style.marginLeft = "5px";
 
-    node.element.appendChild(button);
+      node.element.appendChild(button);
 
-    const children = [];
-    for (let i = index + 1; i < nodes.length; i++) {
-      if (nodes[i].indent <= node.indent) break;
-      children.push(nodes[i]);
-    }
+      const children = [];
+      for (let i = index + 1; i < nodes.length; i++) {
+        if (nodes[i].indent <= node.indent) break;
+        children.push(nodes[i]);
+      }
 
-    node.button = button;
-    node.isOpen = false;
+      node.button = button;
+      node.isOpen = false;
 
-    button.addEventListener("click", () => {
-      node.isOpen = !node.isOpen;
-      button.textContent = node.isOpen ? "[-]" : "[+]";
+      button.addEventListener("click", () => {
+        node.isOpen = !node.isOpen;
+        button.textContent = node.isOpen ? "[-]" : "[+]";
+
+        children.forEach(child => {
+          if (node.isOpen && child.indent === node.indent + 4) {
+            child.element.style.display = "block";
+          } else {
+            child.element.style.display = "none";
+            if (child.button) {
+              child.button.textContent = "[+]";
+              child.isOpen = false;
+            }
+          }
+        });
+      });
 
       children.forEach(child => {
-        if (node.isOpen && child.indent === node.indent + 4) {
-          child.element.style.display = "block";
-        } else {
-          child.element.style.display = "none";
-          if (child.button) {
-            child.button.textContent = "[+]";
-            child.isOpen = false;
-          }
-        }
+        child.element.style.display = "none";
       });
-    });
-
-    children.forEach(child => {
-      child.element.style.display = "none";
-    });
-  }
+    }
+  });
 });
-
 </script>
-
 
 </body>
 </html>
