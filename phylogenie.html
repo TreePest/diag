@@ -683,7 +683,7 @@ Virus
 
   // Noms en liens url
 window.addEventListener("DOMContentLoaded", () => {
-  const pre = document.getElementById("tree");
+  const pre = document.getElementById("source");
   const lines = pre.textContent.split("\n");
 
   const newLines = lines.map(line => {
@@ -699,7 +699,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Remplace le <pre> par du HTML avec liens
   const html = newLines.join("\n").replace(/\n/g, "<br>");
-  pre.outerHTML = `<div id="tree">${html}</div>`;
+  pre.outerHTML = `<div id="source">${html}</div>`;
 });
   
 </script>
