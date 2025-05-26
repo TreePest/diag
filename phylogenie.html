@@ -682,27 +682,25 @@ Virus
 
 
   // Noms en liens url
-function linkifySpecies() {
-    const pre = document.querySelector("pre");
-    const speciesRegex = /([A-Z][a-z]+) ([a-z]+)$/;
+window.addEventListener("DOMContentLoaded", () => {
+  const pre = document.getElementById("tree");
+  const lines = pre.textContent.split("\n");
 
-    pre.innerHTML = pre.innerHTML.split('\n').map(line => {
-      const match = line.match(speciesRegex);
-      if (match) {
-        const genus = match[1];
-        const species = match[2];
-        const url = `https://treepest.github.io/diag/details.html?espece=${genus}_${species}`;
-        const link = `<a href="${url}" target="_blank">${genus} ${species}</a>`;
-        return line.replace(speciesRegex, link);
-      }
-      return line;
-    }).join('\n');
-  }
-
-  // Appel de la fonction après chargement de l’arbre
-  window.addEventListener("DOMContentLoaded", () => {
-    linkifySpecies(); // ← appel automatique dès que le DOM est prêt
+  const newLines = lines.map(line => {
+    const match = line.match(/(.*)([A-Z][a-z]+ [a-z]+)$/);  // Capture un nom binomial à la fin de ligne
+    if (match) {
+      const [_, prefix, speciesName] = match;
+      const urlName = speciesName.replace(/ /g, "_");
+      const url = `https://treepest.github.io/diag/details.html?espece=${urlName}`;
+      return `${prefix}<a href="${url}" target="_blank">${speciesName}</a>`;
+    }
+    return line;
   });
+
+  // Remplace le <pre> par du HTML avec liens
+  const html = newLines.join("\n").replace(/\n/g, "<br>");
+  pre.outerHTML = `<div id="tree">${html}</div>`;
+});
   
 </script>
 
