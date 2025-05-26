@@ -4,18 +4,22 @@
   <title>Phylogénie</title>
   <style>
     body {
+      margin: 0;
       font-family: monospace;
-      white-space: pre;
-      line-height: 1;
     }
-    .line {
-      display: block;
+    pre {
+      line-height: 1;
+      font-size: 14px;
+      margin: 0;
     }
     .toggle {
       cursor: pointer;
     }
     .hidden {
       display: none;
+    }
+    .line {
+      display: inline;
     }
   </style>
 </head>
@@ -26,10 +30,12 @@
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
 <pre id="tree">
-<span class="line toggle" data-target="node1">├── Basidiomycota [+]</span>
-<span class="line hidden node1">│   ├── Agaricomycetes [+]</span>
-<span class="line hidden node1 node2">│   │   ├── Agaricales [+]</span>
-<span class="line hidden node1 node2 node3">│   │   │   └── Coprinus comatus</span>
+<span class="line toggle" data-level="0">├── Basidiomycota [+]</span>
+<span class="line hidden" data-parent="0">│   ├── Agaricomycetes [+]</span>
+<span class="line hidden" data-parent="0-0">│   │   ├── Agaricales [+]</span>
+<span class="line hidden" data-parent="0-0-0">│   │   │   └── Coprinus comatus</span>
+<span class="line hidden" data-parent="0-0-0">│   │   │   └── Coprinellus micaceus</span>
+<span class="line hidden" data-parent="0-0">│   │   └── Russulales</span>
 </pre>
 
 
@@ -594,19 +600,38 @@ Virus
 
 
 <script>
-  document.querySelectorAll('.toggle').forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const targetClass = toggle.dataset.target;
-      const isOpen = toggle.textContent.includes('[-]');
-      toggle.textContent = toggle.textContent.replace(isOpen ? '[-]' : '[+]', isOpen ? '[+]' : '[-]');
-      
-      document.querySelectorAll(`.${targetClass}`).forEach(el => {
-        if (!el.classList.contains('toggle')) {
-          el.classList.toggle('hidden');
-        }
+  const lines = document.querySelectorAll('.line');
+
+  lines.forEach(line => {
+    if (line.classList.contains('toggle')) {
+      line.addEventListener('click', () => {
+        const path = buildPath(line);
+        const open = line.textContent.includes('[-]');
+        line.textContent = line.textContent.replace(open ? '[-]' : '[+]', open ? '[+]' : '[-]');
+        toggleChildren(path, !open);
       });
-    });
+    }
   });
+
+  function buildPath(line) {
+    const path = [];
+    let current = line;
+    while (current && current.dataset.level !== undefined) {
+      path.unshift(current.dataset.level);
+      current = current.previousElementSibling;
+    }
+    return path.join('-');
+  }
+
+  function toggleChildren(path, show) {
+    document.querySelectorAll(`[data-parent^="${path}"]`).forEach(child => {
+      if (show) {
+        child.classList.remove('hidden');
+      } else {
+        child.classList.add('hidden');
+      }
+    });
+  }
 </script>
 
 </body>
