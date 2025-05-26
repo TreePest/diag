@@ -5,9 +5,11 @@
   <style>
     body {
       font-family: monospace;
-    }
-    pre {
+      white-space: pre;
       line-height: 1;
+    }
+    .line {
+      display: block;
     }
     .toggle {
       cursor: pointer;
@@ -23,13 +25,11 @@
   
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<pre>
-<span class="toggle" onclick="toggle('node1')">├── Basidiomycota [+]</span>
-<pre id="node1" class="hidden">
-│   └── Agaricomycetes [+]
-│       └── Agaricales [+]
-│           └── Coprinus comatus
-</pre>
+<pre id="tree">
+<span class="line toggle" data-target="node1">├── Basidiomycota [+]</span>
+<span class="line hidden node1">│   ├── Agaricomycetes [+]</span>
+<span class="line hidden node1 node2">│   │   ├── Agaricales [+]</span>
+<span class="line hidden node1 node2 node3">│   │   │   └── Coprinus comatus</span>
 </pre>
 
 
@@ -594,19 +594,19 @@ Virus
 
 
 <script>
-  function toggle(id) {
-    const el = document.getElementById(id);
-    if (el) {
-      el.classList.toggle('hidden');
-    }
-    const caller = event.currentTarget;
-    if (caller.textContent.includes('[+]')) {
-      caller.textContent = caller.textContent.replace('[+]', '[-]');
-    } else {
-      caller.textContent = caller.textContent.replace('[-]', '[+]');
-    }
-    event.stopPropagation();
-  }
+  document.querySelectorAll('.toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const targetClass = toggle.dataset.target;
+      const isOpen = toggle.textContent.includes('[-]');
+      toggle.textContent = toggle.textContent.replace(isOpen ? '[-]' : '[+]', isOpen ? '[+]' : '[-]');
+      
+      document.querySelectorAll(`.${targetClass}`).forEach(el => {
+        if (!el.classList.contains('toggle')) {
+          el.classList.toggle('hidden');
+        }
+      });
+    });
+  });
 </script>
 
 </body>
