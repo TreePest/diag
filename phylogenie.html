@@ -24,7 +24,7 @@
   
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<pre id="source">
+<pre id="source-data">
 ├── Basidiomycota
 │   ├── Agaricomycetes
 │   │   ├── Agaricales
@@ -599,7 +599,7 @@ Virus
 
   <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const source = document.getElementById("source");
+  const source = document.getElementById("source-data");
   const lines = source.textContent.split("\n");
   const container = document.createElement("pre");
   container.id = "source";
@@ -614,7 +614,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const indent = lineText.search(/[^ │├└─]/);
     const prefix = lineText.slice(0, indent);
-    const content = lineText.trim();
+    const content = lineText.slice(indent).trim();
 
     const prefixSpan = document.createElement("span");
     prefixSpan.textContent = prefix;
@@ -643,7 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nodes.push({ element: line, indent });
   });
 
-  source.replaceWith(container);
+  document.getElementById("view").replaceWith(container);
 
   // Ajout des boutons [+]/[-]
   nodes.forEach((node, index) => {
@@ -675,90 +675,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-< !--
-  const source = document.getElementById('source').textContent.trim().split('\n');
-  const view = document.getElementById('view');
-
-  // Construire une structure hiérarchique
-  const nodes = source.map((line, index) => {
-    const depth = (line.match(/│   |    /g) || []).length;
-    const hasChildren = line.includes('[+]');
-    return {
-      line,
-      depth,
-      hasChildren,
-      visible: depth === 0,
-      id: index,
-      parent: null
-    };
-  });
-
-  // Lier les parents
-  for (let i = 1; i < nodes.length; i++) {
-    for (let j = i - 1; j >= 0; j--) {
-      if (nodes[j].depth === nodes[i].depth - 1) {
-        nodes[i].parent = nodes[j].id;
-        break;
-      }
-    }
-  }
-
-  function render() {
-    view.innerHTML = '';
-    nodes.forEach((node, i) => {
-      if (node.visible) {
-        const div = document.createElement('div');
-        div.textContent = node.line;
-        div.style.whiteSpace = 'pre';
-
-        if (node.hasChildren) {
-          div.classList.add('toggle');
-          div.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggle(node);
-          });
-        }
-
-        view.appendChild(div);
-      }
-    });
-  }
-
-  function toggle(node) {
-  const isExpanded = node.line.includes('[-]');
-  node.line = node.line.replace(isExpanded ? '[-]' : '[+]', isExpanded ? '[+]' : '[-]');
-
-  const toggleDepth = node.depth;
-  let i = nodes.findIndex(n => n.id === node.id) + 1;
-  while (i < nodes.length && nodes[i].depth > toggleDepth) {
-    if (isExpanded) {
-      // Si on replie : masquer et remettre le marqueur à [+]
-      nodes[i].visible = false;
-      if (nodes[i].hasChildren) {
-        nodes[i].line = nodes[i].line.replace('[-]', '[+]');
-      }
-    } else {
-      // Si on déplie : montrer les enfants directs uniquement
-      if (nodes[i].depth === toggleDepth + 1) {
-        nodes[i].visible = true;
-      }
-    }
-    i++;
-  }
-
-  render();
-}
-
-  // Initialiser les signes [+]
-  nodes.forEach(node => {
-    if (node.hasChildren) {
-      node.line = node.line.replace('[+]', '[+]');
-    }
-  });
-
-  render();
-  
--- >
 
 </body>
 </html>
