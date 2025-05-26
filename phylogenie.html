@@ -7,13 +7,10 @@
       margin: 0;
       font-family: monospace;
     }
-    pre {
-      margin: 0;
+    #view {
+      white-space: pre;
       line-height: 1;
       font-size: 14px;
-    }
-    .hidden {
-      display: none;
     }
     .toggle {
       cursor: pointer;
@@ -27,14 +24,17 @@
   
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<pre id="tree">
+<pre id="source" style="display: none;">
 ├── Basidiomycota [+]
 │   ├── Agaricomycetes [+]
 │   │   ├── Agaricales [+]
 │   │   │   ├── Coprinus comatus
-│   │   │   ├── Coprinellus micaceus
+│   │   │   └── Coprinellus micaceus
 │   │   └── Russulales
 </pre>
+
+<pre id="view"></pre>
+
 
 
 <pre>
@@ -598,59 +598,80 @@ Virus
 
 
 <script>
-  const treeElement = document.getElementById("tree");
-  const lines = treeElement.textContent.split('\n');
+  const source = document.getElementById('source').textContent.trim().split('\n');
+  const view = document.getElementById('view');
 
-  let html = '';
-  const idStack = [];
-
-  // Construire chaque ligne avec identifiants hiérarchiques
-  lines.forEach((line, i) => {
-    const depth = (line.match(/│   /g) || []).length;
-    const id = idStack.slice(0, depth).join('-');
-    const currentId = idStack[depth] = (idStack[depth] || 0) + 1;
-    const fullId = [...idStack.slice(0, depth), currentId].join('-');
+  // Construire une structure hiérarchique
+  const nodes = source.map((line, index) => {
+    const depth = (line.match(/│   |    /g) || []).length;
     const hasChildren = line.includes('[+]');
-
-    html += `<div 
-      data-id="${fullId}" 
-      data-parent="${id || ''}" 
-      class="${hasChildren ? 'toggle' : ''}" 
-      style="white-space: pre;"
-    >${line}</div>\n`;
+    return {
+      line,
+      depth,
+      hasChildren,
+      visible: depth === 0,
+      id: index,
+      parent: null
+    };
   });
 
-  treeElement.innerHTML = html;
+  // Lier les parents
+  for (let i = 1; i < nodes.length; i++) {
+    for (let j = i - 1; j >= 0; j--) {
+      if (nodes[j].depth === nodes[i].depth - 1) {
+        nodes[i].parent = nodes[j].id;
+        break;
+      }
+    }
+  }
 
-  function toggleNode(elem) {
-    const id = elem.dataset.id;
-    const isOpen = elem.textContent.includes("[-]");
-    elem.textContent = elem.textContent.replace(isOpen ? "[-]" : "[+]", isOpen ? "[+]" : "[-]");
+  function render() {
+    view.innerHTML = '';
+    nodes.forEach((node, i) => {
+      if (node.visible) {
+        const div = document.createElement('div');
+        div.textContent = node.line;
+        div.style.whiteSpace = 'pre';
 
-    const descendants = treeElement.querySelectorAll(`[data-parent^="${id}"]`);
-    descendants.forEach(child => {
-      const directChild = child.dataset.parent === id;
-
-      if (isOpen) {
-        child.classList.add("hidden");
-        if (child.classList.contains("toggle")) {
-          child.textContent = child.textContent.replace("[-]", "[+]");
+        if (node.hasChildren) {
+          div.classList.add('toggle');
+          div.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggle(node);
+          });
         }
-      } else if (directChild) {
-        child.classList.remove("hidden");
+
+        view.appendChild(div);
       }
     });
   }
 
-  // Ajouter les comportements
-  const toggles = treeElement.querySelectorAll('.toggle');
-  toggles.forEach(toggle => {
-    toggle.addEventListener('click', () => toggleNode(toggle));
+  function toggle(node) {
+    const isExpanded = node.line.includes('[-]');
+    node.line = node.line.replace(isExpanded ? '[-]' : '[+]', isExpanded ? '[+]' : '[-]');
+
+    // Affecte tous les descendants
+    const toggleDepth = node.depth;
+    let i = nodes.findIndex(n => n.id === node.id) + 1;
+    while (i < nodes.length && nodes[i].depth > toggleDepth) {
+      if (nodes[i].depth === toggleDepth + 1) {
+        nodes[i].visible = !isExpanded;
+      }
+      if (isExpanded) nodes[i].visible = false;
+      i++;
+    }
+
+    render();
+  }
+
+  // Initialiser les signes [+]
+  nodes.forEach(node => {
+    if (node.hasChildren) {
+      node.line = node.line.replace('[+]', '[+]');
+    }
   });
 
-  // Cacher tous les enfants par défaut sauf le premier niveau
-  treeElement.querySelectorAll('[data-parent]:not([data-parent=""])')
-    .forEach(el => el.classList.add("hidden"));
+  render();
 </script>
 
 </body>
