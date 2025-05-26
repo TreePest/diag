@@ -644,6 +644,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("view").replaceWith(container);
+  source.remove();
 
   // Ajout des boutons [+]/[-]
   nodes.forEach((node, index) => {
@@ -674,7 +675,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-    source.remove();
 </script>
 
 
