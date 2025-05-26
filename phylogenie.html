@@ -668,7 +668,7 @@ document.addEventListener("DOMContentLoaded", () => {
       node.button = button;
       node.isOpen = false;
 
-      function openAllSubtree(subNode) {
+       function openAllSubtree(subNode) {
         subNode.isOpen = true;
         if (subNode.button) subNode.button.textContent = "[-]";
         for (let i = nodes.indexOf(subNode) + 1; i < nodes.length; i++) {
@@ -676,7 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
           nodes[i].element.style.display = "block";
           if (nodes[i].button) openAllSubtree(nodes[i]);
         }
-      }
+      } 
 
       button.addEventListener("click", () => {
         node.isOpen = !node.isOpen;
@@ -695,9 +695,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      expandAllBtn.addEventListener("click", () => {
+      /* expandAllBtn.addEventListener("click", () => {
         openAllSubtree(node);
-      });
+      }); */
+
+      expandAllBtn.style.display = node.isOpen ? "none" : "inline";
+
+  children.forEach(child => {
+    if (node.isOpen && child.indent === node.indent + 4) {
+      child.element.style.display = "block";
+    } else {
+      child.element.style.display = "none";
+      if (child.button) {
+        child.button.textContent = "[+]";
+        child.isOpen = false;
+      }
+    }
+  });
+});
 
       // Masquer enfants au départ
       children.forEach(child => {
