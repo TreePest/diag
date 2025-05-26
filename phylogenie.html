@@ -5,35 +5,15 @@
   <style>
     body {
       font-family: monospace;
-      margin: 20px;
     }
-
-    .line {
-      white-space: pre;
-      font-family: monospace;
+    pre {
+      line-height: 1;
+    }
+    .toggle {
       cursor: pointer;
-      display: inline-block;
     }
-
-    .arrow {
-      display: inline-block;
-      transform: rotate(0deg);
-      transition: transform 0.2s ease;
-      font-size: 1.2em;
-      margin-left: 4px;
-    }
-
-    .arrow.open {
-      transform: rotate(90deg);
-    }
-
-    .children {
+    .hidden {
       display: none;
-      margin-left: 2ch;
-    }
-
-    .children.open {
-      display: block;
     }
   </style>
 </head>
@@ -44,17 +24,12 @@
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
 <pre>
-<span class="line" onclick="toggle(this)">├── Basidiomycota3<span class="arrow">&#9654;</span></span>
-<div class="children">
-<span class="line" onclick="toggle(this)">│   └── Agaricomycetes<span class="arrow">&#9654;</span></span>
-<div class="children">
-<span class="line" onclick="toggle(this)">│       └── Agaricales<span class="arrow">&#9654;</span></span>
-<div class="children">
-<span class="line">│           └── Coprinus comatus</span>
-</div>
-</div>
-</div>
-</div>
+<span class="toggle" onclick="toggle('node1')">├── Basidiomycota [+]</span>
+<pre id="node1" class="hidden">
+│   └── Agaricomycetes [+]
+│       └── Agaricales [+]
+│           └── Coprinus comatus
+</pre>
 </pre>
 
 
@@ -619,12 +594,16 @@ Virus
 
 
 <script>
-  function toggle(el) {
-    const arrow = el.querySelector('.arrow');
-    const next = el.nextElementSibling;
-    if (arrow && next && next.classList.contains('children')) {
-      arrow.classList.toggle('open');
-      next.classList.toggle('open');
+  function toggle(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('hidden');
+    }
+    const caller = event.currentTarget;
+    if (caller.textContent.includes('[+]')) {
+      caller.textContent = caller.textContent.replace('[+]', '[-]');
+    } else {
+      caller.textContent = caller.textContent.replace('[-]', '[+]');
     }
     event.stopPropagation();
   }
