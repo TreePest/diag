@@ -681,6 +681,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.addEventListener("click", () => {
         node.isOpen = !node.isOpen;
         button.textContent = node.isOpen ? "[-]" : "[+]";
+        expandAllBtn.style.display = node.isOpen ? "none" : "inline";
 
         children.forEach(child => {
           if (node.isOpen && child.indent === node.indent + 4) {
