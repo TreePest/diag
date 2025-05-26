@@ -647,22 +647,29 @@ Virus
   }
 
   function toggle(node) {
-    const isExpanded = node.line.includes('[-]');
-    node.line = node.line.replace(isExpanded ? '[-]' : '[+]', isExpanded ? '[+]' : '[-]');
+  const isExpanded = node.line.includes('[-]');
+  node.line = node.line.replace(isExpanded ? '[-]' : '[+]', isExpanded ? '[+]' : '[-]');
 
-    // Affecte tous les descendants
-    const toggleDepth = node.depth;
-    let i = nodes.findIndex(n => n.id === node.id) + 1;
-    while (i < nodes.length && nodes[i].depth > toggleDepth) {
-      if (nodes[i].depth === toggleDepth + 1) {
-        nodes[i].visible = !isExpanded;
+  const toggleDepth = node.depth;
+  let i = nodes.findIndex(n => n.id === node.id) + 1;
+  while (i < nodes.length && nodes[i].depth > toggleDepth) {
+    if (isExpanded) {
+      // Si on replie : masquer et remettre le marqueur à [+]
+      nodes[i].visible = false;
+      if (nodes[i].hasChildren) {
+        nodes[i].line = nodes[i].line.replace('[-]', '[+]');
       }
-      if (isExpanded) nodes[i].visible = false;
-      i++;
+    } else {
+      // Si on déplie : montrer les enfants directs uniquement
+      if (nodes[i].depth === toggleDepth + 1) {
+        nodes[i].visible = true;
+      }
     }
-
-    render();
+    i++;
   }
+
+  render();
+}
 
   // Initialiser les signes [+]
   nodes.forEach(node => {
