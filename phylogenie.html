@@ -7,25 +7,31 @@
       font-family: monospace;
       margin: 20px;
     }
-    .node {
+
+    .line {
       white-space: pre;
+      font-family: monospace;
       cursor: pointer;
       display: inline-block;
     }
+
     .arrow {
       display: inline-block;
       transform: rotate(0deg);
       transition: transform 0.2s ease;
-      font-size: 1.4em;
+      font-size: 1.2em;
       margin-left: 4px;
     }
+
     .arrow.open {
       transform: rotate(90deg);
     }
+
     .children {
       display: none;
-      margin-left: 4ch;
+      margin-left: 2ch;
     }
+
     .children.open {
       display: block;
     }
@@ -33,24 +39,23 @@
 </head>
 <body>
 
+
+  
 <h2>Phylogénie des pathogènes et ravageurs des arbres</h2>
 
-<div class="node" onclick="toggle(this)">
-  ├── Basidiomycota<span class="arrow">&#9654;</span>
-</div>
+<pre>
+<span class="line" onclick="toggle(this)">├── Basidiomycota<span class="arrow">&#9654;</span></span>
 <div class="children">
-  <div class="node" onclick="toggle(this)">
-    │   └── Agaricomycetes<span class="arrow">&#9654;</span>
-  </div>
-  <div class="children">
-    <div class="node" onclick="toggle(this)">
-      │       └── Agaricales<span class="arrow">&#9654;</span>
-    </div>
-    <div class="children">
-      <div class="node">│           └── Coprinus comatus</div>
-    </div>
-  </div>
+<span class="line" onclick="toggle(this)">│   └── Agaricomycetes<span class="arrow">&#9654;</span></span>
+<div class="children">
+<span class="line" onclick="toggle(this)">│       └── Agaricales<span class="arrow">&#9654;</span></span>
+<div class="children">
+<span class="line">│           └── Coprinus comatus</span>
 </div>
+</div>
+</div>
+</div>
+</pre>
 
 
 <pre>
@@ -617,7 +622,7 @@ Virus
   function toggle(el) {
     const arrow = el.querySelector('.arrow');
     const next = el.nextElementSibling;
-    if (arrow && next) {
+    if (arrow && next && next.classList.contains('children')) {
       arrow.classList.toggle('open');
       next.classList.toggle('open');
     }
