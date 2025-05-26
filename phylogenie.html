@@ -679,6 +679,29 @@ Virus
   });
 
   render();
+
+  
+   // Fonction pour transformer un binôme en lien
+  function linkifySpecies() {
+    const pre = document.querySelector("pre");
+    const speciesRegex = /([A-Z][a-z]+) ([a-z]+)$/;
+
+    // Remplace chaque ligne dans le contenu
+    pre.innerHTML = pre.innerHTML.split('\n').map(line => {
+      const match = line.match(speciesRegex);
+      if (match) {
+        const genus = match[1];
+        const species = match[2];
+        const url = `https://treepest.github.io/diag/details.html?espece=${genus}_${species}`;
+        const link = `<a href="${url}" target="_blank">${genus} ${species}</a>`;
+        return line.replace(speciesRegex, link);
+      }
+      return line;
+    }).join('\n');
+  }
+
+  // Appel après un petit délai (s'assurer que le DOM est prêt)
+  setTimeout(linkifySpecies, 100);
 </script>
 
 </body>
