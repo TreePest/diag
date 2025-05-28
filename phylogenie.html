@@ -698,21 +698,25 @@ document.addEventListener("DOMContentLoaded", () => {
           // Afficher uniquement les enfants directs
           const parentIndent = node.indent;
           for (let i = index + 1; i < nodes.length; i++) {
-            const child = nodes[i];
-            if (child.indent <= parentIndent) break;
+  const child = nodes[i];
+  if (child.indent <= parentIndent) break;
 
-            if (child.indent === parentIndent + 4) {
-              child.element.style.display = "block";
-            }
+  if (child.indent === parentIndent + 4) {
+    child.element.style.display = "block";
+  } else if (child.indent > parentIndent + 4) {
+    // Ne pas afficher les sous-enfants plus profonds
+    continue;
+  }
 
-            if (child.button) {
-              child.button.textContent = "[+]";
-              child.isOpen = false;
-            }
-            if (child.expandAllBtn) {
-              child.expandAllBtn.style.display = "inline";
-            }
-          }
+  // Réinitialiser les états de cette branche
+  if (child.button) {
+    child.button.textContent = "[+]";
+    child.isOpen = false;
+  }
+  if (child.expandAllBtn) {
+    child.expandAllBtn.style.display = "inline";
+  }
+}
         } else {
           closeAllSubtree(node);
         }
