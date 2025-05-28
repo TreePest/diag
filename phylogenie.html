@@ -593,15 +593,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const lines = source.textContent.split("\n");
   const container = document.createElement("pre");
   container.id = "view";
-
   const nodes = [];
 
-  // Création de l'arbre ligne par ligne
+  // Création de l'arbre
   lines.forEach((lineText) => {
     const line = document.createElement("div");
     const indent = lineText.search(/[^ │├└─]/);
     const prefix = lineText.slice(0, indent);
-    const content = lineText.slice(indent); // ne pas faire .trim()
+    const content = lineText.slice(indent);
 
     const prefixSpan = document.createElement("span");
     prefixSpan.textContent = prefix;
@@ -628,11 +627,10 @@ document.addEventListener("DOMContentLoaded", () => {
     nodes.push({ element: line, indent });
   });
 
-  // Remplacement dans la page
   source.remove();
   document.getElementById("view").replaceWith(container);
 
-  // Gestion des boutons [+] et [++]
+  // Ajout des boutons et gestion
   nodes.forEach((node, index) => {
     const nextIndent = nodes[index + 1]?.indent;
     if (nextIndent > node.indent) {
@@ -649,97 +647,89 @@ document.addEventListener("DOMContentLoaded", () => {
       node.element.appendChild(button);
       node.element.appendChild(expandAllBtn);
 
-      const children = [];
-      for (let i = index + 1; i < nodes.length; i++) {
-        if (nodes[i].indent <= node.indent) break;
-        children.push(nodes[i]);
-      }
-
       node.button = button;
       node.expandAllBtn = expandAllBtn;
       node.isOpen = false;
 
-       function openAllSubtree(subNode) {
-  subNode.isOpen = true;
-  if (subNode.button) subNode.button.textContent = "[-]";
-  if (subNode.expandAllBtn) subNode.expandAllBtn.style.display = "none";
+      function openAllSubtree(current) {
+        current.isOpen = true;
+        if (current.button) current.button.textContent = "[-]";
+        if (current.expandAllBtn) current.expandAllBtn.style.display = "none";
 
-  for (let i = nodes.indexOf(subNode) + 1; i < nodes.length; i++) {
-    const child = nodes[i];
-    if (child.indent <= subNode.indent) break;
+        for (let i = nodes.indexOf(current) + 1; i < nodes.length; i++) {
+          const child = nodes[i];
+          if (child.indent <= current.indent) break;
+          child.element.style.display = "block";
+          if (child.button) {
+            child.button.textContent = "[-]";
+            child.isOpen = true;
+          }
+          if (child.expandAllBtn) {
+            child.expandAllBtn.style.display = "none";
+          }
+        }
+      }
 
-    child.element.style.display = "block";
+      function closeAllSubtree(current) {
+        current.isOpen = false;
+        if (current.button) current.button.textContent = "[+]";
+        if (current.expandAllBtn) current.expandAllBtn.style.display = "inline";
 
-    if (child.button) {
-      child.button.textContent = "[-]";
-      child.isOpen = true;
-    }
-    if (child.expandAllBtn) {
-      child.expandAllBtn.style.display = "none";
-    }
-  }
-}
-
-      function closeAllSubtree(subNode) {
-  subNode.isOpen = false;
-  if (subNode.button) subNode.button.textContent = "[+]";
-  if (subNode.expandAllBtn) subNode.expandAllBtn.style.display = "inline";
-
-  for (let i = nodes.indexOf(subNode) + 1; i < nodes.length; i++) {
-    const child = nodes[i];
-    if (child.indent <= subNode.indent) break;
-
-    child.element.style.display = "none";
-
-    if (child.button) {
-      child.button.textContent = "[+]";
-      child.isOpen = false;
-    }
-    if (child.expandAllBtn) {
-      child.expandAllBtn.style.display = "inline";
-    }
-  }
-}
-
-      
+        for (let i = nodes.indexOf(current) + 1; i < nodes.length; i++) {
+          const child = nodes[i];
+          if (child.indent <= current.indent) break;
+          child.element.style.display = "none";
+          if (child.button) {
+            child.button.textContent = "[+]";
+            child.isOpen = false;
+          }
+          if (child.expandAllBtn) {
+            child.expandAllBtn.style.display = "inline";
+          }
+        }
+      }
 
       button.addEventListener("click", () => {
-  if (!node.isOpen) {
-  node.isOpen = true;
-  button.textContent = "[-]";
-  node.expandAllBtn.style.display = "none";
+        if (!node.isOpen) {
+          node.isOpen = true;
+          button.textContent = "[-]";
+          expandAllBtn.style.display = "none";
 
-  let parentIndent = node.indent;
-  for (let i = index + 1; i < nodes.length; i++) {
-    const child = nodes[i];
-    if (child.indent <= parentIndent) break;
-    if (child.indent === parentIndent + 4) {
-      child.element.style.display = "block";
-    }
-    if (child.button) {
-      child.button.textContent = "[+]";
-      child.isOpen = false;
-    }
-    if (child.expandAllBtn) {
-      child.expandAllBtn.style.display = "inline";
-    }
-  }
-} else {
-  closeAllSubtree(node);
-}
+          // Afficher uniquement les enfants directs
+          const parentIndent = node.indent;
+          for (let i = index + 1; i < nodes.length; i++) {
+            const child = nodes[i];
+            if (child.indent <= parentIndent) break;
 
-expandAllBtn.addEventListener("click", () => {
-  openAllSubtree(node);
-});
+            if (child.indent === parentIndent + 4) {
+              child.element.style.display = "block";
+            }
+
+            if (child.button) {
+              child.button.textContent = "[+]";
+              child.isOpen = false;
+            }
+            if (child.expandAllBtn) {
+              child.expandAllBtn.style.display = "inline";
+            }
+          }
+        } else {
+          closeAllSubtree(node);
+        }
+      });
+
+      expandAllBtn.addEventListener("click", () => {
+        openAllSubtree(node);
+      });
 
       // Masquer enfants au départ
-      children.forEach(child => {
-        child.element.style.display = "none";
-      });
+      for (let i = index + 1; i < nodes.length; i++) {
+        if (nodes[i].indent <= node.indent) break;
+        nodes[i].element.style.display = "none";
+      }
     }
   });
 });
 </script>
-
 </body>
 </html>
