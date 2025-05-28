@@ -595,7 +595,7 @@ document.addEventListener("DOMContentLoaded", () => {
   container.id = "view";
   const nodes = [];
 
-  // Création de l'arbre
+  // Création des nœuds
   lines.forEach((lineText) => {
     const line = document.createElement("div");
     const indent = lineText.search(/[^ │├└─]/);
@@ -630,7 +630,72 @@ document.addEventListener("DOMContentLoaded", () => {
   source.remove();
   document.getElementById("view").replaceWith(container);
 
-  // Ajout des boutons et gestion
+  // Outils de gestion d'affichage
+  function getChildren(parentIndex) {
+    const parent = nodes[parentIndex];
+    const children = [];
+
+    for (let i = parentIndex + 1; i < nodes.length; i++) {
+      const node = nodes[i];
+      if (node.indent <= parent.indent) break;
+      children.push({ node, index: i });
+    }
+
+    return children;
+  }
+
+  function getDirectChildren(parentIndex) {
+    const parent = nodes[parentIndex];
+    return getChildren(parentIndex).filter(({ node }) => node.indent === parent.indent + 4);
+  }
+
+  function showNodes(list) {
+    list.forEach(({ node }) => node.element.style.display = "block");
+  }
+
+  function hideNodes(list) {
+    list.forEach(({ node }) => node.element.style.display = "none");
+  }
+
+  function closeAllSubtree(index) {
+    const current = nodes[index];
+    current.isOpen = false;
+    if (current.button) current.button.textContent = "[+]";
+    if (current.expandAllBtn) current.expandAllBtn.style.display = "inline";
+
+    const subtree = getChildren(index);
+    subtree.forEach(({ node }) => {
+      node.element.style.display = "none";
+      if (node.button) {
+        node.button.textContent = "[+]";
+        node.isOpen = false;
+      }
+      if (node.expandAllBtn) {
+        node.expandAllBtn.style.display = "inline";
+      }
+    });
+  }
+
+  function openAllSubtree(index) {
+    const current = nodes[index];
+    current.isOpen = true;
+    if (current.button) current.button.textContent = "[-]";
+    if (current.expandAllBtn) current.expandAllBtn.style.display = "none";
+
+    const subtree = getChildren(index);
+    subtree.forEach(({ node }) => {
+      node.element.style.display = "block";
+      if (node.button) {
+        node.button.textContent = "[-]";
+        node.isOpen = true;
+      }
+      if (node.expandAllBtn) {
+        node.expandAllBtn.style.display = "none";
+      }
+    });
+  }
+
+  // Ajout des boutons
   nodes.forEach((node, index) => {
     const nextIndent = nodes[index + 1]?.indent;
     if (nextIndent > node.indent) {
@@ -651,86 +716,37 @@ document.addEventListener("DOMContentLoaded", () => {
       node.expandAllBtn = expandAllBtn;
       node.isOpen = false;
 
-      function openAllSubtree(current) {
-        current.isOpen = true;
-        if (current.button) current.button.textContent = "[-]";
-        if (current.expandAllBtn) current.expandAllBtn.style.display = "none";
-
-        for (let i = nodes.indexOf(current) + 1; i < nodes.length; i++) {
-          const child = nodes[i];
-          if (child.indent <= current.indent) break;
-          child.element.style.display = "block";
-          if (child.button) {
-            child.button.textContent = "[-]";
-            child.isOpen = true;
-          }
-          if (child.expandAllBtn) {
-            child.expandAllBtn.style.display = "none";
-          }
-        }
-      }
-
-      function closeAllSubtree(current) {
-        current.isOpen = false;
-        if (current.button) current.button.textContent = "[+]";
-        if (current.expandAllBtn) current.expandAllBtn.style.display = "inline";
-
-        for (let i = nodes.indexOf(current) + 1; i < nodes.length; i++) {
-          const child = nodes[i];
-          if (child.indent <= current.indent) break;
-          child.element.style.display = "none";
-          if (child.button) {
-            child.button.textContent = "[+]";
-            child.isOpen = false;
-          }
-          if (child.expandAllBtn) {
-            child.expandAllBtn.style.display = "inline";
-          }
-        }
-      }
-
+      // Bouton [+] (ouvrir enfants directs)
       button.addEventListener("click", () => {
         if (!node.isOpen) {
           node.isOpen = true;
           button.textContent = "[-]";
           expandAllBtn.style.display = "none";
 
-          // Afficher uniquement les enfants directs
-          const parentIndent = node.indent;
-          for (let i = index + 1; i < nodes.length; i++) {
-  const child = nodes[i];
-  if (child.indent <= parentIndent) break;
+          const directChildren = getDirectChildren(index);
+          showNodes(directChildren);
 
-  if (child.indent === parentIndent + 4) {
-    child.element.style.display = "block";
-  } else if (child.indent > parentIndent + 4) {
-    // Ne pas afficher les sous-enfants plus profonds
-    continue;
-  }
+          // S'assurer que tous les enfants sont repliés
+          getChildren(index).forEach(({ node }) => {
+            if (node.button) node.button.textContent = "[+]";
+            if (node.expandAllBtn) node.expandAllBtn.style.display = "inline";
+            node.isOpen = false;
+          });
 
-  // Réinitialiser les états de cette branche
-  if (child.button) {
-    child.button.textContent = "[+]";
-    child.isOpen = false;
-  }
-  if (child.expandAllBtn) {
-    child.expandAllBtn.style.display = "inline";
-  }
-}
         } else {
-          closeAllSubtree(node);
+          closeAllSubtree(index);
         }
       });
 
+      // Bouton [++] (ouvrir tout)
       expandAllBtn.addEventListener("click", () => {
-        openAllSubtree(node);
+        openAllSubtree(index);
       });
 
-      // Masquer enfants au départ
-      for (let i = index + 1; i < nodes.length; i++) {
-        if (nodes[i].indent <= node.indent) break;
-        nodes[i].element.style.display = "none";
-      }
+      // Masquer tous les descendants au départ
+      getChildren(index).forEach(({ node }) => {
+        node.element.style.display = "none";
+      });
     }
   });
 });
