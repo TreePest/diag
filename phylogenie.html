@@ -660,37 +660,68 @@ document.addEventListener("DOMContentLoaded", () => {
       node.isOpen = false;
 
        function openAllSubtree(subNode) {
-        subNode.isOpen = true;
-        if (subNode.button) subNode.button.textContent = "[-]";
-        for (let i = nodes.indexOf(subNode) + 1; i < nodes.length; i++) {
-          if (nodes[i].indent <= subNode.indent) break;
-          nodes[i].element.style.display = "block";
-          if (nodes[i].button) openAllSubtree(nodes[i]);
-        }
-      } 
+  subNode.isOpen = true;
+  if (subNode.button) subNode.button.textContent = "[-]";
+  if (subNode.expandAllBtn) subNode.expandAllBtn.style.display = "none";
+
+  for (let i = nodes.indexOf(subNode) + 1; i < nodes.length; i++) {
+    const child = nodes[i];
+    if (child.indent <= subNode.indent) break;
+
+    child.element.style.display = "block";
+
+    if (child.button) {
+      child.button.textContent = "[-]";
+      child.isOpen = true;
+    }
+    if (child.expandAllBtn) {
+      child.expandAllBtn.style.display = "none";
+    }
+  }
+}
+
+      function closeAllSubtree(subNode) {
+  subNode.isOpen = false;
+  if (subNode.button) subNode.button.textContent = "[+]";
+  if (subNode.expandAllBtn) subNode.expandAllBtn.style.display = "inline";
+
+  for (let i = nodes.indexOf(subNode) + 1; i < nodes.length; i++) {
+    const child = nodes[i];
+    if (child.indent <= subNode.indent) break;
+
+    child.element.style.display = "none";
+
+    if (child.button) {
+      child.button.textContent = "[+]";
+      child.isOpen = false;
+    }
+    if (child.expandAllBtn) {
+      child.expandAllBtn.style.display = "inline";
+    }
+  }
+}
+
+      
 
       button.addEventListener("click", () => {
-        node.isOpen = !node.isOpen;
-        button.textContent = node.isOpen ? "[-]" : "[+]";
-        node.expandAllBtn.style.display = node.isOpen ? "none" : "inline";
+  if (!node.isOpen) {
+    node.isOpen = true;
+    button.textContent = "[-]";
+    node.expandAllBtn.style.display = "none";
 
-        children.forEach(child => {
-          if (node.isOpen && child.indent === node.indent + 4) {
-            child.element.style.display = "block";
-          } else {
-            child.element.style.display = "none";
-            if (child.button) {
-              child.button.textContent = "[+]";
-              child.isOpen = false;
-            }
-          }
-        });
-      });
+    children.forEach(child => {
+      if (child.indent === node.indent + 4) {
+        child.element.style.display = "block";
+      }
+    });
+  } else {
+    closeAllSubtree(node);
+  }
+});
 
-       expandAllBtn.addEventListener("click", () => {
-        openAllSubtree(node);
-        node.expandAllBtn.style.display = "none";
-      }); 
+expandAllBtn.addEventListener("click", () => {
+  openAllSubtree(node);
+});
 
       // Masquer enfants au départ
       children.forEach(child => {
