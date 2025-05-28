@@ -689,6 +689,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
        expandAllBtn.addEventListener("click", () => {
         openAllSubtree(node);
+        node.expandAllBtn.style.display = "none";
       }); 
 
       // Masquer enfants au départ
