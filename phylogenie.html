@@ -710,10 +710,21 @@ document.addEventListener("DOMContentLoaded", () => {
     node.expandAllBtn.style.display = "none";
 
     children.forEach(child => {
-      if (child.indent === node.indent + 4) {
-        child.element.style.display = "block";
-      }
-    });
+  if (child.indent > node.indent) {
+    // Montrer uniquement les enfants directs à ce niveau
+    if (child.indent === node.indent + 4) {
+      child.element.style.display = "block";
+    }
+    // S'assurer que tous les enfants sont fermés au départ
+    if (child.button) {
+      child.button.textContent = "[+]";
+      child.isOpen = false;
+    }
+    if (child.expandAllBtn) {
+      child.expandAllBtn.style.display = "inline";
+    }
+  }
+});
   } else {
     closeAllSubtree(node);
   }
