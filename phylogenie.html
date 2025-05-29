@@ -7,14 +7,30 @@
       margin: 0;
       font-family: monospace;
     }
+
     #view {
       white-space: pre;
       line-height: 1;
       font-size: 14px;
     }
+
     a {
       color: blue;
       text-decoration: underline;
+    }
+
+    .node {
+      transition: clip-path 0.3s ease, opacity 0.3s ease;
+      clip-path: inset(0 0 100% 0);
+      opacity: 0;
+      display: block;
+      overflow: hidden;
+      height: auto;
+    }
+
+    .node.visible {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
     }
   </style>
 </head>
@@ -598,6 +614,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Création des nœuds
   lines.forEach((lineText) => {
     const line = document.createElement("div");
+    line.classList.add("node"); // Ajout de la classe d'animation
     const indent = lineText.search(/[^ │├└─]/);
     const prefix = lineText.slice(0, indent);
     const content = lineText.slice(indent);
@@ -645,23 +662,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getDirectChildren(parentIndex) {
-  const parent = nodes[parentIndex];
-  const allChildren = getChildren(parentIndex);
+    const parent = nodes[parentIndex];
+    const allChildren = getChildren(parentIndex);
+    if (allChildren.length === 0) return [];
 
-  if (allChildren.length === 0) return [];
-
-  // Trouver l'indentation minimale des enfants
-  const minChildIndent = Math.min(...allChildren.map(({ node }) => node.indent));
-
-  return allChildren.filter(({ node }) => node.indent === minChildIndent);
-}
+    const minChildIndent = Math.min(...allChildren.map(({ node }) => node.indent));
+    return allChildren.filter(({ node }) => node.indent === minChildIndent);
+  }
 
   function showNodes(list) {
-    list.forEach(({ node }) => node.element.style.display = "block");
+    list.forEach(({ node }) => {
+      node.element.classList.add("visible");
+    });
   }
 
   function hideNodes(list) {
-    list.forEach(({ node }) => node.element.style.display = "none");
+    list.forEach(({ node }) => {
+      node.element.classList.remove("visible");
+    });
   }
 
   function closeAllSubtree(index) {
@@ -672,7 +690,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const subtree = getChildren(index);
     subtree.forEach(({ node }) => {
-      node.element.style.display = "none";
+      node.element.classList.remove("visible");
       if (node.button) {
         node.button.textContent = "[+]";
         node.isOpen = false;
@@ -691,7 +709,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const subtree = getChildren(index);
     subtree.forEach(({ node }) => {
-      node.element.style.display = "block";
+      node.element.classList.add("visible");
       if (node.button) {
         node.button.textContent = "[-]";
         node.isOpen = true;
@@ -723,7 +741,7 @@ document.addEventListener("DOMContentLoaded", () => {
       node.expandAllBtn = expandAllBtn;
       node.isOpen = false;
 
-      // Bouton [+] (ouvrir enfants directs)
+      // Bouton [+]
       button.addEventListener("click", () => {
         if (!node.isOpen) {
           node.isOpen = true;
@@ -733,7 +751,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const directChildren = getDirectChildren(index);
           showNodes(directChildren);
 
-          // S'assurer que tous les enfants sont repliés
           getChildren(index).forEach(({ node }) => {
             if (node.button) node.button.textContent = "[+]";
             if (node.expandAllBtn) node.expandAllBtn.style.display = "inline";
@@ -745,14 +762,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // Bouton [++] (ouvrir tout)
+      // Bouton [++]
       expandAllBtn.addEventListener("click", () => {
         openAllSubtree(index);
       });
 
       // Masquer tous les descendants au départ
       getChildren(index).forEach(({ node }) => {
-        node.element.style.display = "none";
+        node.element.classList.remove("visible");
       });
     }
   });
