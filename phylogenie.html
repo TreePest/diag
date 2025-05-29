@@ -646,10 +646,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getDirectChildren(parentIndex) {
   const parent = nodes[parentIndex];
-  return getChildren(parentIndex).filter(({ node }) => {
-    console.log("Parent indent:", parent.indent, "Child indent:", node.indent);
-    return node.indent === parent.indent + 4;
-  });
+  const allChildren = getChildren(parentIndex);
+
+  if (allChildren.length === 0) return [];
+
+  // Trouver l'indentation minimale des enfants
+  const minChildIndent = Math.min(...allChildren.map(({ node }) => node.indent));
+
+  return allChildren.filter(({ node }) => node.indent === minChildIndent);
 }
 
   function showNodes(list) {
