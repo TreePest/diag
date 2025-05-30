@@ -20,14 +20,19 @@
       text-decoration: underline;
     }
 
-    .node {
+    /*.node {
       transition: clip-path 0.3s ease, opacity 0.3s ease;
       clip-path: inset(0 0 100% 0);
       opacity: 0;
       display: block;
       overflow: hidden;
       height: auto;
-    }
+    }*/
+    .node {
+  clip-path: none;
+  opacity: 1;
+  display: block;
+}
 
     .node.visible {
       clip-path: inset(0 0 0 0);
