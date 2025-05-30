@@ -21,17 +21,16 @@
     }
 
     .node {
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.4s ease;
-}
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
 
-.node.visible {
-  max-height: 100px; /* Assez grand pour afficher une ligne */
-  opacity: 1;
-}
-
+    .node.visible {
+      max-height: 100px;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -614,7 +613,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Création des nœuds
   lines.forEach((lineText) => {
     const line = document.createElement("div");
-    line.classList.add("node"); // Ajout de la classe d'animation
+    line.classList.add("node");
     const indent = lineText.search(/[^ │├└─]/);
     const prefix = lineText.slice(0, indent);
     const content = lineText.slice(indent);
@@ -647,17 +646,14 @@ document.addEventListener("DOMContentLoaded", () => {
   source.remove();
   document.getElementById("view").replaceWith(container);
 
-  // Outils de gestion d'affichage
   function getChildren(parentIndex) {
     const parent = nodes[parentIndex];
     const children = [];
-
     for (let i = parentIndex + 1; i < nodes.length; i++) {
       const node = nodes[i];
       if (node.indent <= parent.indent) break;
       children.push({ node, index: i });
     }
-
     return children;
   }
 
@@ -665,29 +661,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const parent = nodes[parentIndex];
     const allChildren = getChildren(parentIndex);
     if (allChildren.length === 0) return [];
-
     const minChildIndent = Math.min(...allChildren.map(({ node }) => node.indent));
     return allChildren.filter(({ node }) => node.indent === minChildIndent);
   }
 
   function showNodes(list) {
-  list.forEach(({ node }) => {
-    node.element.classList.add("visible");
-  });
-}
+    list.forEach(({ node }) => node.element.classList.add("visible"));
+  }
 
   function hideNodes(list) {
-  list.forEach(({ node }) => {
-    node.element.classList.remove("visible");
-  });
-}
+    list.forEach(({ node }) => node.element.classList.remove("visible"));
+  }
 
   function closeAllSubtree(index) {
     const current = nodes[index];
     current.isOpen = false;
     if (current.button) current.button.textContent = "[+]";
     if (current.expandAllBtn) current.expandAllBtn.style.display = "inline";
-
     const subtree = getChildren(index);
     subtree.forEach(({ node }) => {
       node.element.classList.remove("visible");
@@ -706,7 +696,6 @@ document.addEventListener("DOMContentLoaded", () => {
     current.isOpen = true;
     if (current.button) current.button.textContent = "[-]";
     if (current.expandAllBtn) current.expandAllBtn.style.display = "none";
-
     const subtree = getChildren(index);
     subtree.forEach(({ node }) => {
       node.element.classList.add("visible");
@@ -741,38 +730,33 @@ document.addEventListener("DOMContentLoaded", () => {
       node.expandAllBtn = expandAllBtn;
       node.isOpen = false;
 
-      // Bouton [+]
       button.addEventListener("click", () => {
         if (!node.isOpen) {
           node.isOpen = true;
           button.textContent = "[-]";
           expandAllBtn.style.display = "none";
-
           const directChildren = getDirectChildren(index);
           showNodes(directChildren);
-
           getChildren(index).forEach(({ node }) => {
             if (node.button) node.button.textContent = "[+]";
             if (node.expandAllBtn) node.expandAllBtn.style.display = "inline";
             node.isOpen = false;
           });
-
         } else {
           closeAllSubtree(index);
         }
       });
 
-      // Bouton [++]
       expandAllBtn.addEventListener("click", () => {
         openAllSubtree(index);
       });
-
-      // Masquer tous les descendants au départ
-      getChildren(index).forEach(({ node }) => {
-        node.element.classList.remove("visible");
-      });
     }
   });
+
+  // ✅ Affiche la racine + enfants directs
+  nodes[0].element.classList.add("visible");
+  const rootChildren = getDirectChildren(0);
+  showNodes(rootChildren);
 });
 </script>
 </body>
