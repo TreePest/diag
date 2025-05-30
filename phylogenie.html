@@ -646,6 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
   source.remove();
   document.getElementById("view").replaceWith(container);
 
+  // Fonctions utilitaires
   function getChildren(parentIndex) {
     const parent = nodes[parentIndex];
     const children = [];
@@ -661,8 +662,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const parent = nodes[parentIndex];
     const allChildren = getChildren(parentIndex);
     if (allChildren.length === 0) return [];
-    const minChildIndent = Math.min(...allChildren.map(({ node }) => node.indent));
-    return allChildren.filter(({ node }) => node.indent === minChildIndent);
+    const minIndent = Math.min(...allChildren.map(({ node }) => node.indent));
+    return allChildren.filter(({ node }) => node.indent === minIndent);
   }
 
   function showNodes(list) {
@@ -678,6 +679,7 @@ document.addEventListener("DOMContentLoaded", () => {
     current.isOpen = false;
     if (current.button) current.button.textContent = "[+]";
     if (current.expandAllBtn) current.expandAllBtn.style.display = "inline";
+
     const subtree = getChildren(index);
     subtree.forEach(({ node }) => {
       node.element.classList.remove("visible");
@@ -696,6 +698,7 @@ document.addEventListener("DOMContentLoaded", () => {
     current.isOpen = true;
     if (current.button) current.button.textContent = "[-]";
     if (current.expandAllBtn) current.expandAllBtn.style.display = "none";
+
     const subtree = getChildren(index);
     subtree.forEach(({ node }) => {
       node.element.classList.add("visible");
@@ -709,7 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Ajout des boutons
+  // Ajout des boutons d'ouverture
   nodes.forEach((node, index) => {
     const nextIndent = nodes[index + 1]?.indent;
     if (nextIndent > node.indent) {
@@ -753,13 +756,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ✅ Affiche toutes les racines et leurs enfants directs (ex: Life, Virus, etc.)
-nodes.forEach((node, index) => {
-  if (node.indent === 0) {
-    node.element.classList.add("visible");
-    const children = getDirectChildren(index);
-    showNodes(children);
-  }
+  // ❗️Masquer tous les nœuds non racines
+  nodes.forEach((node) => {
+    if (node.indent !== 0) {
+      node.element.classList.remove("visible");
+    }
+  });
+
+  // ✅ Affiche les racines et leurs enfants directs
+  nodes.forEach((node, index) => {
+    if (node.indent === 0) {
+      node.element.classList.add("visible");
+      const children = getDirectChildren(index);
+      showNodes(children);
+    }
+  });
 });
 </script>
 </body>
