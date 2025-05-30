@@ -20,18 +20,16 @@
       text-decoration: underline;
     }
 
-    /*.node {
-      transition: clip-path 0.3s ease, opacity 0.3s ease;
-      clip-path: inset(0 0 100% 0);
-      opacity: 0;
-      display: block;
-      overflow: hidden;
-      height: auto;
-    }*/
     .node {
-  clip-path: none;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.node.visible {
+  max-height: 100px; /* Assez grand pour afficher une ligne */
   opacity: 1;
-  display: block;
 }
 
     .node.visible {
@@ -677,16 +675,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showNodes(list) {
-    list.forEach(({ node }) => {
-      node.element.classList.add("visible");
-    });
-  }
+  list.forEach(({ node }) => {
+    node.element.classList.add("visible");
+  });
+}
 
   function hideNodes(list) {
-    list.forEach(({ node }) => {
-      node.element.classList.remove("visible");
-    });
-  }
+  list.forEach(({ node }) => {
+    node.element.classList.remove("visible");
+  });
+}
 
   function closeAllSubtree(index) {
     const current = nodes[index];
