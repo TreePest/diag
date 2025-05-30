@@ -613,21 +613,26 @@ document.addEventListener("DOMContentLoaded", () => {
     prefixSpan.textContent = prefix;
 
     const contentSpan = document.createElement("span");
-    const speciesMatch = content.trim().match(/^([A-Z][a-z]+ [a-z]+)$/);
-    if (speciesMatch) {
-      const speciesName = speciesMatch[1];
-      const url = `https://treepest.github.io/diag/details.html?espece=${speciesName.replace(/ /g, "_")}`;
-      const link = document.createElement("a");
-      link.href = url;
-      link.textContent = speciesName;
-      link.target = "_blank";
-      contentSpan.appendChild(link);
-    } else {
-      contentSpan.textContent = content.trim();
-    }
 
-    line.appendChild(prefixSpan);
-    line.appendChild(contentSpan);
+if (content.includes("<a")) {
+  contentSpan.innerHTML = content.trim(); // interprète le HTML déjà présent
+} else {
+  const speciesMatch = content.trim().match(/^([A-Z][a-z]+ [a-z]+)$/);
+  if (speciesMatch) {
+    const speciesName = speciesMatch[1];
+    const url = `https://treepest.github.io/diag/details.html?espece=${speciesName.replace(/ /g, "_")}`;
+    const link = document.createElement("a");
+    link.href = url;
+    link.textContent = speciesName;
+    link.target = "_blank";
+    contentSpan.appendChild(link);
+  } else {
+    contentSpan.textContent = content.trim();
+  }
+}
+
+line.appendChild(prefixSpan);
+line.appendChild(contentSpan);
     container.appendChild(line);
 
     nodes.push({ element: line, indent });
