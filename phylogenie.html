@@ -4,34 +4,26 @@
   <meta charset="UTF-8">
   <title>Phylogénie</title>
   <style>
-    body {
-      margin: 0;
-      font-family: monospace;
-    }
+  body {
+    margin: 0;
+    font-family: monospace;
+  }
 
-    #view {
-      white-space: pre;
-      line-height: 1;
-      font-size: 14px;
-    }
+  #view {
+    white-space: pre;
+    line-height: 1.4;
+    font-size: 14px;
+  }
 
-    a {
-      color: blue;
-      text-decoration: underline;
-    }
+  a {
+    color: blue;
+    text-decoration: underline;
+  }
 
-    .node {
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.4s ease;
-    }
-
-    .node.visible {
-      max-height: 100px;
-      opacity: 1;
-    }
-  </style>
+  .node {
+    display: none; /* Tous les nœuds sont cachés par défaut, sauf racines + enfants affichés via JS */
+  }
+</style>
 </head>
 <body>
 
@@ -613,7 +605,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Création des nœuds
   lines.forEach((lineText) => {
     const line = document.createElement("div");
-    line.classList.add("node");
     const indent = lineText.search(/[^ │├└─]/);
     const prefix = lineText.slice(0, indent);
     const content = lineText.slice(indent);
@@ -622,7 +613,6 @@ document.addEventListener("DOMContentLoaded", () => {
     prefixSpan.textContent = prefix;
 
     const contentSpan = document.createElement("span");
-
     const speciesMatch = content.trim().match(/^([A-Z][a-z]+ [a-z]+)$/);
     if (speciesMatch) {
       const speciesName = speciesMatch[1];
@@ -646,11 +636,10 @@ document.addEventListener("DOMContentLoaded", () => {
   source.remove();
   document.getElementById("view").replaceWith(container);
 
-  // Fonctions utilitaires
-  function getChildren(parentIndex) {
-    const parent = nodes[parentIndex];
+  function getChildren(index) {
+    const parent = nodes[index];
     const children = [];
-    for (let i = parentIndex + 1; i < nodes.length; i++) {
+    for (let i = index + 1; i < nodes.length; i++) {
       const node = nodes[i];
       if (node.indent <= parent.indent) break;
       children.push({ node, index: i });
@@ -658,117 +647,97 @@ document.addEventListener("DOMContentLoaded", () => {
     return children;
   }
 
-  function getDirectChildren(parentIndex) {
-    const parent = nodes[parentIndex];
-    const allChildren = getChildren(parentIndex);
-    if (allChildren.length === 0) return [];
-    const minIndent = Math.min(...allChildren.map(({ node }) => node.indent));
-    return allChildren.filter(({ node }) => node.indent === minIndent);
+  function getDirectChildren(index) {
+    const children = getChildren(index);
+    if (!children.length) return [];
+    const minIndent = Math.min(...children.map(({ node }) => node.indent));
+    return children.filter(({ node }) => node.indent === minIndent);
   }
 
-  function showNodes(list) {
-    list.forEach(({ node }) => node.element.classList.add("visible"));
+  function show(nodesList) {
+    nodesList.forEach(({ node }) => node.element.style.display = "");
   }
 
-  function hideNodes(list) {
-    list.forEach(({ node }) => node.element.classList.remove("visible"));
+  function hide(nodesList) {
+    nodesList.forEach(({ node }) => node.element.style.display = "none");
   }
 
   function closeAllSubtree(index) {
-    const current = nodes[index];
-    current.isOpen = false;
-    if (current.button) current.button.textContent = "[+]";
-    if (current.expandAllBtn) current.expandAllBtn.style.display = "inline";
-
     const subtree = getChildren(index);
+    hide(subtree);
     subtree.forEach(({ node }) => {
-      node.element.classList.remove("visible");
-      if (node.button) {
-        node.button.textContent = "[+]";
-        node.isOpen = false;
-      }
-      if (node.expandAllBtn) {
-        node.expandAllBtn.style.display = "inline";
-      }
+      if (node.button) node.button.textContent = "[+]";
+      if (node.expandAllBtn) node.expandAllBtn.style.display = "inline";
+      node.isOpen = false;
     });
+    const node = nodes[index];
+    if (node.button) node.button.textContent = "[+]";
+    if (node.expandAllBtn) node.expandAllBtn.style.display = "inline";
+    node.isOpen = false;
   }
 
   function openAllSubtree(index) {
-    const current = nodes[index];
-    current.isOpen = true;
-    if (current.button) current.button.textContent = "[-]";
-    if (current.expandAllBtn) current.expandAllBtn.style.display = "none";
-
     const subtree = getChildren(index);
+    show(subtree);
     subtree.forEach(({ node }) => {
-      node.element.classList.add("visible");
-      if (node.button) {
-        node.button.textContent = "[-]";
-        node.isOpen = true;
-      }
-      if (node.expandAllBtn) {
-        node.expandAllBtn.style.display = "none";
-      }
+      if (node.button) node.button.textContent = "[-]";
+      if (node.expandAllBtn) node.expandAllBtn.style.display = "none";
+      node.isOpen = true;
     });
+    const node = nodes[index];
+    if (node.button) node.button.textContent = "[-]";
+    if (node.expandAllBtn) node.expandAllBtn.style.display = "none";
+    node.isOpen = true;
   }
 
-  // Ajout des boutons d'ouverture
+  // Ajout des boutons
   nodes.forEach((node, index) => {
     const nextIndent = nodes[index + 1]?.indent;
     if (nextIndent > node.indent) {
-      const button = document.createElement("span");
-      button.textContent = "[+]";
-      button.style.cursor = "pointer";
-      button.style.marginLeft = "5px";
+      const btn = document.createElement("span");
+      btn.textContent = "[+]";
+      btn.style.cursor = "pointer";
+      btn.style.marginLeft = "5px";
 
-      const expandAllBtn = document.createElement("span");
-      expandAllBtn.textContent = "[++]";
-      expandAllBtn.style.cursor = "pointer";
-      expandAllBtn.style.marginLeft = "5px";
+      const expandAll = document.createElement("span");
+      expandAll.textContent = "[++]";
+      expandAll.style.cursor = "pointer";
+      expandAll.style.marginLeft = "5px";
 
-      node.element.appendChild(button);
-      node.element.appendChild(expandAllBtn);
+      node.element.appendChild(btn);
+      node.element.appendChild(expandAll);
 
-      node.button = button;
-      node.expandAllBtn = expandAllBtn;
+      node.button = btn;
+      node.expandAllBtn = expandAll;
       node.isOpen = false;
 
-      button.addEventListener("click", () => {
+      btn.addEventListener("click", () => {
         if (!node.isOpen) {
+          const direct = getDirectChildren(index);
+          show(direct);
           node.isOpen = true;
-          button.textContent = "[-]";
-          expandAllBtn.style.display = "none";
-          const directChildren = getDirectChildren(index);
-          showNodes(directChildren);
-          getChildren(index).forEach(({ node }) => {
-            if (node.button) node.button.textContent = "[+]";
-            if (node.expandAllBtn) node.expandAllBtn.style.display = "inline";
-            node.isOpen = false;
-          });
+          btn.textContent = "[-]";
+          expandAll.style.display = "none";
         } else {
           closeAllSubtree(index);
         }
       });
 
-      expandAllBtn.addEventListener("click", () => {
+      expandAll.addEventListener("click", () => {
         openAllSubtree(index);
       });
     }
   });
 
-  // ❗️Masquer tous les nœuds non racines
-  nodes.forEach((node) => {
-    if (node.indent !== 0) {
-      node.element.classList.remove("visible");
-    }
+  // Cacher tout sauf les racines et leurs enfants directs
+  nodes.forEach(({ element, indent }) => {
+    element.style.display = indent === 0 ? "" : "none";
   });
 
-  // ✅ Affiche les racines et leurs enfants directs
   nodes.forEach((node, index) => {
     if (node.indent === 0) {
-      node.element.classList.add("visible");
       const children = getDirectChildren(index);
-      showNodes(children);
+      show(children);
     }
   });
 });
