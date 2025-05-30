@@ -753,10 +753,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ✅ Affiche la racine + enfants directs
-  nodes[0].element.classList.add("visible");
-  const rootChildren = getDirectChildren(0);
-  showNodes(rootChildren);
+  // ✅ Affiche toutes les racines et leurs enfants directs (ex: Life, Virus, etc.)
+nodes.forEach((node, index) => {
+  if (node.indent === 0) {
+    node.element.classList.add("visible");
+    const children = getDirectChildren(index);
+    showNodes(children);
+  }
 });
 </script>
 </body>
