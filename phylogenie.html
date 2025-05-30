@@ -730,16 +730,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Cacher tout sauf les racines et leurs enfants directs
-  nodes.forEach(({ element, indent }) => {
-    element.style.display = indent === 0 ? "" : "none";
-  });
+  // Déplier entièrement tous les nœuds au chargement
+nodes.forEach((node, index) => {
+  node.element.style.display = ""; // afficher le nœud
 
-  nodes.forEach((node, index) => {
-    if (node.indent === 0) {
-      const children = getDirectChildren(index);
-      show(children);
-    }
-  });
+  // si le nœud a des enfants, marquer comme ouvert et ajuster les boutons
+  if (nodes[index + 1]?.indent > node.indent) {
+    node.isOpen = true;
+    if (node.button) node.button.textContent = "[-]";
+    if (node.expandAllBtn) node.expandAllBtn.style.display = "none";
+  }
+});
 });
 </script>
 </body>
