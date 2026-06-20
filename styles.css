@@ -203,17 +203,22 @@ body {
   }
 
   .result-item {
-    /* border: 2px solid #9BCC8A; Bordure verte feuille */
     padding: 10px;
     margin: 20px auto;
     border-radius: 25px;
-    /* background-color: transparent; Pas de couleur de fond */
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center; /* Centrer horizontalement le contenu */
     width: 70%;
-}
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .result-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.15);
+  }
 
 
 
