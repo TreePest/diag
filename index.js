@@ -81,8 +81,9 @@ function displayResults(filteredData) {
     for (let i = startIndex; i < endIndex; i++) {
       const item = filteredData[i];
       const resultHTML = `
-        <div class="result-item">
-                    <div class="result-nom"><a href="details.html?espece=${encodeURIComponent(item.row[1] + '_' + item.row[2])}" target="_blank">${item.row[0]}</a></div>
+        <div class="result-item"
+		onclick="window.open('details.html?espece=${encodeURIComponent(item.row[1] + '_' + item.row[2])}', '_blank')">>
+                    <div class="result-nom">${item.row[0]}</div>
                     <div class="result-nomlat">${item.row[1]} ${item.row[2]}</div>
                     <div class="result-synonyme-famille">
                         <div class="result-synonyme"><b>Synonymes : </b><i>${item.row[3]}</i></div>
