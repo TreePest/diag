@@ -82,7 +82,7 @@ function displayResults(filteredData) {
       const item = filteredData[i];
       const resultHTML = `
         <div class="result-item"
-		onclick="window.open('details.html?espece=${encodeURIComponent(item.row[1] + '_' + item.row[2])}', '_blank')">>
+		onclick="window.open('details.html?espece=${encodeURIComponent(item.row[1] + '_' + item.row[2])}', '_blank')">
                     <div class="result-nom">${item.row[0]}</div>
                     <div class="result-nomlat">${item.row[1]} ${item.row[2]}</div>
                     <div class="result-synonyme-famille">
