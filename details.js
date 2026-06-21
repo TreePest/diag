@@ -133,7 +133,7 @@ descriptionContent += `
             <p><strong>La base de données est en cours de développement, les données de chaque fiche doivent encore être vérifiées et sourcées.</strong></p>
             <p><strong>Statut actuel de cette fiche :</strong> ${row[43]}</p>
         </div>
-        <div class="report-error">
+        <div class="reset-btn">
             <button onclick="window.open('${formURL}', '_blank')">
               🐞 Signaler une erreur sur cette fiche
             </button>
