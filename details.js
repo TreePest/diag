@@ -135,7 +135,7 @@ descriptionContent += `
         </div>
         <div class="reset-btn">
             <button onclick="window.open('${formURL}', '_blank')">
-              🐞 Signaler une erreur sur cette fiche
+              Signaler une erreur sur cette fiche
             </button>
         </div>
     `;
