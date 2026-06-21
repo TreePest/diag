@@ -134,9 +134,4 @@ descriptionContent += `
             <p><strong>Statut actuel de cette fiche :</strong> ${row[43]}</p>
         </div>
     `;
-  <div class="reset-btn">
-      <button onclick="window.open('${formURL}', '_blank')">
-      Signaler une erreur sur cette fiche
-      </button>
-  </div>
 } 
