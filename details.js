@@ -4,6 +4,9 @@ const RANGE = 'bdd!A3:AR211';
 
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
 
+const formURL = `https://docs.google.com/forms/d/e/1FAIpQLScxHYJJopAHmSW0eU-v_S8idVS89GT-6fmicjztlj3o5dliAw/viewform?usp=pp_url
+&entry.1201042309=${encodeURIComponent(`${row[1]} ${row[2]}`)}`.replace(/\n/g, "");
+
 // Récupérer l'index de la ligne à partir de l'URL
 const params = new URLSearchParams(window.location.search);
 const especeParam = params.get('espece'); // ex : "Inonotus_hispidus"
