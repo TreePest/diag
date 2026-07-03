@@ -368,6 +368,23 @@ footer {
     color: #f8f9fa; /* Couleur du texte */
 }
 
+.report-error{
+    margin-top:40px;
+    text-align:center;
+}
+
+.report-error button{
+    padding:12px 22px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.report-error button:hover{
+    opacity:.9;
+}
+
 .phylogenie {
   overflow-x: auto;       /* Permet un scroll horizontal si trop large */
   white-space: pre;       /* Empêche la césure ou le wrapping */
