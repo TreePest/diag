@@ -83,10 +83,6 @@ descriptionContent += `
   </p>
 `;
 
-// URL du formulaire pour reporter une erreur
-  const formURL = `https://docs.google.com/forms/d/e/1FAIpQLScxHYJJopAHmSW0eU-v_S8idVS89GT-6fmicjztlj3o5dliAw/viewform?usp=pp_url
-&entry.1201042309=${encodeURIComponent(`${row[1]} ${row[2]}`)}`.replace(/\n/g, "");
-
     // Insérer tout le contenu dans la page
     detailsContainer.innerHTML = `
         <div class="detail-column">
@@ -136,7 +132,7 @@ descriptionContent += `
             <p><strong>Statut actuel de cette fiche :</strong> ${row[43]}</p>
         </div>
         <div class="report-error">
-          <button onclick="window.open('${formURL}', '_blank')">
+          <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScxHYJJopAHmSW0eU-v_S8idVS89GT-6fmicjztlj3o5dliAw/viewform?usp=pp_url&entry.1201042309=${encodeURIComponent(`${row[1]} ${row[2]}`)}', '_blank')">
             Signaler une erreur sur cette fiche
           </button>
         </div>
