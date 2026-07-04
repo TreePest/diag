@@ -357,7 +357,6 @@ footer {
     margin-top: 20px;
     flex-shrink: 0; /* Empêche le footer de se réduire */
 }
-}
 
 .footer-content p {
     margin: 5px 0; /* Espacement vertical entre les paragraphes */
