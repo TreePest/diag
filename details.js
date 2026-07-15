@@ -1,6 +1,6 @@
 const API_KEY = 'AIzaSyCf4B0VxrrvRgkRS7JECLU9BJm3LxyCbDc';
-const SPREADSHEET_ID = '1XmDnub3MfsAVfVlIAqrRKB1yBVEEx3iluG-Qsxq5Eds';
-const RANGE = 'bdd!A3:AR211';
+const SPREADSHEET_ID = '1YqsL0Z3w26TsjxCShcv8YVY89kbgb8Y70MqvEJ3bhX0';
+const RANGE = 'bdd!A2:AS220';
 
 const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
 
