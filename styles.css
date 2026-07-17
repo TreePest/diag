@@ -348,7 +348,7 @@ body {
 }
 
 .icon-link {
-    width: 32px;
+    width: auto !important;
     height: 32px;
     vertical-align: middle;
     margin-left: 8px;
