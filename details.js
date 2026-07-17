@@ -127,7 +127,7 @@ descriptionContent += `
             <h3>Sources et liens</h3>
             <p><strong>Sources :</strong> ${row[42]}</p>
             <p><strong>Page Mycobank :</strong> ${row[40]}</p>
-            <p><a href="${row[41]}" target="_blank" rel="noopener noreferrer"><img src="assets/icons/wiki.png" alt="Wikipédia" class="icon-link"></a></p>
+            <p><a href="${row[41]}" target="_blank" rel="noopener noreferrer" title="Consulter la page Wikipédia"><img src="assets/icons/wiki.png" alt="Wikipédia" class="icon-link"></a></p>
             <p><strong>La base de données est en cours de développement, les données de chaque fiche doivent encore être vérifiées et sourcées.</strong></p>
             <p><strong>Statut actuel de cette fiche :</strong> ${row[43]}</p>
         </div>
