@@ -347,6 +347,18 @@ body {
     cursor: not-allowed;
 }
 
+.icon-link {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+}
+
+.icon-link:hover {
+    transform: scale(1.1);
+}
+
 footer {
     background-color: #f8f9fa; /* Couleur de fond */
     padding: 20px;
